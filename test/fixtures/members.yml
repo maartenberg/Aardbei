@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person: one
+  group: one
+  is_leader: 
+
+two:
+  person: two
+  group: two
+  is_leader: 

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person: one
+  activity: one
+  is_organizer: 
+  attending: 
+  notes: MyText
+
+two:
+  person: two
+  activity: two
+  is_organizer: 
+  attending: 
+  notes: MyText

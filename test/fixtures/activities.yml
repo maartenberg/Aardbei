@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  public_name: MyString
+  secret_name: MyString
+  description: MyString
+  location: MyString
+  start: 2016-12-07 21:42:49
+  end: 2016-12-07 21:42:49
+  deadline: 2016-12-07 21:42:49
+  show_hidden: 
+  group: one
+
+two:
+  public_name: MyString
+  secret_name: MyString
+  description: MyString
+  location: MyString
+  start: 2016-12-07 21:42:49
+  end: 2016-12-07 21:42:49
+  deadline: 2016-12-07 21:42:49
+  show_hidden: 
+  group: two
