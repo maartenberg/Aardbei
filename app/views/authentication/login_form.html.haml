@@ -2,6 +2,7 @@
   Login
 
 .container
+  = render 'shared/alerts'
   = form_tag("/login", method: "post", class: "central-form") do
     %h2.central-form-header.text-center
       Please sign in
