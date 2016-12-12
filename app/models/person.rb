@@ -11,6 +11,14 @@ class Person < ApplicationRecord
   before_validation :not_admin_if_nil
   before_save :update_user_email, if: :email_changed?
 
+  def full_name
+    if self.infix
+      [self.first_name, self.infix, self.last_name].join(' ')
+    else
+      [self.first_name, self.last_name].join(' ')
+    end
+  end
+
   private
   def birth_date_cannot_be_in_future
     if self.birth_date > Date.today
@@ -23,6 +31,8 @@ class Person < ApplicationRecord
   end
 
   def update_user_email
-    self.user.update!(email: self.email)
+    if not self.user.nil?
+      self.user.update!(email: self.email)
+    end
   end
 end
