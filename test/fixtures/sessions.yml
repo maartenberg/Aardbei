@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ip: MyString
+  expires: 2016-12-12 22:13:42
+  remember_digest: MyString
+  user: one
+  active: 
+
+two:
+  ip: MyString
+  expires: 2016-12-12 22:13:42
+  remember_digest: MyString
+  user: two
+  active: 

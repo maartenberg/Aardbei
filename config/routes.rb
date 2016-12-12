@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   get  'forgot', to: 'authentication#forgotten_password_form'
   post 'forgot', to: 'authentication#forgotten_password'
 
+  get 'logintest', to: 'authentication#login_status'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

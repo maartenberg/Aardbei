@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208092632) do
+ActiveRecord::Schema.define(version: 20161212211342) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "public_name"
@@ -66,6 +66,17 @@ ActiveRecord::Schema.define(version: 20161208092632) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_people_on_email", unique: true
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "ip"
+    t.datetime "expires"
+    t.string   "remember_digest"
+    t.integer  "user_id"
+    t.boolean  "active",          default: true
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
