@@ -1,0 +1,69 @@
+body {
+	padding-top: 		40px;
+	padding-bottom: 	40px;
+	background-color: 	#eee;
+}
+
+.central-form {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.central-form .central-form-heading,
+.central-form .checkbox {
+	margin-bottom: 10px;
+}
+
+.central-form .checkbox {
+	font-weight: normal;
+}
+
+.central-form .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	 -moz-box-sizing: border-box;
+		  box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.central-form .form-control:focus {
+	z-index: 2;
+}
+.central-form input[type="email"].input-top {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.central-form .input-top {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.central-form .input-middle {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.central-form .input-bottom {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.central-form .input-only {
+    border-radius: 4px;
+    padding-bottom: 10px;
+}
+
+.central-form input[type="password"].input-top {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}

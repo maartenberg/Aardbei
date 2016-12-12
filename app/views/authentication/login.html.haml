@@ -1,0 +1,24 @@
+- content_for :title do
+  Login
+
+.container
+  = form_tag("/login", method: "post", class: "central-form") do
+    %h2.central-form-header.text-center
+      Please sign in
+
+    = email_field_tag(:email, '', placeholder: 'Email address', class: 'form-control input-top')
+    = password_field_tag(:password, '', placeholder: 'Password', class: 'form-control input-bottom')
+
+    .checkbox
+      %label
+        = check_box_tag(:remember_me)
+        Remember me
+
+    = submit_tag("Sign in", class: "btn btn-primary btn-lg btn-block")
+
+  .central-form
+    %ul.hdis
+      %li
+        = link_to 'Forgot password', {action: 'forgotten_password', controller: 'authentication'}, {class: 'btn btn-secondary'}
+      %li
+        = link_to 'Create account', {controller: 'authentication', action: 'create_password'}, {class: 'btn btn-secondary'}

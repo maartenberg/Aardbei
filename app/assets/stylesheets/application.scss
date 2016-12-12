@@ -10,6 +10,40 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require_self
+ *= require_tree .
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+/* Horizontally distribute ul items.
+ *
+ * Adapted from the following StackOverflow answer:
+ * http://stackoverflow.com/a/13505797 , by user 'joshnh'
+ * Licensed under CC-BY-SA 3.0 as per the StackOverflow TOS.
+ *
+ */
+ul.hdis {
+    text-align: justify;
+    padding-left: 0 !important;
+}
+
+ul.hdis:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+
+ul.hdis:before {
+    content: '';
+    display: block;
+    margin-top: -1.25em;
+}
+
+ul.hdis li {
+    display: inline-block;
+    margin-right: -.25em;
+    position: relative;
+    top: 1.25em;
+}
+/* End of CC-BY-SA code. */
