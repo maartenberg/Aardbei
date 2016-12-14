@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   resources :groups do
     resources :members
+    resources :activities
   end
   get 'my_groups', to: 'groups#user_groups', as: :user_groups
 
