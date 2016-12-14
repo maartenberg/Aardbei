@@ -1,0 +1,53 @@
+.container
+  .row
+    - if @need_response.any?
+      .col-md.12
+        .panel.panel-default
+          .panel-heading
+            Need response
+
+          .panel-body
+            %table.table.table-bordered
+              %thead
+                %tr
+                  %th
+                    Name
+                  %th
+                    Group
+                  %th
+                    When
+                  %th
+                    Where
+                  %th
+                    Actions
+
+              %tbody
+                - @need_response.each do |e|
+                  %tr
+                    %td
+                      - if e.secret_name && e.participants.first.is_organizer
+                        = e.secret_name
+                      = e.public_name
+                    %td
+                      = e.group.name
+                    %td
+                      = e.start
+                    %td
+                      = e.location
+                    %td
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          Groups
+
+        .panel-body
+          %table.table.table-bordered
+            %tbody
+              - current_person.groups.each do |group|
+                %tr
+                  %td
+                    = link_to group do
+                      = group.name
+
+    .col-md-6
+      TODO

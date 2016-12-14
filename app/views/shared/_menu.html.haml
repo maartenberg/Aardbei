@@ -1,0 +1,43 @@
+%nav.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle.collapsed{type: 'button', data: {toggle: 'collapse', target: '#navbar'}, 'aria-expanded': false, 'aria-controls': 'navbar'}
+        .sr-only
+          inklappen enzo
+        .icon-bar
+        .icon-bar
+        .icon-bar
+      = link_to root_path, class: 'navbar-brand' do
+        Damena
+
+    .navbar-collapse.collapse#navbar
+      %ul.nav.navbar-nav
+        %li
+          = link_to root_path do
+            %i.fa.fa-home{'aria-hidden': true}
+            Home
+
+        %li
+          = link_to user_groups_path do
+            %i.fa.fa-users{'aria-hidden': true}
+            Groups
+
+        - if current_person.is_admin?
+          %li
+            = link_to people_path do
+              %i.fa.fa-user{'aria-hidden': true}
+              People
+
+          %li
+            = link_to groups_path do
+              %i.fa.fa-users{'aria-hidden': true}
+              All groups
+
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          = link_to current_person do
+            = current_person.full_name
+        %li
+          = link_to logout_path, confirm: "Really log out?", method: :delete do
+            %i.fa.fa-sign-out{'aria-hidden': true}
+            Log out

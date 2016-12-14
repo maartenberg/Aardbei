@@ -16,6 +16,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 /* Horizontally distribute ul items.
  *
  * Adapted from the following StackOverflow answer:
@@ -47,3 +50,8 @@ ul.hdis li {
     top: 1.25em;
 }
 /* End of CC-BY-SA code. */
+
+/* Don't overlap with the menu. */
+body {
+  padding-top: 70px;
+}

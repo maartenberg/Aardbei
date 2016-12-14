@@ -1,10 +1,13 @@
 class Person < ApplicationRecord
   has_one :user
+  has_many :members
+  has_many :participants
+  has_many :groups, through: :members
+  has_many :activities, through: :participants
 
   validates :email, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :is_admin, presence: true
 
   validate :birth_date_cannot_be_in_future
 
@@ -19,9 +22,17 @@ class Person < ApplicationRecord
     end
   end
 
+  def reversed_name
+    if self.infix
+      [self.last_name, self.infix, self.first_name].join(', ')
+    else
+      [self.last_name, self.first_name].join(', ')
+    end
+  end
+
   private
   def birth_date_cannot_be_in_future
-    if self.birth_date > Date.today
+    if self.birth_date && self.birth_date > Date.today
       errors.add(:birth_date, "can't be in the future.")
     end
   end

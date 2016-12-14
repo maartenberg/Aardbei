@@ -1,0 +1,10 @@
+.container
+  %h1
+    My groups
+
+  %table.table.table-striped
+    %tbody
+      - @groups.each do |g|
+        %tr
+          %td
+            = link_to g.name, g

@@ -1,0 +1,7 @@
+<h2><%= @person.reversed_name %></h2>
+<ul>
+  <li><%= @person.birth_date %></li>
+  <li><%= @person.email %></li>
+</ul>
+<%= link_to 'Edit', edit_person_path(@person) %> |
+<%= link_to 'Back', people_path %>

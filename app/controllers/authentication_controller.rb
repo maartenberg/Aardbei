@@ -6,6 +6,7 @@ class AuthenticationController < ApplicationController
   def login
     if params[:session][:email].blank? || params[:session][:password].blank?
       flash[:warning] = "You forgot to add value"
+      redirect_to action: 'login_form'
     else
       u = User.find_by(email: params[:session][:email])
 
@@ -13,12 +14,21 @@ class AuthenticationController < ApplicationController
         log_in(u, params[:session][:remember_me].to_i)
 
         flash[:success] = "Hello, #{u.person.full_name}!"
+        redirect_to dashboard_home_path
       else
         flash[:danger] = "Invalid username/password combination!"
+        redirect_to action: 'login_form'
       end
     end
+  end
 
-    redirect_to action: 'login_form'
+  def logout_form
+    render layout: 'void'
+  end
+
+  def logout
+    log_out
+    redirect_to login_path
   end
 
   def create_password_form
