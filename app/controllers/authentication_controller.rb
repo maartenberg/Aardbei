@@ -1,4 +1,5 @@
 class AuthenticationController < ApplicationController
+  before_action :require_login!, only: [:logout_confirm, :logout]
   def login_form
     render layout: 'void'
   end
@@ -14,7 +15,7 @@ class AuthenticationController < ApplicationController
         log_in(u, params[:session][:remember_me].to_i)
 
         flash[:success] = "Hello, #{u.person.full_name}!"
-        redirect_to dashboard_home_path
+        redirect_to root_path
       else
         flash[:danger] = "Invalid username/password combination!"
         redirect_to action: 'login_form'
@@ -22,7 +23,7 @@ class AuthenticationController < ApplicationController
     end
   end
 
-  def logout_form
+  def logout_confirm
     render layout: 'void'
   end
 
