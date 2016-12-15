@@ -1,4 +1,21 @@
-<p id="notice"><%= notice %></p>
+<h2><%= @activity.public_name %></h2>
+
+<ul>
+  <li>Secretly <%= @activity.secret_name %></li>
+  <li><%= @activity.description %></li>
+  <li><%= @activity.location %></li>
+  <li><%= @activity.start %> - <%= @activity.end %></li>
+  <li>Deadline <%= @activity.deadline %></li>
+</ul>
+
+<h2>Participants (<%= @activity.participants.count %>)</h2>
+<ul>
+  <% @activity.participants.each do |p| %>
+    <li>
+      <%= p.person.full_name %>, <%= p.is_organizer %>, <%= p.attending %>
+    </li>
+  <% end %>
+</ul>
 
 <%= link_to 'Edit', edit_group_activity_path(@group, @activity) %> |
 <%= link_to 'Back', group_activities_path(@group) %>

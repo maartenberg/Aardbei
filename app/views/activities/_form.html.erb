@@ -12,6 +12,42 @@
   <% end %>
 
   <div class="actions">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.label :public_name %>
+          <%= f.text_field :public_name, class: 'form-control' %>
+        </div>
+        <div class="col-md-6">
+          <%= f.label :secret_name %>
+          <%= f.text_field :secret_name, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.label :start %>
+          <%= f.datetime_field :start, class: 'form-control' %>
+        </div>
+        <div class="col-md-6">
+          <%= f.label :end %>
+          <%= f.datetime_field :end, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :deadline %>
+      <%= f.datetime_field :deadline, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :show_hidden %>
+      <%= f.check_box :show_hidden %>
+    </div>
     <%= f.submit %>
   </div>
 <% end %>
