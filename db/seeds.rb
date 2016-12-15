@@ -25,8 +25,8 @@ p2 = Person.create!(
 u = User.create!(
   email: 'maarten@maartenberg.nl.eu.org',
   person: p,
-  password: 'damena123',
-  password_confirmation: 'damena123'
+  password: 'aardbei123',
+  password_confirmation: 'aardbei123'
 )
 
 g = Group.create!(
