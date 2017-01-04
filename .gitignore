@@ -18,9 +18,15 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
+/doc_gen/*
 !/log/.keep
 !/tmp/.keep
+!/doc_gen/.keep
 public/assets/*
+.yardoc
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore IDEA
+.idea

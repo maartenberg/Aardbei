@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214112504) do
+ActiveRecord::Schema.define(version: 20161231185937) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "public_name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20161214112504) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_members_on_group_id"
+    t.index ["person_id", "group_id"], name: "index_members_on_person_id_and_group_id", unique: true
     t.index ["person_id"], name: "index_members_on_person_id"
   end
 
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20161214112504) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["activity_id"], name: "index_participants_on_activity_id"
+    t.index ["person_id", "activity_id"], name: "index_participants_on_person_id_and_activity_id", unique: true
     t.index ["person_id"], name: "index_participants_on_person_id"
   end
 
@@ -87,7 +89,7 @@ ActiveRecord::Schema.define(version: 20161214112504) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["person_id"], name: "index_users_on_person_id"
+    t.index ["person_id"], name: "index_users_on_person_id", unique: true
   end
 
 end

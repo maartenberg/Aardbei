@@ -1,4 +1,11 @@
+# A User contains the login information for a single Person, and allows the
+# user to log in by creating Sessions.
 class User < ApplicationRecord
+  # @!attribute email
+  #   @return [String]
+  #     the user's email address. Should be the same as the associated Person's
+  #     email address.
+
   has_secure_password
   belongs_to :person
 
@@ -8,6 +15,8 @@ class User < ApplicationRecord
   before_validation :email_same_as_person
 
   private
+  # Assert that the user's email address is the same as the email address of
+  # the associated Person.
   def email_same_as_person
     if self.person and self.email != self.person.email
       errors.add(:email, "must be the same as associated person's email")

@@ -37,6 +37,9 @@ gem 'haml'
 # Use Fontawesome icons
 gem 'font-awesome-sass'
 
+# Use YARD for documentation
+gem 'yard'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
