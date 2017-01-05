@@ -1,0 +1,12 @@
+.btn-group.btn-group-xs{role: "group"}
+  %button.btn.btn-success.btn-present{data: {person_id: person.id, activity_id: activity.id, group_id: activity.group.id}}
+    - if !state
+      %i.fa.fa-check
+    - else
+      %i.fa.fa-check-circle
+
+  %button.btn.btn-danger.btn-absent{data: {person_id: person.id, activity_id: activity.id, group_id: activity.group.id}}
+    - if state == false
+      %i.fa.fa-times-circle
+    - else
+      %i.fa.fa-times

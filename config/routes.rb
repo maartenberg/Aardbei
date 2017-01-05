@@ -19,7 +19,10 @@ Rails.application.routes.draw do
 
   resources :groups do
     resources :members
-    resources :activities
+    resources :activities do
+      put 'presence', to: 'activities#presence', on: :member
+      patch 'presence', to: 'activities#presence', on: :member
+    end
   end
   get 'my_groups', to: 'groups#user_groups', as: :user_groups
 

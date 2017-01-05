@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   include GroupsHelper
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :presence]
   before_action :set_group
   before_action :require_membership!
 
@@ -63,6 +63,20 @@ class ActivitiesController < ApplicationController
       format.html { redirect_to group_activities_url(@group), notice: 'Activity was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # PATCH/PUT /groups/:group_id/activities/:id/presence
+  # PATCH/PUT /groups/:group_id/activities/:id/presence.json
+  def presence
+    participant = Participant.find_by(
+      person_id: params[:person_id],
+      activity: @activity
+    )
+    if !@activity.may_change?(current_person)
+      render status: :forbidden
+    end
+
+    participant.update_attributes(params.permit(:notes, :attending))
   end
 
   private

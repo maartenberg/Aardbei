@@ -1,7 +1,7 @@
 .container
   .row
     - if @need_response.any?
-      .col-md.12
+      .col-md-12
         .panel.panel-default
           .panel-heading
             Need response
@@ -22,12 +22,14 @@
                     Actions
 
               %tbody
-                - @need_response.each do |e|
-                  %tr
+                - @need_response.each do |p|
+                  - e = p.activity
+                  %tr{class: p.row_class, data: {activity_id: e.id}}
                     %td
-                      - if e.secret_name && e.participants.first.is_organizer
-                        = e.secret_name
                       = e.public_name
+                      - if e.secret_name && e.participants.first.is_organizer
+                        %i
+                          = "(#{e.secret_name})"
                     %td
                       = e.group.name
                     %td
@@ -35,6 +37,8 @@
                     %td
                       = e.location
                     %td
+                      = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
+  .row
     .col-md-6
       .panel.panel-default
         .panel-heading
@@ -50,4 +54,33 @@
                       = group.name
 
     .col-md-6
-      TODO
+      .panel.panel-default
+        .panel-heading
+          Organized by you
+
+        .panel-body
+          %table.table.table-striped.table-bordered
+            %tbody
+              - @user_organized.each do |p|
+                - a = p.activity
+                %tr
+                  %td
+                    = link_to group_activity_url(a.group, a) do
+                      = "#{a.public_name} (#{a.secret_name})"
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          Your activities
+
+        .panel-body
+          %table.table.table-striped
+            %tbody
+              - @upcoming.each do |p|
+                - e = p.activity
+                %tr{class: p.row_class, data: {activity_id: e.id}}
+                  %td
+                    = e.public_name
+                  %td
+                    = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}

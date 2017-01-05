@@ -9,13 +9,22 @@
 </ul>
 
 <h2>Participants (<%= @activity.participants.count %>)</h2>
-<ul>
+<table class="table table-bordered">
   <% @activity.participants.each do |p| %>
-    <li>
-      <%= p.person.full_name %>, <%= p.is_organizer %>, <%= p.attending %>
-    </li>
+    <tr class="<%= p.row_class %>" data-person-id="<%= p.person.id %>" data-activity-id="<%= @activity.id %>">
+      <td>
+        <%= p.person.full_name %>
+      </td>
+      <td>
+        <%= p.is_organizer %>
+      </td>
+      <td>
+        <%= p.attending %>
+      </td>
+      <td>
+        <%= render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending} %>
   <% end %>
-</ul>
+</table>
 
 <%= link_to 'Edit', edit_group_activity_path(@group, @activity) %> |
 <%= link_to 'Back', group_activities_path(@group) %>

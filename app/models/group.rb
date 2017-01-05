@@ -21,4 +21,13 @@ class Group < ApplicationRecord
   def leaders
     self.members.includes(:person).where(is_leader: true)
   end
+
+  # Determine whether the passed person is a group leader.
+  def is_leader?(person)
+    Member.exists?(
+      person: person,
+      group: self,
+      is_leader: true
+    )
+  end
 end

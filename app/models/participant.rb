@@ -23,4 +23,17 @@ class Participant < ApplicationRecord
       scope: :activity_id,
       message: "person already participates in this activity"
     }
+
+  # TODO: Move to a more appropriate place
+  # @return [String]
+  #   the class for a row containing this activity.
+  def row_class
+    if self.attending
+      "success"
+    elsif self.attending == false
+      "danger"
+    else
+      "warning"
+    end
+  end
 end

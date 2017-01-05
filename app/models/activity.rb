@@ -76,6 +76,13 @@ class Activity < ApplicationRecord
     )
   end
 
+  # Determine whether the passed Person may change this activity.
+  def may_change?(person)
+    person.is_admin ||
+    self.is_organizer(person) ||
+    self.group.is_leader(person)
+  end
+
   private
   # Assert that the deadline for participants to change the deadline, if any,
   # is set before the event starts.
