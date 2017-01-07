@@ -24,7 +24,7 @@
               %tbody
                 - @need_response.each do |p|
                   - e = p.activity
-                  %tr{class: p.row_class, data: {activity_id: e.id}}
+                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
                     %td
                       = e.public_name
                       - if e.secret_name && e.participants.first.is_organizer
@@ -79,7 +79,7 @@
             %tbody
               - @upcoming.each do |p|
                 - e = p.activity
-                %tr{class: p.row_class, data: {activity_id: e.id}}
+                %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
                   %td
                     = e.public_name
                   %td
