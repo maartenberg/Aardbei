@@ -6,6 +6,7 @@ $(setup_handlers);
 function setup_handlers()
 {
   $('.btn-presence').on("click", change_presence);
+  $('.editable').editable();
 }
 
 // Callback that is triggered when a presence button is clicked.

@@ -76,6 +76,9 @@ class ActivitiesController < ApplicationController
       render status: :forbidden
     end
 
+    if params[:participant]
+      params[:notes] = params[:participant][:notes]
+    end
     participant.update_attributes(params.permit(:notes, :attending))
   end
 
