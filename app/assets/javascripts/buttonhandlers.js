@@ -1,6 +1,6 @@
 // Provides handlers for the buttons!
 
-$(setup_handlers);
+document.addEventListener("turbolinks:load", setup_handlers);
 
 // Add the presence handler to all buttons on the page
 function setup_handlers()
