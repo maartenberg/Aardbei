@@ -10,16 +10,9 @@ p = Person.create!(
   first_name: 'Maarten',
   infix: 'van den',
   last_name: 'Berg',
-  birth_date: (Date.new 2016, 1, 1),
+  birth_date: (Faker::Date.between(21.years.ago, Date.today)),
   email: 'maarten@maartenberg.nl.eu.org',
   is_admin: true
-)
-
-p2 = Person.create!(
-  first_name: 'Henkie',
-  last_name: 'Gekke',
-  birth_date: (Date.new 2016, 1, 1),
-  email: 'geefmijgeld@maartenberg.nl.eu.org'
 )
 
 u = User.create!(
@@ -29,9 +22,32 @@ u = User.create!(
   password_confirmation: 'aardbei123'
 )
 
+p2 = Person.create!(
+  first_name: 'Henkie',
+  last_name: 'Gekke',
+  birth_date: (Faker::Date.between(21.years.ago, Date.today)),
+  email: 'gekkehenkie@maartenberg.nl.eu.org'
+)
+
 g = Group.create!(
   name: 'Teststam'
 )
+
+
+2.times do |i|
+  gr = Group.create!(
+    name: Faker::Team.name
+  )
+end
+
+15.times do |i|
+  person = Person.create!(
+    first_name: (Faker::Name.first_name),
+    last_name:  (Faker::Name.last_name),
+    birth_date: (Faker::Date.between(21.years.ago, Date.today)),
+    email: "testuser#{i}@maartenberg.nl.eu.org"
+  )
+end
 
 a = Activity.create!(
   public_name: 'Fikkie stoken ofzo',
@@ -45,27 +61,58 @@ a = Activity.create!(
   group: g
 )
 
-Member.create!(
-  group: g,
-  person: p,
-  is_leader: true
-)
-Member.create!(
-  group: g,
-  person: p2
-)
+Group.all.each do |g|
+  10.times do |i|
+    if Faker::Boolean.boolean(0.25)
+      secret_name = Faker::Hacker.ingverb
+    else
+      secret_name = nil
+    end
 
-Participant.create!(
-  activity: a,
-  person: p,
-  is_organizer: true,
-  attending: true,
-  notes: nil
-)
-Participant.create!(
-  activity: a,
-  person: p2,
-  is_organizer: false,
-  attending: false,
-  notes: 'fliep floep'
-)
+    starttime = Faker::Time.between(DateTime.now, 1.years.since, :morning)
+    endtime   = Faker::Time.between(1.hours.since(starttime), 1.days.since(starttime), :afternoon)
+    deadline  = 5.days.ago(starttime)
+    puts starttime
+    puts endtime
+    puts deadline
+
+    act = Activity.create!(
+      public_name: Faker::Hacker.ingverb,
+      secret_name: secret_name,
+      description: Faker::Hipster.sentence,
+      location: Faker::Address.city,
+      start: starttime,
+      end: endtime,
+      deadline: deadline,
+      show_hidden: Faker::Boolean.boolean,
+      group: g
+    )
+  end
+end
+
+Person.all.each do |p|
+  Group.all.each do |g|
+    if Faker::Boolean.boolean(0.75)
+      mem = Member.create!(
+        person: p,
+        group:  g,
+        is_leader: Faker::Boolean.boolean(0.1)
+      )
+      g.activities.each do |a|
+        if Faker::Boolean.boolean(0.15)
+          notes = Faker::Hipster.sentence
+        else
+          notes = nil
+        end
+
+        part = Participant.create!(
+          activity: a,
+          person:   p,
+          is_organizer: Faker::Boolean.boolean(0.1),
+          attending: [true, false, nil].sample,
+          notes:    notes
+        )
+      end
+    end
+  end
+end

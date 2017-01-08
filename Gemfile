@@ -34,6 +34,9 @@ gem 'autoprefixer-rails'
 # In-place editing
 gem 'x-editable-rails'
 
+# Fake data generation
+gem 'faker'
+
 # Use HAML for templates
 gem 'haml'
 
