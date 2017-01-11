@@ -14,13 +14,11 @@
     <tr class="<%= p.row_class %>" data-person-id="<%= p.person.id %>" data-activity-id="<%= @activity.id %>">
       <td>
         <%= p.person.full_name %>
-      </td>
-      <td>
-        <%= p.is_organizer %>
+        <% if p.is_organizer %><i class="fa fa-star-o"></i><% end %>
       </td>
       <td>
         <%=
-          editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes
+          editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes, emptytext: "--"
         %>
       </td>
       <td>

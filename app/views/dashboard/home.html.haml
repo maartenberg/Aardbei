@@ -85,4 +85,4 @@
                   %td
                     = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
                   %td
-                    = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: current_person.id), title: "Notes", value: p.notes
+                    = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: current_person.id), title: "Notes", value: p.notes, emptytext: 'Notes'

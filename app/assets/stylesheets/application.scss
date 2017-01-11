@@ -57,3 +57,12 @@ ul.hdis li {
 body {
   padding-top: 70px;
 }
+
+/* Force .btn-groups to not break */
+table .btn-group {
+  display: flex;
+}
+
+.editable.editable-empty {
+  color: inherit;
+}
