@@ -76,6 +76,11 @@ class Activity < ApplicationRecord
     )
   end
 
+  # Query the database to determine the amount of participants that are present/absent/unknown
+  def state_counts
+    self.participants.group(:attending).count
+  end
+
   # Determine whether the passed Person may change this activity.
   def may_change?(person)
     person.is_admin ||

@@ -66,7 +66,10 @@
                 %tr
                   %td
                     = link_to group_activity_url(a.group, a) do
-                      = "#{a.public_name} (#{a.secret_name})"
+                      = a.public_name
+                      - if a.secret_name
+                        = "(#{a.secret_name})"
+                      = render partial: "activities/state_counts", locals: {counts: a.state_counts}
 
   .row
     .col-md-12

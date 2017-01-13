@@ -1,14 +1,16 @@
 <h2><%= @activity.public_name %></h2>
 
 <ul>
+  <% if @activity.secret_name %>
   <li>Secretly <%= @activity.secret_name %></li>
-  <li><%= @activity.description %></li>
-  <li><%= @activity.location %></li>
-  <li><%= @activity.start %> - <%= @activity.end %></li>
-  <li>Deadline <%= @activity.deadline %></li>
+  <% end %>
+  <li>Description:<%= @activity.description %></li>
+  <li>Location:<%= @activity.location %></li>
+  <li>Start: <%= @activity.start %> - <%= @activity.end %></li>
+  <li>Deadline: <%= @activity.deadline %></li>
 </ul>
 
-<h2>Participants (<%= @activity.participants.count %>)</h2>
+<h2>Participants (<%= @activity.participants.count %> <%= render partial: "state_counts", locals: {counts:@activity.state_counts}%>)</h2>
 <table class="table table-bordered">
   <% @activity.participants.each do |p| %>
     <tr class="<%= p.row_class %>" data-person-id="<%= p.person.id %>" data-activity-id="<%= @activity.id %>">
