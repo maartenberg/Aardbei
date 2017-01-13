@@ -1,13 +1,13 @@
 (
 %span.state-count.present-count
-  = counts[true]
+  = counts[true] or 0
   P
 ,
 %span.state-count.unknown-count
-  = counts[nil]
+  = counts[nil] or 0
   ?
 ,
 %span.state-count.absent-count
-  = counts[false]
+  = counts[false] or 0
   A
 )
