@@ -10,9 +10,12 @@
   <li>Deadline: <%= @activity.deadline %></li>
 </ul>
 
-<h2>Participants (<%= @activity.participants.count %> <%= render partial: "state_counts", locals: {counts:@activity.state_counts}%>)</h2>
+<h2>
+  <%= @num_participants %> participants
+  <%= render partial: "state_counts", locals: {counts:@counts}%>
+</h2>
 <table class="table table-bordered">
-  <% @activity.participants.each do |p| %>
+  <% @participants.each do |p| %>
     <tr class="<%= p.row_class %>" data-person-id="<%= p.person.id %>" data-activity-id="<%= @activity.id %>">
       <td>
         <%= p.person.full_name %>

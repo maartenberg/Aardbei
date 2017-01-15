@@ -13,6 +13,12 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
+    @participants = @activity.participants
+      .joins(:person)
+      .order(attending: :desc)
+      .order('people.first_name ASC')
+    @counts = @activity.state_counts
+    @num_participants = @counts.values.sum
   end
 
   # GET /activities/new
