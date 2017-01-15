@@ -38,7 +38,7 @@ module AuthenticationHelper
 
   # Determine whether the user is logged in, and if so, disable the Session, then flush session cookies.
   def log_out
-    if is_logged_in?
+    if is_logged_in? and @user_session
       get_user_session
 
       @user_session.update!(active: false)
@@ -91,9 +91,15 @@ module AuthenticationHelper
     if @user_session
       @user_session
     else
-      @user_session ||= Session.find_by(
-        id: cookies.signed.permanent[:session_id]
+      @user_session ||= Session.find(
+        cookies.signed.permanent[:session_id]
       )
+    end
+
+    # Edge case if a session no longer exists in the database
+    if not @user_session
+      log_out
+      redirect_to login_path # FIXME!
     end
   end
 
