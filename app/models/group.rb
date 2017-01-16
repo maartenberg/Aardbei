@@ -22,6 +22,11 @@ class Group < ApplicationRecord
     self.members.includes(:person).where(is_leader: true)
   end
 
+  # @return [Array<Activity>] the activities that haven't started yet.
+  def future_activities
+    self.activities.where('start > ?', DateTime.now)
+  end
+
   # Determine whether the passed person is a group leader.
   def is_leader?(person)
     Member.exists?(
