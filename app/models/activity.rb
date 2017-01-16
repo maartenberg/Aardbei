@@ -53,6 +53,8 @@ class Activity < ApplicationRecord
   validate  :deadline_before_start, unless: "self.deadline.blank?"
   validate  :end_after_start,       unless: "self.end.blank?"
 
+  after_create :create_missing_participants!
+
   # Get all people (not participants) that are organizers. Does not include
   # group leaders, although they may modify the activity as well.
   def organizers
@@ -86,6 +88,23 @@ class Activity < ApplicationRecord
     person.is_admin ||
     self.is_organizer(person) ||
     self.group.is_leader(person)
+  end
+
+  # Create Participants for all People that
+  #  1. are members of the group
+  #  2. do not have Participants (and thus, no way to confirm) yet
+  def create_missing_participants!
+    people = self.group.people
+    if not self.participants.empty?
+      people = people.where('people.id NOT IN (?)', self.people.ids)
+    end
+
+    people.each do |p|
+      Participant.create(
+        activity: self,
+        person: p,
+      )
+    end
   end
 
   private
