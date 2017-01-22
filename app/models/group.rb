@@ -6,10 +6,12 @@ class Group < ApplicationRecord
   #   @return [String]
   #     the name of the group. Must be unique across all groups.
 
-  has_many :members
+  has_many :members,
+    dependent: :destroy
   has_many :people, through: :members
 
-  has_many :activities
+  has_many :activities,
+    dependent: :destroy
 
   validates :name,
     presence: true,

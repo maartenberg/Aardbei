@@ -45,7 +45,8 @@ class Activity < ApplicationRecord
 
   belongs_to :group
 
-  has_many :participants
+  has_many :participants,
+    dependent: :destroy
   has_many :people, through: :participants
 
   validates :public_name, presence: true

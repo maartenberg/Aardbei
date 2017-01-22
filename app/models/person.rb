@@ -29,8 +29,10 @@ class Person < ApplicationRecord
   #     whether or not the person has administrative rights.
 
   has_one :user
-  has_many :members
-  has_many :participants
+  has_many :members,
+    dependent: :destroy
+  has_many :participants,
+    dependent: :destroy
   has_many :groups, through: :members
   has_many :activities, through: :participants
 
