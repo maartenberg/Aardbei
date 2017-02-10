@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161231185937) do
+ActiveRecord::Schema.define(version: 20170210180426) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "public_name"
@@ -80,14 +80,20 @@ ActiveRecord::Schema.define(version: 20161231185937) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "tokens", force: :cascade do |t|
+    t.string   "token"
+    t.datetime "expires"
+    t.string   "tokentype"
+    t.integer  "user_id"
+    t.index ["token"], name: "index_tokens_on_token", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "password_digest"
-    t.string   "confirmation_token"
-    t.string   "password_reset_token"
     t.integer  "person_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["person_id"], name: "index_users_on_person_id", unique: true
   end
