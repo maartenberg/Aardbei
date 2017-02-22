@@ -30,3 +30,6 @@ public/assets/*
 
 # Ignore IDEA
 .idea
+
+# Ignore secrets
+.rbenv-vars

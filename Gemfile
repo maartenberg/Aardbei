@@ -46,6 +46,9 @@ gem 'font-awesome-sass'
 # Use YARD for documentation
 gem 'yard'
 
+# Use Mailgun for mail
+gem 'mailgun_rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
