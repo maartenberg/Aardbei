@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get  'register', to: 'authentication#create_password_form'
   post 'register', to: 'authentication#create_password'
 
+  get  'confirm', to: 'authentication#confirm_account_form'
+  post 'confirm', to: 'authentication#confirm_account'
+
   get  'forgot', to: 'authentication#forgotten_password_form'
   post 'forgot', to: 'authentication#forgotten_password'
 

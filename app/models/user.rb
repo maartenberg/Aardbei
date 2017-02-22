@@ -5,6 +5,10 @@ class User < ApplicationRecord
   #   @return [String]
   #     the user's email address. Should be the same as the associated Person's
   #     email address.
+  #
+  # @!attribute confirmed
+  #   @return [Boolean]
+  #     whether or not this account has been activated yet.
 
   has_secure_password
   belongs_to :person

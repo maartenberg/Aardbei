@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210180426) do
+ActiveRecord::Schema.define(version: 20170222104408) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "public_name"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20170210180426) do
     t.integer  "person_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.boolean  "confirmed"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["person_id"], name: "index_users_on_person_id", unique: true
   end

@@ -87,8 +87,8 @@ class Activity < ApplicationRecord
   # Determine whether the passed Person may change this activity.
   def may_change?(person)
     person.is_admin ||
-    self.is_organizer(person) ||
-    self.group.is_leader(person)
+    self.is_organizer?(person) ||
+    self.group.is_leader?(person)
   end
 
   # Create Participants for all People that

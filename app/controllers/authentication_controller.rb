@@ -11,11 +11,14 @@ class AuthenticationController < ApplicationController
     else
       u = User.find_by(email: params[:session][:email])
 
-      if u && u.authenticate(params[:session][:password])
+      if u && u.confirmed && u.authenticate(params[:session][:password])
         log_in(u, params[:session][:remember_me].to_i)
 
         flash[:success] = "Hello, #{u.person.full_name}!"
         redirect_to root_path
+      elsif u and not u.confirmed
+        flash[:warning] = "Your account has not been activated yet, please confirm using the email you have received."
+        redirect_to action: 'login_form'
       else
         flash[:danger] = "Invalid username/password combination!"
         redirect_to action: 'login_form'
@@ -41,7 +44,32 @@ class AuthenticationController < ApplicationController
   end
 
   def create_password
-    flash[:danger] = "Not yet implemented."
+    person = Person.find_by(email: params[:user][:email])
+
+    if not person
+      flash[:warning] = "That email address is unknown!"
+      redirect_to action: 'create_password_form'
+      return
+    end
+
+    user = User.find_by(person: person)
+    if user and user.confirmed
+      flash[:warning] = "Your account has already been activated, please use the login form if you have forgotten your password."
+      redirect_to action: 'login'
+      return
+    end
+
+    if not user
+      user = User.new
+      user.person = person
+      user.email = person.email
+      user.password = user.password_confirmation = SecureRandom::urlsafe_base64 32
+      user.confirmed = false
+      user.save!
+    end
+
+    AuthenticationMailer::password_confirm_email(user).deliver_now
+    flash[:success] = "An email has been sent, check your inbox!"
     redirect_to action: 'login'
   end
 
@@ -63,7 +91,7 @@ class AuthenticationController < ApplicationController
 
   def reset_password_form
     token = Token.find_by(token: params[:token], tokentype: Token::TYPES[:password_reset])
-    if not password_reset_token_valid? token
+    if not token_valid? token
       return
     end
     render layout: 'void'
@@ -71,7 +99,7 @@ class AuthenticationController < ApplicationController
 
   def reset_password
     token = Token.find_by(token: params[:token], tokentype: Token::TYPES[:password_reset])
-    if not password_reset_token_valid? token
+    if not token_valid? token
       return
     end
 
@@ -92,12 +120,36 @@ class AuthenticationController < ApplicationController
     redirect_to action: 'login'
   end
 
+  def confirm_account_form
+    token = Token.find_by(token: params[:token], tokentype: Token::TYPES[:account_confirmation])
+    return unless token_valid? token
+
+    @user = token.user
+    render layout: 'void'
+  end
+
+  def confirm_account
+    token = Token.find_by(token: params[:token], tokentype: Token::TYPES[:account_confirmation])
+    return unless token_valid? token
+
+    user = token.user
+    user.password = params[:account_confirmation][:password]
+    user.password_confirmation = params[:account_confirmation][:password_confirmation]
+    user.confirmed = true
+    user.save!
+
+    token.destroy!
+
+    flash[:success] = "Your account has been confirmed, you may now log in."
+    redirect_to action: 'login'
+  end
+
   private
   def session_params
     params.require(:session).permit(:email, :password, :remember_me)
   end
 
-  def password_reset_token_valid?(token)
+  def token_valid?(token)
     if token.nil?
       flash[:warning] = "No valid token specified!"
       redirect_to action: 'login'
