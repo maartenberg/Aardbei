@@ -8,6 +8,6 @@ class AuthenticationMailer < ApplicationMailer
     @token = token
     @user = user
 
-    mail(to: @user.email, subject: "Aardbei-wachtwoord opnieuw instellen")
+    mail(to: @user.email, subject: "Reset your Aardbei-password")
   end
 end
