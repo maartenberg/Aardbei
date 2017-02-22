@@ -50,7 +50,14 @@ class AuthenticationController < ApplicationController
   end
 
   def forgotten_password
-    flash[:danger] = "Not yet implemented."
+    user = User.find_by(email: params[:password_reset][:email])
+    if not user
+      flash[:danger] = "That email address is not associated with any user."
+      redirect_to action: 'forgotten_password_form'
+      return
+    end
+    AuthenticationMailer::password_reset_email(user).deliver_later
+    flash[:success] = "An email has been sent, check your inbox!"
     redirect_to action: 'login'
   end
 

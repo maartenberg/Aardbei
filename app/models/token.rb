@@ -54,11 +54,9 @@ class Token < ApplicationRecord
   def generate_expiry
     case self.tokentype
     when TYPES[:password_reset]
-      1.days.since
+      self.expires = 1.days.since
     when TYPES[:account_confirmation]
-      7.days.since
-    else
-      nil
+      self.expires = 7.days.since
     end
   end
 end
