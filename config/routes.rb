@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get  'forgot', to: 'authentication#forgotten_password_form'
   post 'forgot', to: 'authentication#forgotten_password'
 
+  get  'reset_password', to: 'authentication#reset_password_form'
+  post 'reset_password', to: 'authentication#reset_password'
+
   get 'logout', to: 'authentication#logout_confirm'
   delete 'logout', to: 'authentication#logout'
 
