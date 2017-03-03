@@ -24,7 +24,14 @@ Rails.application.routes.draw do
   resources :people
 
   resources :groups do
-    resources :members
+    get 'invite', to: 'members#invite'
+    post 'invite', to: 'members#process_invite'
+
+    resources :members do
+      post 'promote', to: 'members#promote', on: :member
+      post 'demote', to: 'members#demote', on: :member
+    end
+
     resources :activities do
       put 'presence', to: 'activities#presence', on: :member
       patch 'presence', to: 'activities#presence', on: :member

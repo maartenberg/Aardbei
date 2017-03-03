@@ -35,6 +35,6 @@ class Group < ApplicationRecord
       person: person,
       group: self,
       is_leader: true
-    )
+    ) || person.is_admin?
   end
 end

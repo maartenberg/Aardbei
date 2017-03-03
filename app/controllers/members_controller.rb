@@ -1,16 +1,16 @@
 class MembersController < ApplicationController
   include GroupsHelper
   before_action :set_group
-  before_action :set_member, only: [:show, :edit, :update, :destroy]
-  before_action :require_leader!
+  before_action :set_member, only: [:show, :edit, :update, :destroy, :promote, :demote]
+  before_action :require_leader!, except: [ :index ]
 
   # GET /members
   # GET /members.json
   def index
+    @admin = @group.is_leader?(current_person)
     @members = @group.members
       .joins(:person)
-      .order(is_leader: :desc)
-      .order('people.first_name ASC')
+      .order('members.is_leader DESC, people.first_name ASC')
   end
 
   # GET /members/1
@@ -22,6 +22,56 @@ class MembersController < ApplicationController
   def new
     @member = Member.new
     @possible_members = Person.where.not(id: @group.person_ids)
+  end
+
+  def invite
+    @person = Person.new
+  end
+
+  def promote
+    @member.update_attribute(:is_leader, true)
+    flash_message(:success, "#{@member.person.full_name} is now a group leader.")
+    redirect_to group_members_path(@group)
+  end
+
+  def demote
+    @member.update_attribute(:is_leader, false)
+    flash_message(:success, "#{@member.person.full_name} is no longer a group leader.")
+    redirect_to group_members_path(@group)
+  end
+
+  def process_invite
+    @person = Person.find_by(email: params[:person][:email])
+    if not @person
+      @person = Person.new(invite_params)
+
+
+      if not @person.save
+        respond_to do |format|
+          format.html { render 'invite' }
+          format.json { render json: @person.errors, status: :unprocessable_entity }
+        end
+        return
+      end
+    end
+
+    new_rec = @member.new_record?
+    @member = Member.new(person: @person, group: @group, is_leader: false)
+    @member.save!
+
+
+    respond_to do |format|
+      format.html do
+        invited = "invited to Aardbei and " if new_rec else ""
+        flash_message(
+          :success,
+          "#{@person.full_name} #{invited}added to group."
+        )
+        redirect_to group_members_path(@group)
+      end
+
+      format.json { render :show, status: :created, location: @person }
+    end
   end
 
   # GET /members/1/edit
@@ -39,7 +89,7 @@ class MembersController < ApplicationController
       if @member.save
         format.html {
           redirect_to group_member_url(@group, @member)
-          flash_message(:info, 'Member was successfully created.')
+          flash_message(:info, "#{@member.full_name} was added successfully.")
         }
         format.json { render :show, status: :created, location: @member }
       else
@@ -75,7 +125,7 @@ class MembersController < ApplicationController
     respond_to do |format|
       format.html {
         redirect_to group_members_url(@group)
-        flash_message(:info, 'Member was successfully destroyed.')
+        flash_message(:info, "#{@member.person.full_name} was successfully removed.")
       }
       format.json { head :no_content }
     end
@@ -94,5 +144,12 @@ class MembersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def member_params
       params.require(:member).permit(:person_id, :is_leader)
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list
+    # through.  Note: differs from the ones in PeopleController because
+    # creating admins is not allowed.
+    def invite_params
+      params.require(:person).permit(:first_name, :infix, :last_name, :email, :birth_date)
     end
 end

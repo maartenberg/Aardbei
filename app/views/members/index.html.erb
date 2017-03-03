@@ -1,10 +1,12 @@
-<h1>Members</h1>
+<h1>Members of <%= @group.name %></h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Remove</th>
+      <% if @admin %>
+        <th colspan="2">Actions</th>
+      <% end %>
     </tr>
   </thead>
 
@@ -17,7 +19,23 @@
             (<i class="fa fa-angle-up"></i>)
           <% end %>
         </td>
-        <td><%= link_to 'Remove', group_member_path(@group, member), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <% if @admin and current_person != member.person %>
+            <% if member.is_leader %>
+              <td>
+                <%= link_to 'Demote', demote_group_member_path(@group, member), method: :post, data: { confirm: 'Are you sure?' } %>
+              </td>
+            <% else %>
+              <td>
+                <%= link_to 'Promote', promote_group_member_path(@group, member), method: :post, data: { confirm: 'Are you sure?' } %>
+              </td>
+            <% end %>
+            <td>
+              <%= link_to 'Remove', group_member_path(@group, member), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          <% else %>
+            <td></td><td></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +43,5 @@
 
 <br>
 
-<%= link_to 'New Member', new_group_member_path(@group) %>
+<%= link_to 'New Member', new_group_member_path(@group) %> |
+<%= link_to 'Invite Member', group_invite_path(@group) %>
