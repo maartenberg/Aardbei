@@ -34,7 +34,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.save
         format.html do
-          flash[:success] = "Person was successfully created."
+          flash_message(:success, "Person was successfully created.")
           redirect_to @person
         end
         format.json { render :show, status: :created, location: @person }
@@ -51,7 +51,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.update(person_params)
         format.html do
-          flash[:success] = "Person was successfully updated."
+          flash_message(:success, "Person was successfully updated.")
           redirect_to @person
         end
 
@@ -69,7 +69,7 @@ class PeopleController < ApplicationController
     @person.destroy
     respond_to do |format|
       format.html do
-        flash[:success] = 'Person was successfully destroyed.'
+        flash_message(:success, 'Person was successfully destroyed.')
         redirect_to people_url
       end
 

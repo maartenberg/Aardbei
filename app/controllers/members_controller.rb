@@ -8,6 +8,9 @@ class MembersController < ApplicationController
   # GET /members.json
   def index
     @members = @group.members
+      .joins(:person)
+      .order(is_leader: :desc)
+      .order('people.first_name ASC')
   end
 
   # GET /members/1
@@ -34,7 +37,10 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to group_member_url(@group, @member), notice: 'Member was successfully created.' }
+        format.html {
+          redirect_to group_member_url(@group, @member)
+          flash_message(:info, 'Member was successfully created.')
+        }
         format.json { render :show, status: :created, location: @member }
       else
         @possible_members = Person.where.not(id: @group.person_ids)
@@ -49,7 +55,10 @@ class MembersController < ApplicationController
   def update
     respond_to do |format|
       if @member.update(member_params)
-        format.html { redirect_to group_member_url(@group, @member), notice: 'Member was successfully updated.' }
+        format.html {
+          redirect_to group_member_url(@group, @member)
+          flash_message(:info, 'Member was successfully updated.')
+        }
         format.json { render :show, status: :ok, location: @member }
       else
         @possible_members = Person.where.not(id: @group.person_ids)
@@ -64,7 +73,10 @@ class MembersController < ApplicationController
   def destroy
     @member.destroy
     respond_to do |format|
-      format.html { redirect_to group_members_url(@group), notice: 'Member was successfully destroyed.' }
+      format.html {
+        redirect_to group_members_url(@group)
+        flash_message(:info, 'Member was successfully destroyed.')
+      }
       format.json { head :no_content }
     end
   end

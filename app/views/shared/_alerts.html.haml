@@ -1,5 +1,7 @@
 .container
   .alerts
-    - flash.each do |name, msg|
-      %div{class: "alert alert-#{name}"}
-        = msg
+    - if flash[:alerts]
+      - flash[:alerts].each do |category, msgs|
+        - msgs.each do |msg|
+          %div{class: "alert alert-#{category}"}
+            = msg

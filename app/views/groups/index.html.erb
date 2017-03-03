@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Groups</h1>
 
 <table class="table">
@@ -16,6 +14,8 @@
     <% @groups.each do |group| %>
       <tr>
         <td><%= link_to group.name, group %></td>
+        <td><%= link_to group.members.count, group_members_path(group) %></td>
+        <td><%= link_to group.activities.count, group_activities_path(group) %></td>
         <td><%= link_to 'Edit', edit_group_path(group) %></td>
         <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

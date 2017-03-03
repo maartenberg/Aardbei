@@ -114,14 +114,14 @@ module AuthenticationHelper
 
   def require_login!
     if !is_logged_in?
-      flash[:warning] = "You need to be logged in to do that."
+      flash_message(:warning, "You need to be logged in to do that.")
       redirect_to controller: 'authentication', action: 'login_form'
     end
   end
 
   def require_admin!
     if !current_person.is_admin?
-      flash[:danger] = "You need to be an administrator to do that."
+      flash_message(:danger, "You need to be an administrator to do that.")
       redirect_to '/dashboard'
     end
   end

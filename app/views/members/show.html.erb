@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <%= @member.person.full_name %> is lid van <%= @group.name %>.
 <%= link_to 'Edit', edit_group_member_path(@group, @member) %> |
 <%= link_to 'Back', group_members_path(@group) %>

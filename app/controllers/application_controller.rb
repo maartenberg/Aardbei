@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::InvalidAuthenticityToken, with: :invalid_auth_token
 
   include AuthenticationHelper
+  include ApplicationHelper
 
   private
   def invalid_auth_token
