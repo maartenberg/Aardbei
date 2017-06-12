@@ -62,7 +62,9 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        invited = "invited to Aardbei and " if new_rec else ""
+        invited = ""
+        invited = "invited to Aardbei and " if new_rec
+
         flash_message(
           :success,
           "#{@person.full_name} #{invited}added to group."
