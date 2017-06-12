@@ -1,0 +1,30 @@
+%h2
+  = @group.name
+
+%h3 Upcoming activities
+%h3
+  Members
+
+%ul
+  - @group.members.each do |m|
+    %li
+      - if m.is_leader
+        %i.fa.fa-angle-up
+
+      = m.person.full_name
+
+= link_to 'Manage members', group_members_path(@group)
+
+%h3
+  Events
+
+%ul
+  - @group.activities.each do |e|
+    %li
+      = e.public_name
+= link_to "Manage activities", group_activities_path(@group)
+
+%div
+  = link_to 'Edit', edit_group_path(@group)
+  |
+  = link_to 'Back', groups_path
