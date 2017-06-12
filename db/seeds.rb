@@ -5,18 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'byebug'
 
 p = Person.create!(
   first_name: 'Maarten',
   infix: 'van den',
   last_name: 'Berg',
   birth_date: (Faker::Date.between(21.years.ago, Date.today)),
-  email: 'maarten@maartenberg.nl.eu.org',
+  email: 'maarten@maartenberg.nl',
   is_admin: true
 )
 
 u = User.create!(
-  email: 'maarten@maartenberg.nl.eu.org',
+  email: 'maarten@maartenberg.nl',
   person: p,
   password: 'aardbei123',
   password_confirmation: 'aardbei123'
@@ -26,7 +27,7 @@ p2 = Person.create!(
   first_name: 'Henkie',
   last_name: 'Gekke',
   birth_date: (Faker::Date.between(21.years.ago, Date.today)),
-  email: 'gekkehenkie@maartenberg.nl.eu.org'
+  email: 'gekkehenkie@maartenberg.nl'
 )
 
 g = Group.create!(
@@ -45,7 +46,7 @@ end
     first_name: (Faker::Name.first_name),
     last_name:  (Faker::Name.last_name),
     birth_date: (Faker::Date.between(21.years.ago, Date.today)),
-    email: "testuser#{i}@maartenberg.nl.eu.org"
+    email: "testuser#{i}@maartenberg.nl"
   )
 end
 
@@ -72,9 +73,6 @@ Group.all.each do |g|
     starttime = Faker::Time.between(DateTime.now, 1.years.since, :morning)
     endtime   = Faker::Time.between(1.hours.since(starttime), 1.days.since(starttime), :afternoon)
     deadline  = 5.days.ago(starttime)
-    puts starttime
-    puts endtime
-    puts deadline
 
     act = Activity.create!(
       public_name: Faker::Hacker.ingverb,
@@ -105,9 +103,12 @@ Person.all.each do |p|
           notes = nil
         end
 
-        part = Participant.create!(
+        # Participants are created on adding to group!
+        part = Participant.find_by(
           activity: a,
-          person:   p,
+          person: p
+        )
+        part.update!(
           is_organizer: Faker::Boolean.boolean(0.1),
           attending: [true, false, nil].sample,
           notes:    notes

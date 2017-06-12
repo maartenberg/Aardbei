@@ -1,12 +1,19 @@
+# Parameters for sending mail
 MAILGUN_DOMAIN=
 MAILGUN_API_KEY=
-
 MAIL_FROM_ADDRESS=
 
+# To be used in link construction
 AARDBEI_HOSTNAME=
 
+SECRET_KEY_BASE=
+# ['production', 'development']
 RAILS_ENV=
 
+# Set to '1' if in staging and/or not running a 'real' server or assets won't work
+RAILS_SERVE_STATIC_FILES=
+
+# Database credentials
 DB_NAME=
 DB_USER=
 DB_PASS=

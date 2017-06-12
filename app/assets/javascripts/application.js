@@ -17,4 +17,4 @@
 //= require editable/bootstrap-editable
 //= require editable/rails
 //= require_tree .
-
+//= require_self
