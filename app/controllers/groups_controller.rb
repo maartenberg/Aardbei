@@ -1,9 +1,9 @@
 class GroupsController < ApplicationController
   include GroupsHelper
+  before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :require_admin!, only: [:index]
   before_action :require_membership!, only: [:show]
   before_action :require_leader!, only: [:edit, :update, :destroy]
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
 
   # GET /groups
   # GET /groups.json
@@ -18,6 +18,24 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @organized_activities = current_person.organized_activities.
+      joins(:activity).where(
+        'activities.group_id': @group.id
+    )
+    if @organized_activities.count > 0
+      @groupmenu = 'col-md-6'
+    else
+      @groupmenu = 'col-md-12'
+    end
+
+    @upcoming = @group.activities
+      .where('start > ?', Date.today)
+      .order('start ASC')
+    @upcoming_ps = Participant
+      .where(person: current_person)
+      .where(activity: @upcoming)
+      .map{ |p| [p.activity_id, p]}
+      .to_h
   end
 
   # GET /groups/new

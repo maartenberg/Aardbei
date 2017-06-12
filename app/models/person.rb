@@ -65,7 +65,7 @@ class Person < ApplicationRecord
 
   # All activities where this person is an organizer.
   def organized_activities
-    self.participants.includes(:activity).where(is_leader: true)
+    self.participants.includes(:activity).where(is_organizer: true)
   end
 
   private

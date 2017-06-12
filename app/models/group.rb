@@ -29,6 +29,14 @@ class Group < ApplicationRecord
     self.activities.where('start > ?', DateTime.now)
   end
 
+  # Determine whether the passed person is a member of the group.
+  def is_member?(person)
+    Member.exists?(
+      person: person,
+      group: self
+    ) || person.is_admin?
+  end
+
   # Determine whether the passed person is a group leader.
   def is_leader?(person)
     Member.exists?(

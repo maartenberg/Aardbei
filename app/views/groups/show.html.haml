@@ -1,30 +1,68 @@
 %h2
   = @group.name
 
-%h3 Upcoming activities
-%h3
-  Members
+.row
+  .groupmenu(class=@groupmenu)
+    .panel.panel-default
+      .panel-heading
+        = @group.name
 
-%ul
-  - @group.members.each do |m|
-    %li
-      - if m.is_leader
-        %i.fa.fa-angle-up
+      .panel-body
+        .list-group
+          = link_to group_members_path(@group), class: 'list-group-item' do
+            = @group.members.count
+            members
 
-      = m.person.full_name
+          = link_to group_activities_path(@group), class: 'list-group-item' do
+            = @group.activities.count
+            activities
 
-= link_to 'Manage members', group_members_path(@group)
+          - if @group.is_leader?(current_person)
+            = link_to new_group_activity_path(@group), class: 'list-group-item' do
+              New event
 
-%h3
-  Events
+            = link_to edit_group_path(@group), class: 'list-group-item' do
+              Edit group
 
-%ul
-  - @group.activities.each do |e|
-    %li
-      = e.public_name
-= link_to "Manage activities", group_activities_path(@group)
+  - if @organized_activities && @organized_activities.count > 0
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          Upcoming activities organized by you
 
-%div
-  = link_to 'Edit', edit_group_path(@group)
-  |
-  = link_to 'Back', groups_path
+        .panel-body
+          %table.table
+            %tr
+              %th
+                What
+              %th
+                When
+
+            - @organized_activities.each do |p|
+              - a = p.activity
+              %tr
+                %td
+                  = link_to group_activity_path(@group, a) do
+                    = a.public_name
+                    = render partial: "activities/state_counts", locals: {counts: a.state_counts}
+                %td
+                  = distance_of_time_in_words_to_now(a.start.to_date)
+
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        Your activities
+
+      .panel-body
+        %table.table.table-striped
+          %tbody
+            - @upcoming.each do |a|
+              - p = @upcoming_ps[a.id]
+              %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
+                %td
+                  = e.public_name
+                %td
+                  = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
+                %td
+                  = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: current_person.id), title: "Notes", value: p.notes, emptytext: 'Notes'
