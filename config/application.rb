@@ -12,5 +12,7 @@ module Aardbei
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     default_url_options[:host] = ENV['AARDBEI_HOSTNAME']
+
+    config.time_zone = 'Amsterdam'
   end
 end

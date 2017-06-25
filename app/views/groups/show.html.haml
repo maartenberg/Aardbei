@@ -46,7 +46,7 @@
                     = a.public_name
                     = render partial: "activities/state_counts", locals: {counts: a.state_counts}
                 %td
-                  = distance_of_time_in_words_to_now(a.start.to_date)
+                  = distance_of_time_in_words_to_now(a.start)
 
 .row
   .col-md-12
@@ -59,10 +59,19 @@
           %tbody
             - @upcoming.each do |a|
               - p = @upcoming_ps[a.id]
-              %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
-                %td
-                  = e.public_name
-                %td
-                  = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
-                %td
-                  = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: current_person.id), title: "Notes", value: p.notes, emptytext: 'Notes'
+              - if p
+                %tr{class: p.row_class, data: {activity_id: a.id, person_id: current_person.id}}
+                  %td
+                    = link_to group_activity_path(a.group, a) do
+                      = a.public_name
+                  %td
+                    = render partial: "activities/presence_buttons", locals: {activity: a, person: current_person, state: p.attending}
+                  %td
+                    = editable p, :notes, url: presence_group_activity_path(a.group, a, person_id: current_person.id), title: "Notes", value: p.notes, emptytext: 'Notes'
+              - else
+                %tr
+                  %td
+                    = link_to group_activity_path(a.group, a) do
+                      = a.public_name
+                  %td
+                  %td
