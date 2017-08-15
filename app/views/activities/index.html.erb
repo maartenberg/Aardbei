@@ -10,9 +10,9 @@
   <tbody>
     <% @activities.each do |activity| %>
       <tr>
-        <td><%= link_to 'Show', group_activity_path(@group, activity) %></td>
-        <td><%= link_to 'Edit', edit_group_activity_path(@group, activity) %></td>
-        <td><%= link_to 'Destroy', group_activity_path(@group, activity), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t(:show), group_activity_path(@group, activity) %></td>
+        <td><%= link_to t(:edit), edit_group_activity_path(@group, activity) %></td>
+        <td><%= link_to t(:destroy), group_activity_path(@group, activity), method: :delete, data: { confirm: t(:areyousure) } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -20,4 +20,4 @@
 
 <br>
 
-<%= link_to 'New Activity', new_group_activity_path(@group) %>
+<%= link_to t('activities.new'), new_group_activity_path(@group) %>

@@ -3,9 +3,14 @@ en:
     singular: Activity
     plural: Activities
 
+    new: Nieuwe activiteit
+
     participant:
+      singular: participant
+      plural: participants
       notes: Notes
       add_notes: Add notes
+      yourresponse: Your response
 
     state:
       need_response: Need response
@@ -19,3 +24,6 @@ en:
       when: When
       where: Where
       actions: Actions
+      organizers: Organizers
+      description: Description
+      deadline: Deadline

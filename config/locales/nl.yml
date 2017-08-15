@@ -1,6 +1,15 @@
 nl:
   hello: "Hallo wereld"
+
   collapse: "Inklappen"
 
   log_out: Uitloggen
   log_in: Inloggen
+
+  cancel: Annuleren
+  back: Terug
+  show: Weergeven
+  edit: Bewerken
+  destroy: Verwijderen
+
+  areyousure: Weet je het zeker?

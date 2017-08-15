@@ -3,9 +3,14 @@ nl:
     singular: Activiteit
     plural: Activiteiten
 
+    new: New activity
+
     participant:
+      singular: deelnemer
+      plural: deelnemers
       notes: Opmerkingen
       add_notes: Opmerkingen toevoegen
+      yourresponse: Jouw antwoord
 
     state:
       need_response: Niet gereageerd
@@ -19,3 +24,6 @@ nl:
       when: Wanneer
       where: Waar
       actions: Acties
+      organizers: Organisatoren
+      description: Omschrijving
+      deadline: Deadline

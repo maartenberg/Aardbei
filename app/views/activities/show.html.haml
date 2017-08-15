@@ -11,24 +11,24 @@
       %table.table
         %tr
           %td
-            Organizers:
+            = t 'activities.attrs.organizers'
           %td
             = @organizers
         %tr
           %td
-            Description:
+            = t 'activities.attrs.description'
           %td
             = @activity.description
 
         %tr
           %td
-            Location:
+            = t 'activities.attrs.location'
           %td
             = @activity.location
 
         %tr
           %td
-            When:
+            = t 'activities.attrs.when'
 
           %td
             = @activity.start
@@ -37,7 +37,7 @@
 
         %tr
           %td
-            Deadline:
+            = t 'activities.attrs.deadline'
 
           %td
             = @activity.deadline
@@ -46,30 +46,21 @@
     .col-md-3
       .panel.panel-default
         .panel-heading
-          Your response
+          = t 'activities.participant.yourresponse'
         .panel-body
           = render partial: "activities/wide_presence_buttons", locals: {activity: @activity, person: @ownparticipant.person, state: @ownparticipant.attending}
-
-          -#.btn-group.btn-group-justified
-            -#.btn-group
-              -#%button.btn.btn-success
-                -#Present
-
-            -#.btn-group
-              -#%button.btn.btn-danger
-                -#Absent
 
           = editable @ownparticipant,
             :notes,
             url: presence_group_activity_path(@activity.group, @activity, person_id: @ownparticipant.person_id),
-            title: "Notes",
+            title: t('activities.participant.notes'),
             value: "",
-            emptytext: "Add notes..."
+            emptytext: t('activities.participant.add_notes')
 
 .hidden-xs
   %h2
     = @num_participants
-    participants
+    = t 'activities.participant.plural'
     = render partial: "state_counts", locals: {counts: @counts}
 
   %table.table.table-bordered
@@ -81,7 +72,7 @@
             %i.fa.fa-star-o
 
         %td
-          = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes, emptytext: "--"
+          = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
 
         %td
           = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
@@ -89,9 +80,6 @@
 .hidden-sm.hidden-md.hidden-lg
   .panel.panel-default.panel-success
     .panel-heading
-      -#%button.btn.btn-default.btn-sm{data: {toggle: 'collapse', target: '#present-collapse'}}
-        -#%i.fa.fa-arrows-v
-
       %a{role: 'button', href: '#present-collapse', data: {toggle: 'collapse'}, 'aria-expanded': 'false'}
 
         %span.sv-show-collapsed
@@ -100,7 +88,7 @@
         %span.sv-show-expanded
           %i.fa.fa-angle-up
 
-        Present
+        = t 'activities.state.present'
         %span.badge
           = @counts[true]
 
@@ -118,7 +106,7 @@
 
           %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
             %td{colspan: "2"}
-              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes, emptytext: "--"
+              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
 
 
   .panel.panel-default
@@ -130,7 +118,9 @@
 
         %span.sv-show-expanded
           %i.fa.fa-angle-up
-        No reaction
+
+        = t 'activities.state.need_response'
+
         %span.badge
           = @counts[nil]
 
@@ -148,7 +138,7 @@
 
           %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
             %td{colspan: "2"}
-              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes, emptytext: "--"
+              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activitites.participant.notes'), value: p.notes, emptytext: "--"
 
   .panel.panel-default.panel-danger
     .panel-heading
@@ -159,7 +149,9 @@
 
         %span.sv-show-expanded
           %i.fa.fa-angle-up
-        Absent
+
+        = t 'activities.state.absent'
+
         %span.badge
           = @counts[false]
 
@@ -177,4 +169,4 @@
 
           %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
             %td{colspan: "2"}
-              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes, emptytext: "--"
+              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activitites.participant.notes'), value: p.notes, emptytext: "--"
