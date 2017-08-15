@@ -100,6 +100,12 @@ function activity_changed(data, textStatus, xhr)
       .html(new_confirm_icon);
     $(`.btn-absent[data-person-id=${target.person}][data-activity-id=${target.activity}]`)
       .html(new_decline_icon);
+
+    // Add text to all 'wide' buttons
+    $(`.btn-present[data-person-id=${target.person}][data-activity-id=${target.activity}][data-wide=1]`)
+      .append(" Present");
+    $(`.btn-absent[data-person-id=${target.person}][data-activity-id=${target.activity}][data-wide=1]`)
+      .append(" Absent");
 }
 
 function alert_failure(data, textStatus, xhr)

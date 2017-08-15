@@ -17,6 +17,14 @@ class ActivitiesController < ApplicationController
       .joins(:person)
       .order(attending: :desc)
       .order('people.first_name ASC')
+    @organizers = @activity.participants
+      .joins(:person)
+      .where(is_organizer: true)
+      .order('people.first_name ASC')
+      .map{|p| p.person.full_name}
+      .join(', ')
+    @ownparticipant = @activity.participants
+      .find_by(person: current_person)
     @counts = @activity.state_counts
     @num_participants = @counts.values.sum
   end

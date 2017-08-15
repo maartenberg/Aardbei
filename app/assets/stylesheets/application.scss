@@ -66,3 +66,25 @@ table .btn-group {
 .editable.editable-empty {
   color: inherit;
 }
+
+/* https://stackoverflow.com/questions/26923543/why-does-a-table-in-a-collapsible-bootstrap-panel-change-width */
+table.collapse.in {
+  display: table;
+}
+
+/* Toggles visibility based on aria-expanded of parent. */
+[aria-expanded="true"] > .sv-show-expanded {
+  display: inline;
+}
+
+[aria-expanded="true"] > .sv-show-collapsed {
+  display: none;
+}
+
+[aria-expanded="false"] > .sv-show-expanded {
+  display: none;
+}
+
+[aria-expanded="false"] > .sv-show-collapsed {
+  display: inline;
+}

@@ -1,0 +1,180 @@
+.row
+  .col-md-9
+    .panel.panel-default
+      .panel-heading
+        = @activity.public_name
+        - if @activity.may_change?(current_person)
+          = link_to edit_group_activity_path(@group, @activity), class: 'pull-right' do
+            %i.fa.fa-pencil
+
+
+      %table.table
+        %tr
+          %td
+            Organizers:
+          %td
+            = @organizers
+        %tr
+          %td
+            Description:
+          %td
+            = @activity.description
+
+        %tr
+          %td
+            Location:
+          %td
+            = @activity.location
+
+        %tr
+          %td
+            When:
+
+          %td
+            = @activity.start
+            \-
+            = @activity.end
+
+        %tr
+          %td
+            Deadline:
+
+          %td
+            = @activity.deadline
+
+  - if @ownparticipant
+    .col-md-3
+      .panel.panel-default
+        .panel-heading
+          Your response
+        .panel-body
+          = render partial: "activities/wide_presence_buttons", locals: {activity: @activity, person: @ownparticipant.person, state: @ownparticipant.attending}
+
+          -#.btn-group.btn-group-justified
+            -#.btn-group
+              -#%button.btn.btn-success
+                -#Present
+
+            -#.btn-group
+              -#%button.btn.btn-danger
+                -#Absent
+
+          = editable @ownparticipant,
+            :notes,
+            url: presence_group_activity_path(@activity.group, @activity, person_id: @ownparticipant.person_id),
+            title: "Notes",
+            value: "",
+            emptytext: "Add notes..."
+
+.hidden-xs
+  %h2
+    = @num_participants
+    participants
+    = render partial: "state_counts", locals: {counts: @counts}
+
+  %table.table.table-bordered
+    - @participants.each do |p|
+      %tr{class: p.row_class, data: {person_id: p.person.id, activity_id: @activity.id}}
+        %td
+          = p.person.full_name
+          - if p.is_organizer
+            %i.fa.fa-star-o
+
+        %td
+          = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes, emptytext: "--"
+
+        %td
+          = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
+
+.hidden-sm.hidden-md.hidden-lg
+  .panel.panel-default.panel-success
+    .panel-heading
+      -#%button.btn.btn-default.btn-sm{data: {toggle: 'collapse', target: '#present-collapse'}}
+        -#%i.fa.fa-arrows-v
+
+      %a{role: 'button', href: '#present-collapse', data: {toggle: 'collapse'}, 'aria-expanded': 'false'}
+
+        %span.sv-show-collapsed
+          %i.fa.fa-angle-down
+
+        %span.sv-show-expanded
+          %i.fa.fa-angle-up
+
+        Present
+        %span.badge
+          = @counts[true]
+
+    %table.table.collapse#present-collapse
+      %tbody
+        - @participants.where(attending: true).each do |p|
+          %tr{data: {person_id: p.person.id, activity_id: @activity.id}}
+            %td
+              = p.person.full_name
+              - if p.is_organizer
+                %i.fa.fa-star-o
+
+            %td
+              = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
+
+          %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
+            %td{colspan: "2"}
+              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes, emptytext: "--"
+
+
+  .panel.panel-default
+    .panel-heading
+      %a{role: 'button', href: '#unknown-collapse', data: {toggle: 'collapse'}, 'aria-expanded': 'false'}
+
+        %span.sv-show-collapsed
+          %i.fa.fa-angle-down
+
+        %span.sv-show-expanded
+          %i.fa.fa-angle-up
+        No reaction
+        %span.badge
+          = @counts[nil]
+
+    %table.table.collapse#unknown-collapse
+      %tbody
+        - @participants.where(attending: nil).each do |p|
+          %tr{data: {person_id: p.person.id, activity_id: @activity.id}}
+            %td
+              = p.person.full_name
+              - if p.is_organizer
+                %i.fa.fa-star-o
+
+            %td
+              = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
+
+          %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
+            %td{colspan: "2"}
+              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes, emptytext: "--"
+
+  .panel.panel-default.panel-danger
+    .panel-heading
+      %a{role: 'button', href: '#absent-collapse', data: {toggle: 'collapse'}, 'aria-expanded': 'false'}
+
+        %span.sv-show-collapsed
+          %i.fa.fa-angle-down
+
+        %span.sv-show-expanded
+          %i.fa.fa-angle-up
+        Absent
+        %span.badge
+          = @counts[false]
+
+    %table.table.collapse#absent-collapse
+      %tbody
+        - @participants.where(attending: false).each do |p|
+          %tr{data: {person_id: p.person.id, activity_id: @activity.id}}
+            %td
+              = p.person.full_name
+              - if p.is_organizer
+                %i.fa.fa-star-o
+
+            %td
+              = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
+
+          %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
+            %td{colspan: "2"}
+              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: "Notes", value: p.notes, emptytext: "--"

@@ -1,0 +1,16 @@
+.btn-group.btn-group-justified{role: "group"}
+  .btn-group
+    %button.btn.btn-success.btn-present.btn-presence{data: {wide: 1, person_id: person.id, activity_id: activity.id, group_id: activity.group.id, new_state: "present"}}
+      - if !state
+        %i.fa.fa-check
+      - else
+        %i.fa.fa-check-circle
+      Present
+
+  .btn-group
+    %button.btn.btn-danger.btn-absent.btn-presence{data: {wide: 1, person_id: person.id, activity_id: activity.id, group_id: activity.group.id, new_state: "absent"}}
+      - if state == false
+        %i.fa.fa-times-circle
+      - else
+        %i.fa.fa-times
+      Absent
