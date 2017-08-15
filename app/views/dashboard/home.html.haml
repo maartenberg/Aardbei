@@ -27,9 +27,6 @@
                   %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
                     %td
                       = e.public_name
-                      - if e.secret_name && e.participants.first.is_organizer
-                        %i
-                          = "(#{e.secret_name})"
                     %td
                       = e.group.name
                     %td
@@ -67,8 +64,6 @@
                   %td
                     = link_to group_activity_url(a.group, a) do
                       = a.public_name
-                      - if a.secret_name
-                        = "(#{a.secret_name})"
                       = render partial: "activities/state_counts", locals: {counts: a.state_counts}
 
   .row

@@ -52,37 +52,27 @@ end
 
 a = Activity.create!(
   public_name: 'Fikkie stoken ofzo',
-  secret_name: 'Bosbrandopkomst',
   description: 'Een scout trekt er samen met anderen op uit',
   location: 'In het bos in het bos',
   start: 4.weeks.since,
   end: 4.weeks.since + 2.hours,
   deadline: 3.weeks.since,
-  show_hidden: false,
   group: g
 )
 
 Group.all.each do |g|
   10.times do |i|
-    if Faker::Boolean.boolean(0.25)
-      secret_name = Faker::Hacker.ingverb
-    else
-      secret_name = nil
-    end
-
     starttime = Faker::Time.between(DateTime.now, 1.years.since, :morning)
     endtime   = Faker::Time.between(1.hours.since(starttime), 1.days.since(starttime), :afternoon)
     deadline  = 5.days.ago(starttime)
 
     act = Activity.create!(
       public_name: Faker::Hacker.ingverb,
-      secret_name: secret_name,
       description: Faker::Hipster.sentence,
       location: Faker::Address.city,
       start: starttime,
       end: endtime,
       deadline: deadline,
-      show_hidden: Faker::Boolean.boolean,
       group: g
     )
   end

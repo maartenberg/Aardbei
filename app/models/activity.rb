@@ -3,14 +3,7 @@
 class Activity < ApplicationRecord
   # @!attribute public_name
   #   @return [String]
-  #     the name that users will see if there is no {#secret_name}, or if
-  #     {#show_hidden} is `false`.
-  #
-  # @!attribute secret_name
-  #   @return [String]
-  #     a name that is (be default) only visible to organizers and group
-  #     leaders.  Can be shown or hidden to normal participants using
-  #     {#show_hidden}.
+  #     a short name for the activity.
   #
   # @!attribute description
   #   @return [String]
@@ -21,13 +14,6 @@ class Activity < ApplicationRecord
   #   @return [String]
   #     a short text describing where the activity will take place. Always
   #     visible to all participants.
-  #
-  # @!attribute show_hidden
-  #   @return [Boolean]
-  #     Whether or not the 'secret' attributes can be viewed by the people who
-  #     aren't organizers or group leaders. Currently, only {#secret_name} is
-  #     influenced by this. More attributes may be added in the future, and
-  #     will be controlled by this toggle as well.
   #
   # @!attribute start
   #   @return [TimeWithZone]

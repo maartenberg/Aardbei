@@ -10,17 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222104408) do
+ActiveRecord::Schema.define(version: 20170815155155) do
 
   create_table "activities", force: :cascade do |t|
-    t.string   "public_name"
-    t.string   "secret_name"
+    t.string   "name"
     t.string   "description"
     t.string   "location"
     t.datetime "start"
     t.datetime "end"
     t.datetime "deadline"
-    t.boolean  "show_hidden"
     t.integer  "group_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
