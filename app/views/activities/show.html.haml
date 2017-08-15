@@ -2,7 +2,7 @@
   .col-md-9
     .panel.panel-default
       .panel-heading
-        = @activity.public_name
+        = @activity.name
         - if @activity.may_change?(current_person)
           = link_to edit_group_activity_path(@group, @activity), class: 'pull-right' do
             %i.fa.fa-pencil

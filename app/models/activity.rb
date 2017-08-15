@@ -1,7 +1,7 @@
 # An Activity represents a single continuous event that the members of a group may attend.
 # An Activity belongs to a group, and has many participants.
 class Activity < ApplicationRecord
-  # @!attribute public_name
+  # @!attribute name
   #   @return [String]
   #     a short name for the activity.
   #
@@ -35,7 +35,7 @@ class Activity < ApplicationRecord
     dependent: :destroy
   has_many :people, through: :participants
 
-  validates :public_name, presence: true
+  validates :name, presence: true
   validates :start, presence: true
   validate  :deadline_before_start, unless: "self.deadline.blank?"
   validate  :end_after_start,       unless: "self.end.blank?"

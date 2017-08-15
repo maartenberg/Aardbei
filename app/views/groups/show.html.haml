@@ -43,7 +43,7 @@
               %tr
                 %td
                   = link_to group_activity_path(@group, a) do
-                    = a.public_name
+                    = a.name
                     = render partial: "activities/state_counts", locals: {counts: a.state_counts}
                 %td
                   = distance_of_time_in_words_to_now(a.start)
@@ -63,7 +63,7 @@
                 %tr{class: p.row_class, data: {activity_id: a.id, person_id: current_person.id}}
                   %td
                     = link_to group_activity_path(a.group, a) do
-                      = a.public_name
+                      = a.name
                   %td
                     = render partial: "activities/presence_buttons", locals: {activity: a, person: current_person, state: p.attending}
                   %td
@@ -72,6 +72,6 @@
                 %tr
                   %td
                     = link_to group_activity_path(a.group, a) do
-                      = a.public_name
+                      = a.name
                   %td
                   %td
