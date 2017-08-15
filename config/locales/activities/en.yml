@@ -1,0 +1,21 @@
+en:
+  activities:
+    singular: Activity
+    plural: Activities
+
+    participant:
+      notes: Notes
+      add_notes: Add notes
+
+    state:
+      need_response: Need response
+      present: Present
+      absent: Absent
+      unknown: Unknown
+
+    attrs:
+      name: Name
+      group: Group
+      when: When
+      where: Where
+      actions: Actions

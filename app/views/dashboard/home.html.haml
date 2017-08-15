@@ -4,29 +4,29 @@
       .col-md-12
         .panel.panel-default
           .panel-heading
-            Need response
+            = t 'activities.state.need_response'
 
           .panel-body
             %table.table.table-bordered
               %thead
                 %tr
                   %th
-                    Name
+                    = t 'activities.attrs.name'
                   %th
-                    Group
+                    = t 'activities.attrs.group'
                   %th
-                    When
+                    = t 'activities.attrs.when'
                   %th
-                    Where
+                    = t 'activities.attrs.where'
                   %th
-                    Actions
+                    = t 'activities.attrs.actions'
 
               %tbody
                 - @need_response.each do |p|
                   - e = p.activity
                   %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
                     %td
-                      = e.public_name
+                      = e.name
                     %td
                       = e.group.name
                     %td
@@ -39,7 +39,7 @@
     .col-md-6
       .panel.panel-default
         .panel-heading
-          Groups
+          = t 'groups.singular'
 
         .panel-body
           %table.table.table-bordered
@@ -53,7 +53,7 @@
     .col-md-6
       .panel.panel-default
         .panel-heading
-          Organized by you
+          = t 'dashboard.organized_you'
 
         .panel-body
           %table.table.table-striped.table-bordered
@@ -63,14 +63,14 @@
                 %tr
                   %td
                     = link_to group_activity_url(a.group, a) do
-                      = a.public_name
+                      = a.name
                       = render partial: "activities/state_counts", locals: {counts: a.state_counts}
 
   .row
     .col-md-12
       .panel.panel-default
         .panel-heading
-          Your activities
+          = t 'dashboard.participant_you'
 
         .panel-body
           %table.table.table-striped
@@ -79,8 +79,8 @@
                 - e = p.activity
                 %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
                   %td
-                    = e.public_name
+                    = e.name
                   %td
                     = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
                   %td
-                    = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: current_person.id), title: "Notes", value: p.notes, emptytext: 'Notes'
+                    = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: current_person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.add_notes')

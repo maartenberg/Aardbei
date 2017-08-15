@@ -1,0 +1,8 @@
+en:
+  groups:
+    singular: Group
+    plural: Groups
+    all: All Groups
+
+    attrs:
+      name: Name

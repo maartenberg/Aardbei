@@ -1,0 +1,21 @@
+nl:
+  activities:
+    singular: Activiteit
+    plural: Activiteiten
+
+    participant:
+      notes: Opmerkingen
+      add_notes: Opmerkingen toevoegen
+
+    state:
+      need_response: Niet gereageerd
+      present: Aanwezig
+      absent: Afwezig
+      unknown: Onbekend
+
+    attrs:
+      name: Naam
+      group: Groep
+      when: Wanneer
+      where: Waar
+      actions: Acties

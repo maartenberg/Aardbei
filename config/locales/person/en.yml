@@ -1,0 +1,5 @@
+en:
+  person:
+    singular: Person
+    plural: People
+    all: All persons

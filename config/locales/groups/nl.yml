@@ -1,0 +1,8 @@
+nl:
+  groups:
+    singular: Groep
+    plural: Groepen
+    all: Alle Groepen
+
+    attrs:
+      name: Naam

@@ -14,5 +14,8 @@ module Aardbei
     default_url_options[:host] = ENV['AARDBEI_HOSTNAME']
 
     config.time_zone = 'Amsterdam'
+
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.i18n.default_locale = :nl
   end
 end
