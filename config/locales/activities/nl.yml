@@ -13,7 +13,7 @@ nl:
       yourresponse: Jouw antwoord
 
     state:
-      need_response: Niet gereageerd
+      need_response: Nog geen reactie
       present: Aanwezig
       absent: Afwezig
       unknown: Onbekend

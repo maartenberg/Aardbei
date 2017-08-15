@@ -1,0 +1,56 @@
+nl:
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "een halve minuut"
+      less_than_x_seconds:
+        one:   "minder dan 1 seconde"
+        other: "minder dan %{count} seconden"
+      x_seconds:
+        one:   "1 seconde"
+        other: "%{count} seconden"
+      less_than_x_minutes:
+        one:   "minder dan 1 minuut"
+        other: "minder dan %{count} minuten"
+      x_minutes:
+        one:   "1 minuut"
+        other: "%{count} minuten"
+      about_x_hours:
+        one:   "ongeveer 1 uur"
+        other: "ongeveer %{count} uren"
+      x_days:
+        one:   "1 dag"
+        other: "%{count} dagen"
+      about_x_months:
+        one:   "ongeveer 1 maand"
+        other: "ongeveer %{count} maanden"
+      x_months:
+        one:   "1 maand"
+        other: "%{count} maanden"
+      about_x_years:
+        one:   "ongeveer 1 jaar"
+        other: "ongeveer %{count} jaren"
+      over_x_years:
+        one:   "meer dan 1 jaar"
+        other: "meer dan %{count} jaren"
+      almost_x_years:
+        one:   "bijna 1 jaar"
+        other: "bijna %{count} jaren"
+    prompts:
+      year:   "Jaar"
+      month:  "Maand"
+      day:    "Dag"
+      hour:   "Uur"
+      minute: "Minuut"
+      second: "Seconden"
+
+  helpers:
+    select:
+      # Default value for :prompt => true in FormOptionsHelper
+      prompt: "Kies een waarde"
+
+    # Default translation keys for submit and button FormHelper
+    submit:
+      create: '%{model} aanmaken'
+      update: '%{model} bijwerken'
+      submit: '%{model} opslaan'

@@ -26,7 +26,8 @@
                   - e = p.activity
                   %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
                     %td
-                      = e.name
+                      = link_to group_activity_path(e.group, e) do
+                        = e.name
                     %td
                       = e.group.name
                     %td
@@ -39,7 +40,7 @@
     .col-md-6
       .panel.panel-default
         .panel-heading
-          = t 'groups.singular'
+          = t 'groups.plural'
 
         .panel-body
           %table.table.table-bordered
@@ -79,7 +80,8 @@
                 - e = p.activity
                 %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
                   %td
-                    = e.name
+                    = link_to group_activity_path(e.group, e) do
+                      = e.name
                   %td
                     = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
                   %td
