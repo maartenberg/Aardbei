@@ -1,0 +1,14 @@
+en:
+  authentication:
+    confirm_account: Create password
+    forgot_password: Forgot password
+    reset_password: Reset password
+    create_account: Create account
+
+    please_sign_in: Please sign in
+    remember_me: Remember me
+
+    new_password: New password
+    new_password_confirm: Confirm new password
+
+    need_introducer: Creating an account requires that you have been added to a group beforehand by an administrator. Contact someone if your email address is not recognized.

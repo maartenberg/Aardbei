@@ -1,10 +1,10 @@
 .container
   .panel.panel-default
     .panel-heading
-      Are you sure?
+      = t :areyousure
     .panel-body
       = link_to logout_path, method: :delete, class: 'btn btn-danger' do
         %i.fa.fa-sign-out{'aria-hidden': true}
-        Log out
+        = t :log_out
       = link_to root_path, class: 'btn btn-default' do
-        Cancel
+        = t :cancel

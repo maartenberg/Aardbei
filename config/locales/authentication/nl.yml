@@ -1,0 +1,14 @@
+nl:
+  authentication:
+    confirm_account: Wachtwoord aanmaken
+    forgot_password: Wachtwoord vergeten
+    reset_password: Wachtwoord veranderen
+    create_account: Account aanmaken
+
+    please_sign_in: Log eerst in
+    remember_me: Onthouden
+
+    new_password: Nieuw wachtwoord
+    new_password_confirm: Herhaal nieuw wachtwoord
+
+    need_introducer: Je kan alleen een account aanmaken wanneer je door een beheerder aan een groep bent toegevoegd. Neem contact op met iemand wanneer je emailadres niet wordt herkend.

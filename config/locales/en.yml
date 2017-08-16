@@ -32,5 +32,6 @@ en:
   show: Show
   edit: Edit
   destroy: Delete
+  send_email: Send email
 
   areyousure: Are you sure?

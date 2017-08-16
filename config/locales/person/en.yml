@@ -3,3 +3,7 @@ en:
     singular: Person
     plural: People
     all: All persons
+
+    attrs:
+      email: Email address
+      password: Password

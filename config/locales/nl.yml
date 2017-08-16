@@ -11,5 +11,6 @@ nl:
   show: Weergeven
   edit: Bewerken
   destroy: Verwijderen
+  send_email: Email versturen
 
   areyousure: Weet je het zeker?

@@ -3,3 +3,7 @@ nl:
     singular: Persoon
     plural: Personen
     all: Alle personen
+
+    attrs:
+      email: Emailadres
+      password: Wachtwoord
