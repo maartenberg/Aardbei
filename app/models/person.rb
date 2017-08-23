@@ -36,7 +36,7 @@ class Person < ApplicationRecord
   has_many :groups, through: :members
   has_many :activities, through: :participants
 
-  validates :email, presence: true, uniqueness: true
+  validates :email, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
 
