@@ -1,7 +1,7 @@
-<h2><%= @person.reversed_name %></h2>
+<h2><%= @person.full_name %></h2>
 <ul>
   <li><%= @person.birth_date %></li>
   <li><%= @person.email %></li>
 </ul>
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+<%= link_to t(:edit), edit_person_path(@person) %> |
+<%= link_to t(:back), people_path %>

@@ -1,26 +1,42 @@
 en:
   authentication:
-    confirm_account: Create password
-    forgot_password: Forgot password
-    reset_password: Reset password
-    create_account: Create account
+    confirm_account: "Create password"
+    forgot_password: "Forgot password"
+    reset_password: "Reset password"
+    create_account: "Create account"
 
-    please_sign_in: Please sign in
-    remember_me: Remember me
+    please_sign_in: "Please sign in"
+    remember_me: "Remember me"
 
-    new_password: New password
-    new_password_confirm: Confirm new password
+    new_password: "New password"
+    new_password_confirm: "Confirm new password"
 
-    need_introducer: Creating an account requires that you have been added to a group beforehand by an administrator. Contact someone if your email address is not recognized.
+    need_introducer: "Creating an account requires that you have been added to a group beforehand by an administrator. Contact someone if your email address is not recognized."
+
+    unknown_email: "Unknown email address."
+    invalid_token: "Invalid token!"
+    expired_token: "Your token has expired, please request another one."
+    invalid_user_or_pass: "Invalid username/password combination!"
+    login_required: "You need to be logged in to do that."
+    admin_required: "You need to be an administrator to do that."
+    activation_required: "Your account has not yet been activated, please confirm your account using the email you received."
+    already_activated: "Your account has already been activated, please use the 'Forgot password' form if you want to reset your password."
+    password_repeat_mismatch: "Password confirmation does not match your password!"
+    activation_complete: "Your account has been confirmed, you may now log in."
+    password_reset_complete: "Your password has been reset, you may now log in."
+    user_person_mail_mismatch: "must be the same as associated person's email"
 
     emails:
-      greeting: Hello %{name},
-      ending: Aardbei
-      link_expires: This link will expire %{expires}.
+      sent: "An email has been sent, check your inbox!"
+      greeting: "Hello %{name},"
+      ending: "Aardbei"
+      link_expires: "This link will expire %{expires}."
 
       confirm:
-        click_this: Please confirm your account for Aardbei by clicking on the following link.
+        subject: "Confirm your Aardbei-account"
+        click_this: "Please confirm your account for Aardbei by clicking on the following link."
 
       forgot:
-        blurb: You (or someone pretending to be you) have requested to reset your password. If this was you, please open the following link.
-        ignore_if_not_you: If you did not request this password reset, ignore this message.
+        subject: "Reset your Aardbei-password"
+        blurb: "You (or someone pretending to be you) have requested to reset your password. If this was you, please open the following link."
+        ignore_if_not_you: "If you did not request this password reset, ignore this message."

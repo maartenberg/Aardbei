@@ -1,16 +1,61 @@
 nl:
   hello: "Hallo wereld"
+  greeting: "Hoi %{name}!"
 
   collapse: "Inklappen"
 
-  log_out: Uitloggen
-  log_in: Inloggen
+  log_out: "Uitloggen"
+  log_in: "Inloggen"
 
-  cancel: Annuleren
-  back: Terug
-  show: Weergeven
-  edit: Bewerken
-  destroy: Verwijderen
-  send_email: Email versturen
+  actions: "Acties"
+  cancel: "Annuleren"
+  back: "Terug"
+  show: "Weergeven"
+  edit: "Bewerken"
+  destroy: "Verwijderen"
+  remove: "Verwijderen"
+  send_email: "Email versturen"
 
-  areyousure: Weet je het zeker?
+  areyousure: "Weet je het zeker?"
+
+  value_required: "Een verplichte vraag was leeg."
+
+  invalid_csrf: "Ongeldig authenticiteitstoken! Als je hier terecht bent gekomen na het klikken op een link is het mogelijk dat iemand iets naars probeerde!"
+
+  activerecord:
+    models:
+      person:
+        one: "Persoon"
+        other: "Personen"
+
+      group:
+        one: "Groep"
+        other: "Groepen"
+
+      activity:
+        one: "Activiteit"
+        other: "Activiteiten"
+
+      member:
+        one: "Lid"
+        other: "Leden"
+
+    attributes:
+      person:
+        first_name: "Voornaam"
+        infix: "Tussenvoegsel"
+        last_name: "Achternaam"
+        email: "Emailadres"
+        birth_date: "Geboortedatum"
+
+      group:
+        name: "Naam"
+        members: "Leden"
+        activities: "Activiteiten"
+
+      activity:
+        name: "Naam"
+        start: "Start"
+        end: "Eind"
+        description: "Beschrijving"
+        deadline: "Deadline"

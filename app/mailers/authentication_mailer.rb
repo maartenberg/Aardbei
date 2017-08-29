@@ -8,7 +8,7 @@ class AuthenticationMailer < ApplicationMailer
     @token = token
     @user = user
 
-    mail(to: @user.email, subject: "Reset your Aardbei-password")
+    mail(to: @user.email, subject: I18n.t('authentication.emails.forgot.subject'))
   end
 
   def password_confirm_email(user)
@@ -20,6 +20,6 @@ class AuthenticationMailer < ApplicationMailer
     @token = token
     @user = user
 
-    mail(to: @user.email, subject: "Confirm your Aardbei-account")
+    mail(to: @user.email, subject: I18n.t('authentication.emails.confirm.subject'))
   end
 end

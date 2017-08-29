@@ -1,4 +1,4 @@
-<h1>People</h1>
+<h1><%= t 'activerecord.models.person.other' %></h1>
 
 <table class="table">
   <thead>
@@ -11,9 +11,9 @@
     <% @people.each do |person| %>
       <tr>
         <td><%= person.full_name %></td>
-        <td><%= link_to 'Show', person %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t(:show), person %></td>
+        <td><%= link_to t(:edit), edit_person_path(person) %></td>
+        <td><%= link_to t(:destroy), person, method: :delete, data: { confirm: t(:areyousure)} %></td>
       </tr>
     <% end %>
   </tbody>
@@ -21,4 +21,4 @@
 
 <br>
 
-<%= link_to 'New Person', new_person_path %>
+<%= link_to t('person.new'), new_person_path %>

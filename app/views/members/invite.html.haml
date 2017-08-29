@@ -1,5 +1,5 @@
 %h1
-  Invite new person to Aardbei
+  = t 'groups.member.invite'
 
 = render 'people/form', person: @person, no_admin: true, destination: 'invite'
-= link_to 'Back', group_members_path(@group)
+= link_to t(:back), group_members_path(@group)

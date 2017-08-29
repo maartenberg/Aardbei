@@ -30,13 +30,13 @@ class MembersController < ApplicationController
 
   def promote
     @member.update_attribute(:is_leader, true)
-    flash_message(:success, "#{@member.person.full_name} is now a group leader.")
+    flash_message(:success, I18n.t('groups.leader_added', name: @member.person.full_name))
     redirect_to group_members_path(@group)
   end
 
   def demote
     @member.update_attribute(:is_leader, false)
-    flash_message(:success, "#{@member.person.full_name} is no longer a group leader.")
+    flash_message(:success, I18n.t('groups.leader_removed', name: @member.person.full_name))
     redirect_to group_members_path(@group)
   end
 
@@ -91,7 +91,7 @@ class MembersController < ApplicationController
       if @member.save
         format.html {
           redirect_to group_member_url(@group, @member)
-          flash_message(:info, "#{@member.full_name} was added successfully.")
+          flash_message(:info, I18n.t('groups.member_added', name: @member.person.name))
         }
         format.json { render :show, status: :created, location: @member }
       else
@@ -109,7 +109,7 @@ class MembersController < ApplicationController
       if @member.update(member_params)
         format.html {
           redirect_to group_member_url(@group, @member)
-          flash_message(:info, 'Member was successfully updated.')
+          flash_message(:info, I18n.t('groups.member_updated'))
         }
         format.json { render :show, status: :ok, location: @member }
       else
@@ -127,7 +127,7 @@ class MembersController < ApplicationController
     respond_to do |format|
       format.html {
         redirect_to group_members_url(@group)
-        flash_message(:info, "#{@member.person.full_name} was successfully removed.")
+        flash_message(:info, I18n.t('groups.member_removed', name: @member.person.name))
       }
       format.json { head :no_content }
     end

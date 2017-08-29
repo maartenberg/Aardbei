@@ -99,14 +99,14 @@ class Activity < ApplicationRecord
   # is set before the event starts.
   def deadline_before_start
     if self.deadline > self.start
-      errors.add(:deadline, 'must be before start')
+      errors.add(:deadline, I18n.t('activities.errors.must_be_before_start'))
     end
   end
 
   # Assert that the activity's end, if any, occurs after the event's start.
   def end_after_start
     if self.end < self.start
-      errors.add(:end, 'must be after start')
+      errors.add(:end, I18n.t('activities.errors.must_be_after_start'))
     end
   end
 end

@@ -1,12 +1,12 @@
-<h1>Groups</h1>
+<h1><%= t('activerecord.models.group.other') %></h1>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Members</th>
-      <th>Events</th>
-      <th colspan="2">Actions</th>
+      <th><%= t 'activerecord.attributes.group.name' %></th>
+      <th><%= t 'activerecord.attributes.group.members' %></th>
+      <th><%= t 'activerecord.attributes.group.activities' %></th>
+      <th colspan="2"><%= t :actions %></th>
     </tr>
   </thead>
 
@@ -16,8 +16,8 @@
         <td><%= link_to group.name, group %></td>
         <td><%= link_to group.members.count, group_members_path(group) %></td>
         <td><%= link_to group.activities.count, group_activities_path(group) %></td>
-        <td><%= link_to 'Edit', edit_group_path(group) %></td>
-        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t(:edit), edit_group_path(group) %></td>
+        <td><%= link_to t(:destroy), group, method: :delete, data: { confirm: t(:areyousure)} %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Group', new_group_path %>
+<%= link_to t('groups.new'), new_group_path %>

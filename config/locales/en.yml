@@ -21,17 +21,62 @@
 
 en:
   hello: "Hello world"
+  greeting: "Hoi %{name}!"
 
-  collapse: Collapse
+  collapse: "Collapse"
 
-  log_out: Log out
-  log_in: Log in
+  log_out: "Log out"
+  log_in: "Log in"
 
-  cancel: Cancel
-  back: Back
-  show: Show
-  edit: Edit
-  destroy: Delete
-  send_email: Send email
+  actions: "Acties"
+  cancel: "Cancel"
+  back: "Back"
+  show: "Show"
+  edit: "Edit"
+  destroy: "Delete"
+  remove: "Remove"
+  send_email: "Send email"
 
-  areyousure: Are you sure?
+  areyousure: "Are you sure?"
+
+  value_required: "A required value was omitted."
+
+  invalid_csrf: "You submitted an invalid request! If you got here after clicking a link, it's possible that someone is doing something nasty!"
+
+  activerecord:
+    models:
+      person:
+        one: "Person"
+        other: "Persons"
+
+      group:
+        one: "Group"
+        other: "Groups"
+
+      activity:
+        one: "Activity"
+        other: "Activities"
+
+      member:
+        one: "Member"
+        other: "Members"
+
+    attributes:
+      person:
+        first_name: "First name"
+        infix: "Infix"
+        last_name: "Last name"
+        email: "Email address"
+        birth_date: "Date of birth"
+
+      group:
+        name: "Name"
+        members: "Members"
+        activities: "Activities"
+
+      activity:
+        name: "Name"
+        start: "Start"
+        end: "End"
+        description: "Description"
+        deadline: "Deadline"

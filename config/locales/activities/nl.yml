@@ -1,29 +1,40 @@
 nl:
   activities:
-    singular: Activiteit
-    plural: Activiteiten
+    singular: "Activiteit"
+    plural: "Activiteiten"
 
-    new: New activity
+    new: "Nieuwe activiteit"
+    created: "Activiteit aangemaakt."
+    updated: "Activiteit bijgewerkt."
+    destroyed: "Activiteit verwijderd."
+
+    upcoming_yours: "Aankomende activiteiten georganiseerd door jou"
+    yours: "Jouw activiteiten"
+
+    errors:
+      must_be_before_start: "moet voor start zijn"
+      must_be_after_start: "moet na start zijn"
+      already_in: "persoon doet al mee aan activiteit"
 
     participant:
-      singular: deelnemer
-      plural: deelnemers
-      notes: Opmerkingen
-      add_notes: Opmerkingen toevoegen
-      yourresponse: Jouw antwoord
+      singular: "deelnemer"
+      plural: "deelnemers"
+      notes: "Opmerkingen"
+      add_notes: "Opmerkingen toevoegen"
+      yourresponse: "Jouw antwoord"
 
     state:
-      need_response: Nog geen reactie
-      present: Aanwezig
-      absent: Afwezig
-      unknown: Onbekend
+      need_response: "Nog geen reactie"
+      present: "Aanwezig"
+      absent: "Afwezig"
+      unknown: "Onbekend"
 
     attrs:
-      name: Naam
-      group: Groep
-      when: Wanneer
-      where: Waar
-      actions: Acties
-      organizers: Organisatoren
-      description: Omschrijving
-      deadline: Deadline
+      name: "Naam"
+      group: "Groep"
+      when: "Wanneer"
+      where: "Waar"
+      actions: "Acties"
+      organizers: "Organisatoren"
+      description: "Omschrijving"
+      deadline: "Deadline"

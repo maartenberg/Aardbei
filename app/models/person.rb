@@ -72,7 +72,7 @@ class Person < ApplicationRecord
   # Assert that the person's birth date, if any, lies in the past.
   def birth_date_cannot_be_in_future
     if self.birth_date && self.birth_date > Date.today
-      errors.add(:birth_date, "can't be in the future.")
+      errors.add(:birth_date, I18n.t('person.errors.cannot_future'))
     end
   end
 

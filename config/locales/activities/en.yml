@@ -1,29 +1,40 @@
 en:
   activities:
-    singular: Activity
-    plural: Activities
+    singular: "Activity"
+    plural: "Activities"
 
-    new: Nieuwe activiteit
+    new: "New activity"
+    created: "Activity created."
+    updated: "Activity updated."
+    destroyed: "Activity destroyed."
+
+    upcoming_yours: "Upcoming activities organized by you"
+    yours: "Your activities"
+
+    errors:
+      must_be_before_start: "must be before start"
+      must_be_after_start: "must be after start"
+      already_in: "person already participates in activity"
 
     participant:
-      singular: participant
-      plural: participants
-      notes: Notes
-      add_notes: Add notes
-      yourresponse: Your response
+      singular: "participant"
+      plural: "participants"
+      notes: "Notes"
+      add_notes: "Add notes"
+      yourresponse: "Your response"
 
     state:
-      need_response: Need response
-      present: Present
-      absent: Absent
-      unknown: Unknown
+      need_response: "Need response"
+      present: "Present"
+      absent: "Absent"
+      unknown: "Unknown"
 
     attrs:
-      name: Name
-      group: Group
-      when: When
-      where: Where
-      actions: Actions
-      organizers: Organizers
-      description: Description
-      deadline: Deadline
+      name: "Name"
+      group: "Group"
+      when: "When"
+      where: "Where"
+      actions: "Actions"
+      organizers: "Organizers"
+      description: "Description"
+      deadline: "Deadline"

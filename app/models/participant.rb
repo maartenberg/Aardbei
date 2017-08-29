@@ -21,7 +21,7 @@ class Participant < ApplicationRecord
   validates :person_id,
     uniqueness: {
       scope: :activity_id,
-      message: "person already participates in this activity"
+      message: I18n.t('activities.errors.already_in')
     }
 
   # TODO: Move to a more appropriate place

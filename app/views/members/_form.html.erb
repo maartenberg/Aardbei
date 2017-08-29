@@ -13,7 +13,7 @@
 
   <div class="actions">
     <%= f.collection_select(:person_id, @possible_members, :id, :full_name, prompt: true) %>
-    <%= f.check_box :is_leader %> Beheerder
+    <%= f.check_box :is_leader %> <%= t 'groups.leader' %>
     <%= f.submit %>
   </div>
 <% end %>

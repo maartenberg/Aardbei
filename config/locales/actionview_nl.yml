@@ -51,6 +51,6 @@ nl:
 
     # Default translation keys for submit and button FormHelper
     submit:
-      create: '%{model} aanmaken'
-      update: '%{model} bijwerken'
-      submit: '%{model} opslaan'
+      create: "%{model} aanmaken"
+      update: "%{model} bijwerken"
+      submit: "%{model} opslaan"

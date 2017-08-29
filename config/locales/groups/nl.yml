@@ -1,8 +1,38 @@
 nl:
   groups:
-    singular: Groep
-    plural: Groepen
-    all: Alle Groepen
+    singular: "Groep"
+    plural: "Groepen"
+    all: "Alle Groepen"
+    yours: "Jouw groepen"
+
+    new: "Nieuwe groep"
+    edit: "Groep bewerken"
+    created: "Groep aangemaakt."
+    updated: "Groep bijgewerkt."
+    destroyed: "Groep verwijderd."
+
+    leader: "Groepsleider"
+    leader_added: "%{name} is nu een groepsleider."
+    leader_removed: "%{name} is nu geen groepsleider meer."
+
+    demote: "Maak normaal"
+    promote: "Maak leider"
+
+    member_added: "%{name} is toegevoegd aan de groep."
+    member_updated: "Lid bijgewerkt."
+    member_removed: "%{name} is verwijderd uit de groep."
+
+    member:
+      add: "Lid toevoegen"
+      adding: "Lid toevoegen aan %{name}"
+      invite: "Nieuw persoon aan Aardbei toevoegen"
+      already_in: "zit al in deze groep"
+      ismember: "%{person} is lid van %{group}."
+      plural: "leden"
+      edit: "Lid bewerken"
+
+    membership_required: "Je moet een lid zijn van die groep om dat te doen."
+    leadership_required: "Je moet een groepsleider zijn om dat te doen."
 
     attrs:
-      name: Naam
+      name: "Naam"

@@ -54,7 +54,7 @@
             :notes,
             url: presence_group_activity_path(@activity.group, @activity, person_id: @ownparticipant.person_id),
             title: t('activities.participant.notes'),
-            value: "",
+            value: @ownparticipant.notes,
             emptytext: t('activities.participant.add_notes')
 
 .hidden-xs
@@ -138,7 +138,7 @@
 
           %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
             %td{colspan: "2"}
-              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activitites.participant.notes'), value: p.notes, emptytext: "--"
+              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
 
   .panel.panel-default.panel-danger
     .panel-heading
@@ -169,4 +169,4 @@
 
           %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
             %td{colspan: "2"}
-              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activitites.participant.notes'), value: p.notes, emptytext: "--"
+              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"

@@ -56,7 +56,7 @@ class GroupsController < ApplicationController
       if @group.save
         format.html {
           redirect_to @group
-          flash_message(:info, 'Group was successfully created.')
+          flash_message(:info, I18n.t('groups.created'))
         }
         format.json { render :show, status: :created, location: @group }
       else
@@ -73,7 +73,7 @@ class GroupsController < ApplicationController
       if @group.update(group_params)
         format.html {
           redirect_to @group
-          flash_message(:info, 'Group was successfully updated.')
+          flash_message(:info, I18n.t('groups.updated'))
         }
         format.json { render :show, status: :ok, location: @group }
       else
@@ -90,7 +90,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html {
         redirect_to groups_url
-        flash_message(:info, 'Group was successfully destroyed.')
+        flash_message(:info, I18n.t('groups.destroyed'))
       }
       format.json { head :no_content }
     end

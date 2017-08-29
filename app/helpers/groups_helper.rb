@@ -2,7 +2,7 @@ module GroupsHelper
   def require_membership!
     require_login!
     if !(@group.is_member?(current_person) || current_person.is_admin?)
-      flash_message(:danger, "You need to be a member of that group to do that.")
+      flash_message(:danger, I18n.t('groups.membership_required'))
       redirect_to dashboard_home_path
     end
   end
@@ -12,7 +12,7 @@ module GroupsHelper
 
     if !(@group.is_leader?(current_person) ||
          current_person.is_admin?)
-      flash_message(:danger, "You need to be a group leader to do that.")
+      flash_message(:danger, I18n.t('groups.leadership_required'))
       redirect_to dashboard_home_path
     end
   end

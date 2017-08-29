@@ -1,9 +1,18 @@
 en:
   person:
-    singular: Person
-    plural: People
-    all: All persons
+    singular: "Person"
+    plural: "People"
+    all: "All persons"
+
+    new: "New Person"
+    editing: "Editing Person"
+    created: "Person created."
+    updated: "Person updated."
+    destroyed: "Person destroyed."
+
+    errors:
+      cannot_future: "can't be in the future"
 
     attrs:
-      email: Email address
-      password: Password
+      email: "Email address"
+      password: "Password"

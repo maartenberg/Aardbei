@@ -5,7 +5,7 @@
         %i.fa.fa-check
       - else
         %i.fa.fa-check-circle
-      = t 'activitites.state.present'
+      = t 'activities.state.present'
 
   .btn-group
     %button.btn.btn-danger.btn-absent.btn-presence{data: {wide: 1, person_id: person.id, activity_id: activity.id, group_id: activity.group.id, new_state: "absent"}}
@@ -13,4 +13,4 @@
         %i.fa.fa-times-circle
       - else
         %i.fa.fa-times
-      = t 'activitites.state.absent'
+      = t 'activities.state.absent'

@@ -6,7 +6,7 @@ class AuthenticationController < ApplicationController
 
   def login
     if params[:session][:email].blank? || params[:session][:password].blank?
-      flash_message(:warning, "You forgot to add value")
+      flash_message(:warning, I18n.t(:value_required))
       redirect_to action: 'login_form'
     else
       u = User.find_by(email: params[:session][:email])
@@ -14,13 +14,13 @@ class AuthenticationController < ApplicationController
       if u && u.confirmed && u.authenticate(params[:session][:password])
         log_in(u, params[:session][:remember_me].to_i)
 
-        flash_message(:success, "Hello, #{u.person.full_name}!")
+        flash_message(:success, I18n.t(:greeting, name: u.person.first_name))
         redirect_to root_path
       elsif u and not u.confirmed
-        flash_message(:warning, "Your account has not been activated yet, please confirm using the email you have received.")
+        flash_message(:warning, I18n.t('authentication.activation_required'))
         redirect_to action: 'login_form'
       else
-        flash_message(:danger, "Invalid username/password combination!")
+        flash_message(:danger, I18n.t('authentication.invalid_user_or_pass'))
         redirect_to action: 'login_form'
       end
     end
@@ -47,14 +47,14 @@ class AuthenticationController < ApplicationController
     person = Person.find_by(email: params[:user][:email])
 
     if not person
-      flash_message(:warning, "That email address is unknown!")
+      flash_message(:warning, I18n.t('authentication.unknown_email'))
       redirect_to action: 'create_password_form'
       return
     end
 
     user = User.find_by(person: person)
     if user and user.confirmed
-      flash_message(:warning, "Your account has already been activated, please use the login form if you have forgotten your password.")
+      flash_message(:warning, I18n.t('authentication.already_activated'))
       redirect_to action: 'login'
       return
     end
@@ -69,7 +69,7 @@ class AuthenticationController < ApplicationController
     end
 
     AuthenticationMailer::password_confirm_email(user).deliver_now
-    flash_message(:success, "An email has been sent, check your inbox!")
+    flash_message(:success, I18n.t('authentication.emails.sent'))
     redirect_to action: 'login'
   end
 
@@ -80,12 +80,12 @@ class AuthenticationController < ApplicationController
   def forgotten_password
     user = User.find_by(email: params[:password_reset][:email])
     if not user
-      flash_message(:danger, "That email address is not associated with any user.")
+      flash_message(:danger, I18n.t('authentication.unknown_email'))
       redirect_to action: 'forgotten_password_form'
       return
     end
     AuthenticationMailer::password_reset_email(user).deliver_later
-    flash_message(:success, "An email has been sent, check your inbox!")
+    flash_message(:success, I18n.t('authentication.emails.sent'))
     redirect_to action: 'login'
   end
 
@@ -104,7 +104,7 @@ class AuthenticationController < ApplicationController
     end
 
     if not params[:password] == params[:password_confirmation]
-      flash_message(:warning, "Password confirmation does not match your password!")
+      flash_message(:warning, I18n.t('authentication.password_repeat_mismatch'))
       redirect_to action: 'reset_password_form', token: params[:token]
       return
     end
@@ -116,7 +116,7 @@ class AuthenticationController < ApplicationController
 
     token.destroy!
 
-    flash_message(:success, "Your password has been reset, you may now log in.")
+    flash_message(:success, I18n.t('authentication.password_reset_complete'))
     redirect_to action: 'login'
   end
 
@@ -140,7 +140,7 @@ class AuthenticationController < ApplicationController
 
     token.destroy!
 
-    flash_message(:success, "Your account has been confirmed, you may now log in.")
+    flash_message(:success, I18n.t('authentication.activation_complete'))
     redirect_to action: 'login'
   end
 
@@ -151,12 +151,12 @@ class AuthenticationController < ApplicationController
 
   def token_valid?(token)
     if token.nil?
-      flash_message(:warning, "No valid token specified!")
+      flash_message(:warning, I18n.t('authentication.invalid_token'))
       redirect_to action: 'login'
       return false
     end
     if token.expires and token.expires < DateTime.now
-      flash_message(:warning, "That token has expired, please request a new one.")
+      flash_message(:warning, I18n.t('authentication.token_expired'))
       redirect_to action: 'login'
       return false
     end

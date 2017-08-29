@@ -1,26 +1,41 @@
 nl:
   authentication:
-    confirm_account: Wachtwoord aanmaken
-    forgot_password: Wachtwoord vergeten
-    reset_password: Wachtwoord veranderen
-    create_account: Account aanmaken
+    confirm_account: "Wachtwoord aanmaken"
+    forgot_password: "Wachtwoord vergeten"
+    reset_password: "Wachtwoord veranderen"
+    create_account: "Account aanmaken"
 
-    please_sign_in: Log eerst in
-    remember_me: Onthouden
+    please_sign_in: "Log eerst in"
+    remember_me: "Onthouden"
 
-    new_password: Nieuw wachtwoord
-    new_password_confirm: Herhaal nieuw wachtwoord
+    new_password: "Nieuw wachtwoord"
+    new_password_confirm: "Herhaal nieuw wachtwoord"
 
-    need_introducer: Je kan alleen een account aanmaken wanneer je door een beheerder aan een groep bent toegevoegd. Neem contact op met iemand wanneer je emailadres niet wordt herkend.
+    need_introducer: "Je kan alleen een account aanmaken wanneer je door een beheerder aan een groep bent toegevoegd. Neem contact op met iemand wanneer je emailadres niet wordt herkend."
+
+    unknown_email: "Onbekend e-mailadres."
+    invalid_token: "Ongeldig token!"
+    expired_token: "Je token is verlopen, vraag een nieuwe aan."
+    invalid_user_or_pass: "Gebruikersnaam en/of wachtwoord onjuist."
+    login_required: "Je moet eerst inloggen."
+    admin_required: "Je moet een beheerder zijn om dat te doen."
+    activation_required: "Je account is nog niet geactiveerd! Bevestig je e-mailadres door op de link te klikken die je in je mail hebt gehad."
+    already_activated: "Je account is al geactiveerd! Gebruik het 'Wachtwoord vergeten'-formulier als je je wachtwoord opnieuw in wilt stellen."
+    password_repeat_mismatch: "Je hebt niet twee keer hetzelfde wachtwoord ingevuld!"
+    activation_complete: "Je account is geactiveerd, je kunt nu inloggen."
+    password_reset_complete: "Je wachtwoord is opnieuw ingesteld, je kunt nu inloggen."
+    user_person_mail_mismatch: "moet hetzelfde zijn als het emailadres van de verbonden persoon"
 
     emails:
-      greeting: Hoi %{name},
-      ending: Aardbei
-      link_expires: Deze link is bruikbaar tot %{expires}.
+      sent: "Mail verstuurd!"
+      greeting: "Hoi %{name},"
+      ending: "Aardbei"
+      link_expires: "Deze link is bruikbaar tot %{expires}."
 
       confirm:
-        click_this: Bevestig je account voor Aardbei door te klikken op de volgende link.
+        subject: "Bevestig je Aardbei-account"
+        click_this: "Bevestig je account voor Aardbei door te klikken op de volgende link."
 
       forgot:
-        blurb: Jij (of iemand die doet alsof hij jou is) heeft een wachtwoordwijziging aangevraagd. Open de volgende link als je dit wilt.
-        ignore_if_not_you: Als jij dit niet hebt aangevraagd kan je dit bericht negeren, en is je oude wachtwoord onveranderd.
+        blurb: "Jij (of iemand die doet alsof hij jou is) heeft een wachtwoordwijziging aangevraagd. Open de volgende link als je dit wilt:"
+        ignore_if_not_you: "Als jij dit niet hebt aangevraagd kan je dit bericht negeren, en is je oude wachtwoord onveranderd."

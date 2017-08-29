@@ -1,8 +1,38 @@
 en:
   groups:
-    singular: Group
-    plural: Groups
-    all: All Groups
+    singular: "Group"
+    plural: "Groups"
+    all: "All Groups"
+    yours: "Your groups"
+
+    new: "New group"
+    edit: "Edit group"
+    created: "Group created."
+    updated: "Group updated."
+    destroyed: "Group destroyed."
+
+    leader: "Group leader"
+    leader_added: "%{name} is now a group leader."
+    leader_removed: "%{name} is no longer a group leader."
+
+    demote: "Demote"
+    promote: "Promote"
+
+    member_added: "%{name} was added to the group."
+    member_updated: "Member updated."
+    member_removed: "%{name} was removed from the group."
+
+    member:
+      add: "New Member"
+      adding: "Add member to %{name}"
+      invite: "Invite a new person to Aardbei"
+      already_in: "is already a member of this group"
+      ismember: "%{person} is a member of %{group}."
+      plural: "members"
+      edit: "Edit Member"
+
+    membership_required: "You need to be a member of that group to do that."
+    leadership_required: "You need to be a group leader to do that."
 
     attrs:
-      name: Name
+      name: "Name"

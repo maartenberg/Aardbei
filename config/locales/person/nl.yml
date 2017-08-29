@@ -1,9 +1,17 @@
 nl:
   person:
-    singular: Persoon
-    plural: Personen
-    all: Alle personen
+    singular: "Persoon"
+    plural: "Personen"
+    all: "Alle personen"
 
+    new: "Nieuwe Persoon"
+    editing: "Persoon bewerken"
+    created: "Persoon aangemaakt."
+    updated: "Persoon bijgewerkt."
+    destroyed: "Persoon verwijderd."
+
+    errors:
+      cannot_future: "kan niet in de toekomst zijn"
     attrs:
-      email: Emailadres
-      password: Wachtwoord
+      email: "Emailadres"
+      password: "Wachtwoord"

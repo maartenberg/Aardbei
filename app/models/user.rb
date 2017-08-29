@@ -23,7 +23,7 @@ class User < ApplicationRecord
   # the associated Person.
   def email_same_as_person
     if self.person and self.email != self.person.email
-      errors.add(:email, "must be the same as associated person's email")
+      errors.add(:email, I18n.t('authentication.user_person_mail_mismatch'))
     end
   end
 end

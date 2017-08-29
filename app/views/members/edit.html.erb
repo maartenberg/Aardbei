@@ -1,6 +1,6 @@
-<h1>Editing Member</h1>
+<h1><%= t 'groups.member.edit' %></h1>
 
 <%= render 'form', member: @member %>
 
-<%= link_to 'Show', group_member_path(@group, @member) %> |
-<%= link_to 'Back', group_members_path(@group) %>
+<%= link_to t(:show), group_member_path(@group, @member) %> |
+<%= link_to t(:back), group_members_path(@group) %>

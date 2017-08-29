@@ -48,7 +48,7 @@ class ActivitiesController < ApplicationController
       if @activity.save
         format.html {
           redirect_to group_activity_url(@group, @activity)
-          flash_message(:info, 'Activity was successfully created.')
+          flash_message(:info, I18n.t('activities.created'))
         }
         format.json { render :show, status: :created, location: @activity }
       else
@@ -65,7 +65,7 @@ class ActivitiesController < ApplicationController
       if @activity.update(activity_params)
         format.html {
           redirect_to group_activity_url(@group, @activity)
-          flash_message(:info, 'Activity was successfully updated.')
+          flash_message(:info, I18n.t('activities.updated'))
         }
         format.json { render :show, status: :ok, location: @activity }
       else

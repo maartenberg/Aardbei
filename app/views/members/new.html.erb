@@ -1,5 +1,5 @@
-<h1>Add member to <%= @group.name %></h1>
+<h1><%= t('groups.member.adding', name: @group.name) %></h1>
 
 <%= render 'form', member: @member %>
 
-<%= link_to 'Back', group_members_path(@group) %>
+<%= link_to t(:back), group_members_path(@group) %>

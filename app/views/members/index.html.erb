@@ -3,9 +3,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
+      <th><%= t 'activerecord.attributes.group.name' %></th>
       <% if @admin %>
-        <th colspan="2">Actions</th>
+        <th colspan="2"><%= t :actions %></th>
       <% end %>
     </tr>
   </thead>
@@ -23,15 +23,15 @@
         <% if @admin and current_person != member.person %>
             <% if member.is_leader %>
               <td>
-                <%= link_to 'Demote', demote_group_member_path(@group, member), method: :post, data: { confirm: 'Are you sure?' } %>
+                <%= link_to t('groups.demote'), demote_group_member_path(@group, member), method: :post, data: { confirm: t(:areyousure)} %>
               </td>
             <% else %>
               <td>
-                <%= link_to 'Promote', promote_group_member_path(@group, member), method: :post, data: { confirm: 'Are you sure?' } %>
+                <%= link_to t('groups.promote'), promote_group_member_path(@group, member), method: :post, data: { confirm: t(:areyousure)} %>
               </td>
             <% end %>
             <td>
-              <%= link_to 'Remove', group_member_path(@group, member), method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to t(:remove), group_member_path(@group, member), method: :delete, data: { confirm: t(:areyousure)} %>
             </td>
           <% else %>
             <td></td><td></td>
@@ -43,5 +43,5 @@
 
 <br>
 
-<%= link_to 'New Member', new_group_member_path(@group) %> |
-<%= link_to 'Invite Member', group_invite_path(@group) %>
+<%= link_to t('groups.member.add'), new_group_member_path(@group) %> |
+<%= link_to t('groups.member.invite'), group_invite_path(@group) %>

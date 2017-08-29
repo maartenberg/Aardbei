@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
 
   private
   def invalid_auth_token
-    render text: "You submitted an invalid request! If you got here after clicking a link, it's possible that someone is doing something nasty!", status: 400
+    render text: I18n.t(:invalid_csrf), status: 400
   end
 end
