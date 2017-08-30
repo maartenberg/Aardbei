@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'byebug'
 
+return if Rails.env.production?
+
 p = Person.create!(
   first_name: 'Maarten',
   infix: 'van den',
@@ -51,7 +53,7 @@ end
 end
 
 a = Activity.create!(
-  public_name: 'Fikkie stoken ofzo',
+  name: 'Fikkie stoken ofzo',
   description: 'Een scout trekt er samen met anderen op uit',
   location: 'In het bos in het bos',
   start: 4.weeks.since,
@@ -67,7 +69,7 @@ Group.all.each do |g|
     deadline  = 5.days.ago(starttime)
 
     act = Activity.create!(
-      public_name: Faker::Hacker.ingverb,
+      name: Faker::Hacker.ingverb,
       description: Faker::Hipster.sentence,
       location: Faker::Address.city,
       start: starttime,
