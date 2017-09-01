@@ -45,6 +45,17 @@ class PeopleController < ApplicationController
     end
   end
 
+  def mass_new
+  end
+
+  def mass_create
+    require 'csv'
+    uploaded_io = params[:spreadsheet]
+    result = Person.from_csv(uploaded_io.read)
+    flash_message(:success, "#{result.count} people created")
+    redirect_to :people
+  end
+
   # PATCH/PUT /people/1
   # PATCH/PUT /people/1.json
   def update

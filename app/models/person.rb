@@ -68,6 +68,27 @@ class Person < ApplicationRecord
     self.participants.includes(:activity).where(is_organizer: true)
   end
 
+  # Create multiple Persons from data found in a csv file, return those.
+  def self.from_csv(content)
+    reader = CSV.parse(content, {headers: true, skip_blanks: true})
+
+    result = []
+    reader.each do |row|
+      p = Person.find_by(email: row['email'])
+      if not p
+        p = Person.new
+        p.first_name  = row['first_name']
+        p.infix       = row['infix']
+        p.last_name   = row['last_name']
+        p.email       = row['email']
+        p.birth_date  = Date.strptime(row['birth_date'])
+        p.save!
+      end
+      result << p
+    end
+
+    return result
+  end
   private
   # Assert that the person's birth date, if any, lies in the past.
   def birth_date_cannot_be_in_future

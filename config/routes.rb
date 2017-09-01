@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get 'logout', to: 'authentication#logout_confirm'
   delete 'logout', to: 'authentication#logout'
 
+  get 'people/mass_new', to: 'people#mass_new'
+  post 'people/mass_new', to: 'people#mass_create'
   resources :people
 
   resources :groups do

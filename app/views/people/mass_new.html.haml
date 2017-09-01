@@ -1,0 +1,6 @@
+.container
+  .row
+    .col-md-12
+      = form_tag('/people/mass_new', method: 'post', multipart: true) do
+        = file_field_tag 'spreadsheet'
+        = submit_tag
