@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'byebug'
 
-return if Rails.env.production?
+exit if Rails.env.production?
 
 p = Person.create!(
   first_name: 'Maarten',
