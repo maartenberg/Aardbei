@@ -1,0 +1,12 @@
+[Unit]
+Description=Aardbei-server
+After=network.target
+
+[Service]
+User=aardbei
+Group=aardbei
+WorkingDirectory=/home/aardbei/aardbei
+ExecStart=/home/aardbei/.rbenv/shims/puma
+
+[Install]
+WantedBy=multi-user.target
