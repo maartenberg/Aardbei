@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   include GroupsHelper
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin!, only: [:index]
+  before_action :require_admin!, only: [:index, :process_mass_add_members, :mass_add_members]
   before_action :require_membership!, only: [:show]
   before_action :require_leader!, only: [:edit, :update, :destroy]
 
@@ -94,6 +94,27 @@ class GroupsController < ApplicationController
       }
       format.json { head :no_content }
     end
+  end
+
+  def mass_add_members
+    @group = Group.find(params[:group_id])
+  end
+
+  def process_mass_add_members
+    @group = Group.find(params[:group_id])
+    require 'csv'
+    uploaded_io = params[:spreadsheet]
+    result = Person.from_csv(uploaded_io.read)
+
+    result.each do |p|
+      m = Member.find_by(person: p, group: @group)
+      if not m
+        m = Member.new(person: p, group: @group)
+        m.save!
+      end
+    end
+    flash_message(:success, "#{result.count} people added to group")
+    redirect_to group_members_path(@group)
   end
 
   private

@@ -1,0 +1,9 @@
+.container
+  .row
+    .col-md-12
+      %h1
+        Mass-adding members to
+        = @group.name
+      = form_tag("/groups/#{@group.id}/mass_add", method: 'post', multipart: true) do
+        = file_field_tag 'spreadsheet'
+        = submit_tag

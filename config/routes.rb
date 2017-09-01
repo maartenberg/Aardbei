@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     get 'invite', to: 'members#invite'
     post 'invite', to: 'members#process_invite'
 
+    get 'mass_add', to: 'groups#mass_add_members'
+    post 'mass_add', to: 'groups#process_mass_add_members'
+
     resources :members do
       post 'promote', to: 'members#promote', on: :member
       post 'demote', to: 'members#demote', on: :member
