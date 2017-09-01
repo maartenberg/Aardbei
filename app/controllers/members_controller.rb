@@ -42,9 +42,10 @@ class MembersController < ApplicationController
 
   def process_invite
     @person = Person.find_by(email: params[:person][:email])
+    new_rec = false
     if not @person
       @person = Person.new(invite_params)
-
+      new_rec = true
 
       if not @person.save
         respond_to do |format|
@@ -55,10 +56,8 @@ class MembersController < ApplicationController
       end
     end
 
-    new_rec = @member.new_record?
     @member = Member.new(person: @person, group: @group, is_leader: false)
     @member.save!
-
 
     respond_to do |format|
       format.html do
@@ -91,7 +90,7 @@ class MembersController < ApplicationController
       if @member.save
         format.html {
           redirect_to group_member_url(@group, @member)
-          flash_message(:info, I18n.t('groups.member_added', name: @member.person.name))
+          flash_message(:info, I18n.t('groups.member_added', name: @member.person.full_name))
         }
         format.json { render :show, status: :created, location: @member }
       else
