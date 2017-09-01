@@ -17,3 +17,9 @@ RAILS_SERVE_STATIC_FILES=
 DB_NAME=
 DB_USER=
 DB_PASS=
+
+# Where are we?
+AARDBEI_PATH=
+
+# Do we bind to a socket or port?
+PUMA_BIND=
