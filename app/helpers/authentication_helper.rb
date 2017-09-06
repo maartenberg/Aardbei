@@ -71,11 +71,11 @@ module AuthenticationHelper
           return false
         end
 
-        session_password = BCrypt::Password.new s.remember_digest
+        session_password = BCrypt::Password.new @user_session.remember_digest
 
         if @user_session.expires > DateTime.now &&
             session_password == cookies.signed.permanent[:remember_token]
-          log_in s.user, false, false
+          log_in @user_session.user, false, false
           return true
         end
 
