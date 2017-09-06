@@ -90,7 +90,7 @@
 
         = t 'activities.state.present'
         %span.badge
-          = @counts[true]
+          = @counts[true] || "0"
 
     %table.table.collapse#present-collapse
       %tbody
@@ -122,7 +122,7 @@
         = t 'activities.state.need_response'
 
         %span.badge
-          = @counts[nil]
+          = @counts[nil] || "0"
 
     %table.table.collapse#unknown-collapse
       %tbody
@@ -153,7 +153,7 @@
         = t 'activities.state.absent'
 
         %span.badge
-          = @counts[false]
+          = @counts[false] || "0"
 
     %table.table.collapse#absent-collapse
       %tbody
