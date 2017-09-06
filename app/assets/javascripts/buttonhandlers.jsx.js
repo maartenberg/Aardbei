@@ -41,11 +41,18 @@ function change_presence(e)
 	req = $.ajax(`/groups/${group}/activities/${activity}/presence`,
 		{
 		  method: 'PUT',
-		  data: {person_id: person, attending: state}
+		  data: {person_id: person, attending: state},
+		  statusCode: {
+			423: function() {
+				alert( "De deadline is al verstreken! Vraag orgi of bestuur of het nog kan.");
+			},
+			403: function() {
+				alert( "Je hebt geen rechten om iemand anders aan te passen!");
+			}
+		  }
 		}
 	)
-	.done( activity_changed )
-	.fail( alert_failure );
+	.done( activity_changed );
 
 	// Pack data for success
 	req.aardbei_activity_data =

@@ -124,14 +124,21 @@ class ActivitiesController < ApplicationController
       person_id: params[:person_id],
       activity: @activity
     )
-    if !@activity.may_change?(current_person)
-      render status: :forbidden
+    if params[:person_id].to_i != current_person.id && !@activity.may_change?(current_person)
+      head :forbidden
+      return
+    end
+
+    if @activity.deadline && @activity.deadline < Time.now && !@activity.may_change?(current_person)
+      head :locked
+      return
     end
 
     if params[:participant]
       params[:notes] = params[:participant][:notes]
     end
     participant.update_attributes(params.permit(:notes, :attending))
+    head :no_content
   end
 
   def mass_new
