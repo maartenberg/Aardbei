@@ -1,0 +1,23 @@
+nl:
+  hello: "Hallo wereld"
+  greeting: "Hoi %{name}!"
+
+  collapse: "Inklappen"
+
+  log_out: "Uitloggen"
+  log_in: "Inloggen"
+
+  actions: "Acties"
+  cancel: "Annuleren"
+  back: "Terug"
+  show: "Weergeven"
+  edit: "Bewerken"
+  destroy: "Verwijderen"
+  remove: "Verwijderen"
+  send_email: "Email versturen"
+
+  areyousure: "Weet je het zeker?"
+
+  value_required: "Een verplichte vraag was leeg."
+
+  invalid_csrf: "Ongeldig authenticiteitstoken! Als je hier terecht bent gekomen na het klikken op een link is het mogelijk dat iemand iets naars probeerde!"

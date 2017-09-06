@@ -1,0 +1,87 @@
+nl:
+  activerecord:
+    models:
+      activity:
+        one: Activiteit  #g
+        other: Activiteiten  #g
+
+      group:
+        one: Groep  #g
+        other: Groepen  #g
+
+      member:
+        one: Lid  #g
+        other: Leden  #g
+
+      participant:
+        one: Deelnemer
+        other: Deelnemers
+      person:
+        one: Persoon  #g
+        other: Personen  #g
+
+      session: Sessie  #g
+      token: Token  #g
+      user: Gebruiker  #g
+
+    attributes:
+      activity:
+        deadline: Deadline  #g
+        description: Beschrijving  #g
+        end: Eind  #g
+        group: :activerecord.models.group  #g
+        location: Locatie
+        name: Naam  #g
+        participants: Deelnemers  #g
+        people: Mensen  #g
+        start: Start  #g
+
+      group:
+        activities: Activiteiten  #g
+        members: Leden  #g
+        name: Naam  #g
+        people: Mensen  #g
+
+      member:
+        group: :activerecord.models.group  #g
+        is_leader: Is groepsleider  #g
+        person: :activerecord.models.person  #g
+
+      participant:
+        activity: :activerecord.models.activity  #g
+        attending: Aanwezig
+        is_organizer: Is organisator  #g
+        notes: Notes  #g
+        person: :activerecord.models.person  #g
+
+      person:
+        activities: Activiteiten  #g
+        birth_date: Geboortedatum  #g
+        email: Emailadres  #g
+        first_name: Voornaam  #g
+        groups: Groepen  #g
+        infix: Tussenvoegsel  #g
+        is_admin: Is admin  #g
+        last_name: Achternaam  #g
+        members: leden  #g
+        participants: Deelnemers  #g
+        user: :activerecord.models.user  #g
+
+      session:
+        active: Actief  #g
+        expires: verloopt  #g
+        ip: IP  #g
+        remember_digest: Onthoud mij-digest  #g
+        user: :activerecord.models.user  #g
+
+      token:
+        expires: Verloopt  #g
+        token: Token  #g
+        tokentype: Tokentype  #g
+        user: :activerecord.models.user  #g
+
+      user:
+        confirmed: Bevestigd  #g
+        email: E-mail  #g
+        password_digest: Wachtwoord-digest  #g
+        person: :activerecord.models.person  #g
