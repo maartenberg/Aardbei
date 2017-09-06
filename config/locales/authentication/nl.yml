@@ -37,5 +37,6 @@ nl:
         click_this: "Bevestig je account voor Aardbei door te klikken op de volgende link."
 
       forgot:
+        subject: "Aardbei-wachtwoord opnieuw instellen"
         blurb: "Jij (of iemand die doet alsof hij jou is) heeft een wachtwoordwijziging aangevraagd. Open de volgende link als je dit wilt:"
         ignore_if_not_you: "Als jij dit niet hebt aangevraagd kan je dit bericht negeren, en is je oude wachtwoord onveranderd."
