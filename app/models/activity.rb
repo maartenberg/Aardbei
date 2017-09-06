@@ -117,17 +117,17 @@ class Activity < ApplicationRecord
 
       sd            = Date.strptime(row['start_date'])
       st            = Time.strptime(row['start_time'], '%H:%M')
-      a.start       = DateTime.new(sd.year, sd.month, sd.day, st.hour, st.min)
+      a.start       = Time.zone.local(sd.year, sd.month, sd.day, st.hour, st.min)
 
       if not row['end_date'].blank?
         ed          = Date.strptime(row['end_date'])
         et          = Time.strptime(row['end_time'], '%H:%M')
-        a.end       = DateTime.new(ed.year, ed.month, ed.day, et.hour, et.min)
+        a.end       = Time.zone.local(ed.year, ed.month, ed.day, et.hour, et.min)
       end
 
       dd            = Date.strptime(row['deadline_date'])
       dt            = Time.strptime(row['deadline_time'], '%H:%M')
-      a.deadline    = DateTime.new(dd.year, dd.month, dd.day, dt.hour, dt.min)
+      a.deadline    = Time.zone.local(dd.year, dd.month, dd.day, dt.hour, dt.min)
 
       result << a
     end
