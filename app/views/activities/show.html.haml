@@ -31,16 +31,21 @@
             = t 'activities.attrs.when'
 
           %td
-            = @activity.start
-            \-
-            = @activity.end
+            = l @activity.start, format: :long
+            - if @activity.end
+              \-
+              - if @activity.end.to_date == @activity.start.to_date
+                = l @activity.end, format: '%H:%M'
+              - else
+                = l @activity.end, format: :long
 
         %tr
           %td
             = t 'activities.attrs.deadline'
 
           %td
-            = @activity.deadline
+            - if @activity.deadline
+              = l @activity.deadline, format: :long
 
   - if @ownparticipant
     .col-md-3
