@@ -4,6 +4,7 @@ class ActivitiesController < ApplicationController
   before_action :set_group
   before_action :require_membership!
   before_action :require_leader!, only: [:mass_new, :mass_create, :new, :create, :destroy]
+  before_action :require_organizer!, only: [:edit, :update, :change_organizer]
 
   # GET /groups/:id/activities
   # GET /activities.json
