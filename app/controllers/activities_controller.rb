@@ -40,7 +40,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
-    @non_organizers = @activity.participants.where(is_organizer: [true, nil])
+    @non_organizers = @activity.participants.where(is_organizer: [false, nil])
     @organizers = @activity.organizers
 
     @non_organizers_options = @non_organizers.map{|p| [p.person.full_name, p.id] }
