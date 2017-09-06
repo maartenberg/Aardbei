@@ -1,9 +1,10 @@
+- all_buttons = @activity.may_change?(current_person)
 .row
   .col-md-9
     .panel.panel-default
       .panel-heading
         = @activity.name
-        - if @activity.may_change?(current_person)
+        - if all_buttons
           = link_to edit_group_activity_path(@group, @activity), class: 'pull-right' do
             %i.fa.fa-pencil
 
@@ -80,7 +81,8 @@
           = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
 
         %td
-          = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
+          - if p.person.id == current_person.id || all_buttons
+            = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
 .hidden-sm.hidden-md.hidden-lg
   .panel.panel-default.panel-success
@@ -107,7 +109,8 @@
                 %i.fa.fa-star-o
 
             %td
-              = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
+              - if p.person.id == current_person.id || all_buttons
+                = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
           %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
             %td{colspan: "2"}
@@ -139,7 +142,8 @@
                 %i.fa.fa-star-o
 
             %td
-              = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
+              - if p.person.id == current_person.id || all_buttons
+                = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
           %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
             %td{colspan: "2"}
@@ -170,7 +174,8 @@
                 %i.fa.fa-star-o
 
             %td
-              = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
+              - if p.person.id == current_person.id || all_buttons
+                = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
           %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
             %td{colspan: "2"}

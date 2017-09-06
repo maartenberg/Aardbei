@@ -36,4 +36,9 @@ class Participant < ApplicationRecord
       "warning"
     end
   end
+
+  def may_change?(person)
+    self.activity.may_change?(person) ||
+    self.person == person
+  end
 end
