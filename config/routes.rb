@@ -37,6 +37,9 @@ Rails.application.routes.draw do
       post 'demote', to: 'members#demote', on: :member
     end
 
+    get 'activities/mass_new', to: 'activities#mass_new'
+    post 'activities/mass_new', to: 'activities#mass_create'
+
     resources :activities do
       post 'change_organizer', to: 'activities#change_organizer'
       put 'presence', to: 'activities#presence', on: :member

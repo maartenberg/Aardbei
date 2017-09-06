@@ -1,0 +1,43 @@
+%h1
+  = t 'activerecord.models.activity.other'
+
+= link_to new_group_activity_path(@group), class: 'btn btn-default pull-right' do
+  %i.fa.fa-plus
+  = t 'activities.new'
+
+- isleader = @group.leaders.include?(current_person) || current_person.is_admin?
+
+%table.table
+  %thead
+    %tr
+      %th
+        = t 'activerecord.attributes.activities.name'
+
+      %th
+        = t 'activerecord.attributes.activities.start'
+
+      %th
+        P/A/?
+
+      - if isleader
+        %th
+
+  %tbody
+    - @activities.each do |a|
+      %tr
+        %td
+          = link_to a.name, group_activity_path(@group, a)
+
+        %td
+          = l a.start, format: :short
+
+        %td
+          = a.human_state_counts
+
+        - if isleader
+          %td
+            = link_to edit_group_activity_path(@group, a) do
+              %i.fa.fa-pencil
+
+= will_paginate @activities
+

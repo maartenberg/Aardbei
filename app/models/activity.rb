@@ -70,6 +70,15 @@ class Activity < ApplicationRecord
     self.participants.group(:attending).count
   end
 
+  # Return participants attending, absent, unknown
+  def human_state_counts
+    c = self.state_counts
+    p = c[true]
+    a = c[false]
+    u = c[nil]
+    return "#{p or 0}, #{a or 0}, #{u or 0}"
+  end
+
   # Determine whether the passed Person may change this activity.
   def may_change?(person)
     person.is_admin ||
@@ -92,6 +101,38 @@ class Activity < ApplicationRecord
         person: p,
       )
     end
+  end
+
+  # Create multiple Activities from data in a CSV file, assign to a group, return.
+  def self.from_csv(content, group)
+    reader = CSV.parse(content, {headers: true, skip_blanks: true})
+
+    result = []
+    reader.each do |row|
+      a = Activity.new
+      a.group       = group
+      a.name        = row['name']
+      a.description = row['description']
+      a.location    = row['location']
+
+      sd            = Date.strptime(row['start_date'])
+      st            = Time.strptime(row['start_time'], '%H:%M')
+      a.start       = DateTime.new(sd.year, sd.month, sd.day, st.hour, st.min)
+
+      if not row['end_date'].blank?
+        ed          = Date.strptime(row['end_date'])
+        et          = Time.strptime(row['end_time'], '%H:%M')
+        a.end       = DateTime.new(ed.year, ed.month, ed.day, et.hour, et.min)
+      end
+
+      dd            = Date.strptime(row['deadline_date'])
+      dt            = Time.strptime(row['deadline_time'], '%H:%M')
+      a.deadline    = DateTime.new(dd.year, dd.month, dd.day, dt.hour, dt.min)
+
+      result << a
+    end
+
+    result
   end
 
   private

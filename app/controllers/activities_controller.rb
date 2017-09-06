@@ -3,11 +3,12 @@ class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy, :presence]
   before_action :set_group
   before_action :require_membership!
+  before_action :require_leader!, only: [:mass_new, :mass_create, :new, :create, :destroy]
 
   # GET /groups/:id/activities
   # GET /activities.json
   def index
-    @activities = @group.activities
+    @activities = @group.activities.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /activities/1
@@ -128,6 +129,22 @@ class ActivitiesController < ApplicationController
       params[:notes] = params[:participant][:notes]
     end
     participant.update_attributes(params.permit(:notes, :attending))
+  end
+
+  def mass_new
+  end
+
+  def mass_create
+    require 'csv'
+    uploaded_io = params[:spreadsheet]
+    result = Activity.from_csv(uploaded_io.read, @group)
+
+    result.each do |a|
+      a.save!
+    end
+
+    flash_message(:success, I18n.t('activities.mass_imported', count: result.count))
+    redirect_to group_activities_path(@group)
   end
 
   private

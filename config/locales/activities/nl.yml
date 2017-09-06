@@ -7,6 +7,7 @@ nl:
     created: "Activiteit aangemaakt."
     updated: "Activiteit bijgewerkt."
     destroyed: "Activiteit verwijderd."
+    mass_imported: "%{count} activiteiten aangemaakt!"
 
     upcoming_yours: "Aankomende activiteiten georganiseerd door jou"
     yours: "Jouw activiteiten"

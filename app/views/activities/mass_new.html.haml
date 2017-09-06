@@ -1,0 +1,6 @@
+.container
+  .row
+    .col-md-12
+      = form_tag(group_activities_mass_new_path(@group), method: 'post', multipart: true) do
+        = file_field_tag 'spreadsheet'
+        = submit_tag
