@@ -19,6 +19,7 @@ nl:
     invalid_user_or_pass: "Gebruikersnaam en/of wachtwoord onjuist."
     login_required: "Je moet eerst inloggen."
     admin_required: "Je moet een beheerder zijn om dat te doen."
+    organizer_required: "Je moet een organisator zijn om dat te doen."
     activation_required: "Je account is nog niet geactiveerd! Bevestig je e-mailadres door op de link te klikken die je in je mail hebt gehad."
     already_activated: "Je account is al geactiveerd! Gebruik het 'Wachtwoord vergeten'-formulier als je je wachtwoord opnieuw in wilt stellen."
     password_repeat_mismatch: "Je hebt niet twee keer hetzelfde wachtwoord ingevuld!"
