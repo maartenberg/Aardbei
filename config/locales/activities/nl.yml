@@ -5,6 +5,7 @@ nl:
 
     new: "Nieuwe activiteit"
     created: "Activiteit aangemaakt."
+    edit: "Activiteit bewerken"
     updated: "Activiteit bijgewerkt."
     destroyed: "Activiteit verwijderd."
     mass_import: "Meerdere activiteiten aanmaken in %{group}"

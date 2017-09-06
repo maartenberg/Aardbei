@@ -5,6 +5,7 @@ en:
 
     new: "New activity"
     created: "Activity created."
+    edit: "Edit activity"
     updated: "Activity updated."
     destroyed: "Activity destroyed."
     mass_import: "Create multiple activities in %{group}"
