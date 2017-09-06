@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   include GroupsHelper
+  include ActivitiesHelper
   before_action :set_activity, only: [:show, :edit, :update, :destroy, :presence]
   before_action :set_group
   before_action :require_membership!
