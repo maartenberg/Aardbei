@@ -23,6 +23,18 @@ en:
       add_notes: "Add notes"
       yourresponse: "Your response"
 
+    organizers:
+      one: "Organizer"
+      other: "Organizers"
+      manage: "Manage organizers"
+      add: "Add organizer"
+      added: "%{name} is now an organizer."
+      remove: "Remove organizer"
+      removed: "%{name} is no longer an organizer."
+
+      no_organizers: "This activity has no organizers."
+      no_non_organizers: "This activity has no non-organizers."
+
     state:
       need_response: "Need response"
       present: "Present"

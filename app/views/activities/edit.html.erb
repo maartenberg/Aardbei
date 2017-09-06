@@ -1,8 +1,0 @@
-<h1>
-  <%= t 'activity.editing' %>
-</h1>
-
-<%= render 'form', activity: @activity %>
-
-<%= link_to t(:cancel), group_activity_path(@group, @activity) %> |
-<%= link_to t(:back), group_activities_path(@group) %>

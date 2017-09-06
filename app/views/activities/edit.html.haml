@@ -1,0 +1,38 @@
+%h1
+  = t 'activity.editing'
+
+= render 'form', activity: @activity
+
+%h2
+  = t 'activities.organizers.manage'
+.row
+  .col-md-6
+    %h4
+      = t 'activities.organizers.add'
+    - if @non_organizers.count > 0
+      = form_tag(group_activity_change_organizer_path(@group, @activity), method: 'post') do
+        .form-group
+          = select_tag(:participant_id, options_for_select(@non_organizers_options))
+        .form-group
+          = hidden_field_tag(:new_state, true)
+          = submit_tag(t('activities.organizers.add'), class: 'btn btn-success')
+    - else
+      = t 'activities.organizers.no_non_organizers'
+
+  .col-md-6
+    %h4
+      = t 'activities.organizers.remove'
+    - if @organizers.count > 0
+      = form_tag(group_activity_change_organizer_path(@group, @activity), method: 'post') do
+        .form-group
+          = select_tag(:participant_id, options_for_select(@organizers_options))
+        .form-group
+          = hidden_field_tag(:new_state, false)
+          = submit_tag(t('activities.organizers.remove'), class: 'btn btn-danger')
+
+    - else
+      = t 'activities.organizers.no_organizers'
+
+= link_to t(:back), group_activity_path(@group, @activity)
+|
+= link_to t(:overview), group_activities_path(@group)

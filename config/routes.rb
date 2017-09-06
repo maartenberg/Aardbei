@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     end
 
     resources :activities do
+      post 'change_organizer', to: 'activities#change_organizer'
       put 'presence', to: 'activities#presence', on: :member
       patch 'presence', to: 'activities#presence', on: :member
     end

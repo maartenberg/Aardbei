@@ -23,6 +23,18 @@ nl:
       add_notes: "Opmerkingen toevoegen"
       yourresponse: "Jouw antwoord"
 
+    organizers:
+      one: "Organisator"
+      other: "Organisatoren"
+      manage: "Organisatoren aanpassen"
+      add: "Organisator toevoegen"
+      added: "%{name} is nu een organisator."
+      remove: "Organisator verwijderen"
+      removed: "%{name} is nu geen organisator meer."
+
+      no_organizers: "Deze activiteit heeft geen organisatoren."
+      no_non_organizers: "Deze activiteit heeft geen niet-organisatoren."
+
     state:
       need_response: "Nog geen reactie"
       present: "Aanwezig"

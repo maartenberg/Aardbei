@@ -36,6 +36,14 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
+    @non_organizers = @activity.participants.where.not(is_organizer: true)
+    @organizers = @activity.organizers
+
+    @non_organizers_options = @non_organizers.map{|p| [p.person.full_name, p.id] }
+    @organizers_options     =     @organizers.map{|p| [p.person.full_name, p.id] }
+
+    @non_organizers_options.sort!
+    @organizers_options.sort!
   end
 
   # POST /activities
@@ -56,6 +64,23 @@ class ActivitiesController < ApplicationController
         format.json { render json: @activity.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # Change organizer state for a Participant
+  def change_organizer
+    @activity = Activity.find(params[:activity_id])
+    @participant = @activity.participants.find(params[:participant_id])
+    @participant.is_organizer = params[:new_state]
+    @participant.save
+
+    if params[:new_state] == "true"
+      message = I18n.t('activities.organizers.added', name: @participant.person.full_name)
+    else
+      message = I18n.t('activities.organizers.removed', name: @participant.person.full_name)
+    end
+    flash_message(:success, message)
+
+    redirect_to edit_group_activity_path(@group, @activity)
   end
 
   # PATCH/PUT /activities/1
