@@ -81,7 +81,7 @@ class Person < ApplicationRecord
         p.infix       = row['infix']
         p.last_name   = row['last_name']
         p.email       = row['email']
-        p.birth_date  = Date.strptime(row['birth_date'])
+        p.birth_date  = Date.strptime(row['birth_date']) unless row['birth_date'].blank?
         p.save!
       end
       result << p
