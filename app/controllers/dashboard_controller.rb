@@ -7,9 +7,12 @@ class DashboardController < ApplicationController
       .joins(:activity)
       .where('activities.start >= ?', DateTime.now)
       .order('activities.start ASC')
+      .paginate(page: params[:upage], per_page: 10)
     @user_organized = @upcoming
       .where(is_organizer: true)
+      .limit(3)
     @need_response = @upcoming
       .where(attending: nil)
+      .paginate(page: params[:nrpage], per_page: 5)
   end
 end

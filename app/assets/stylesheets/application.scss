@@ -88,3 +88,14 @@ table.collapse.in {
 [aria-expanded="false"] > .sv-show-collapsed {
   display: inline;
 }
+
+/* Fix ridiculous margins with pagination */
+.sv-nomargins > nav.pagination {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.sv-nomargins > nav.pagination > ul.pagination {
+  margin-top: 0;
+  margin-bottom: 0;
+}

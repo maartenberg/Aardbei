@@ -36,6 +36,8 @@
                       = e.location
                     %td
                       = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
+          .panel-footer.text-center.sv-nomargins
+            = will_paginate @need_response, param_name: 'nrpage', renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'pagination-sm pagination'
   .row
     .col-md-6
       .panel.panel-default
@@ -86,3 +88,5 @@
                     = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
                   %td
                     = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: current_person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.add_notes')
+        .panel-footer.text-center.sv-nomargins
+          = will_paginate(@upcoming, param_name: 'upage', renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'pagination-sm pagination')

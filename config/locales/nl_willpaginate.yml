@@ -1,0 +1,18 @@
+nl:
+  will_paginate:
+    previous_label: "&#8592;"
+    next_label: "&#8594;"
+    page_gap: "&hellip;"
+
+    page_entries_info:
+      single_page:
+        zero:  "Geen %{model} gevonden"
+        one:   "Er is 1 %{model}"
+        other: "Dit zijn alle %{count} %{model}"
+      single_page_html:
+        zero:  "Geen %{model} gevonden"
+        one:   "Er is <b>1</b> %{model}"
+        other: "Dit zijn <b>alle&nbsp;%{count}</b> %{model}"
+
+      multi_page: "%{model} %{from} - %{to} van %{count}"
+      multi_page_html: "%{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> van <b>%{count}</b>"
