@@ -7,7 +7,10 @@ en:
     created: "Activity created."
     updated: "Activity updated."
     destroyed: "Activity destroyed."
+    mass_import: "Create multiple activities in %{group}"
     mass_imported: "%{count} activities created!"
+
+    mass_import_explanation: "Download the example file using the link below, fill in the fields (end and deadline are optional), and upload the file using the upload form."
 
     upcoming_yours: "Upcoming activities organized by you"
     yours: "Your activities"

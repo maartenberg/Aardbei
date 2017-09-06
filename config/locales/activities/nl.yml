@@ -7,7 +7,10 @@ nl:
     created: "Activiteit aangemaakt."
     updated: "Activiteit bijgewerkt."
     destroyed: "Activiteit verwijderd."
+    mass_import: "Meerdere activiteiten aanmaken in %{group}"
     mass_imported: "%{count} activiteiten aangemaakt!"
+
+    mass_import_explanation: "Download het voorbeeldbestand via de link hieronder, vul de velden in in het formaat zoals het staat aangegeven (einde en deadline zijn niet verplicht), en upload het via de knop onderaan."
 
     upcoming_yours: "Aankomende activiteiten georganiseerd door jou"
     yours: "Jouw activiteiten"

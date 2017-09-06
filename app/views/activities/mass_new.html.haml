@@ -1,6 +1,16 @@
 .container
+  %h1
+    = t 'activities.mass_import', group: @group.name
+  .row
+    .col-md-12
+      %p
+        = t 'activities.mass_import_explanation'
+      = link_to asset_path('batch_activities.csv'), class: 'btn btn-default' do
+        = t :download
   .row
     .col-md-12
       = form_tag(group_activities_mass_new_path(@group), method: 'post', multipart: true) do
-        = file_field_tag 'spreadsheet'
-        = submit_tag
+        .form-group
+          = file_field_tag 'spreadsheet'
+        .form-group
+          = submit_tag
