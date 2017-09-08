@@ -39,6 +39,10 @@ gem 'faker'
 # Use HAML for templates
 gem 'haml'
 
+# Use RABL for JSON
+gem 'rabl'
+gem 'oj'
+
 # Use Fontawesome icons
 gem 'font-awesome-sass'
 

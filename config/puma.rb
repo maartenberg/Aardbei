@@ -13,10 +13,13 @@ bind	ENV.fetch("PUMA_BIND") { 'tcp://127.0.0.1:3000'}
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+env = ENV.fetch("RAILS_ENV") { "development" }
+environment env
 
 state_path "#{ENV['AARDBEI_PATH']}/tmp/pids/puma.state"
-stdout_redirect "#{ENV['AARDBEI_PATH']}/log/stdout", "#{ENV['AARDBEI_PATH']}/log/stderr", true
+if env == "production"
+  stdout_redirect "#{ENV['AARDBEI_PATH']}/log/stdout", "#{ENV['AARDBEI_PATH']}/log/stderr", true
+end
 
 
 # Specifies the number of `workers` to boot in clustered mode.

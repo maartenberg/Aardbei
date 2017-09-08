@@ -49,4 +49,15 @@ Rails.application.routes.draw do
   get 'my_groups', to: 'groups#user_groups', as: :user_groups
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  namespace 'api' do
+    get 'status'
+    scope 'me' do
+      root to: 'me#index'
+      get 'groups', to: 'me#groups'
+    end
+
+    resources :groups, only: [:index, :show]
+    resources :activities, only: [:index, :show]
+    resources :people, only: [:index, :show]
+  end
 end

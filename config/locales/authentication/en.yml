@@ -20,6 +20,7 @@ en:
     login_required: "You need to be logged in to do that."
     admin_required: "You need to be an administrator to do that."
     organizer_required: "You need to be an organizer to do that."
+    membership_required: "You need to be a member of that group to do that."
     activation_required: "Your account has not yet been activated, please confirm your account using the email you received."
     already_activated: "Your account has already been activated, please use the 'Forgot password' form if you want to reset your password."
     password_repeat_mismatch: "Password confirmation does not match your password!"
