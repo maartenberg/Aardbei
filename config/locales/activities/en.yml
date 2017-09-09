@@ -28,6 +28,15 @@ en:
       add_notes: "Add notes"
       yourresponse: "Your response"
 
+      copy_responses: "Copy responses"
+      copy_absent: "Copy absentees"
+      these_present: "The following %{count} participants are attending: %{names}."
+      none_present: "Nobody is attending."
+      these_unknown: "The following %{count} participants have not responded: %{names}."
+      none_unknown: "Everyone has responded."
+      these_absent: "The following %{count} participants are absent: %{names}."
+      none_absent: "Nobody is absent."
+
     organizers:
       one: "Organizer"
       other: "Organizers"

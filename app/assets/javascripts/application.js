@@ -16,5 +16,6 @@
 //= require bootstrap-sprockets
 //= require editable/bootstrap-editable
 //= require editable/rails
+//= require clipboard
 //= require_tree .
 //= require_self

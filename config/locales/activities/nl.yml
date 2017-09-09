@@ -28,6 +28,15 @@ nl:
       add_notes: "Opmerkingen toevoegen"
       yourresponse: "Jouw antwoord"
 
+      copy_responses: "Kopieer overzicht"
+      copy_absent: "Kopieer afwezigen"
+      these_present: "%{count} mensen zijn aangemeld: %{names}."
+      none_present: "Niemand heeft zich aangemeld."
+      these_unknown: "%{count} mensen hebben niet gereageerd: %{names}."
+      none_unknown: "Iedereen heeft gereageerd."
+      these_absent: "%{count} mensen zijn afgemeld: %{names}."
+      none_absent: "Niemand heeft zich afgemeld."
+
     organizers:
       one: "Organisator"
       other: "Organisatoren"

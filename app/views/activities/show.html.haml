@@ -3,10 +3,25 @@
   .col-md-9
     .panel.panel-default
       .panel-heading
+        .btn-group.pull-right
+          %button.btn.btn-default.dropdown-toggle.btn-xs{data: {toggle: 'dropdown'}, 'aria-haspopup': true, 'aria-expanded': false}
+            %i.fa.fa-cogs
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              %a.copy-reactions{data: {activity: @activity.id, absent: true}}
+                %i.fa.fa-files-o
+                = t 'activities.participant.copy_absent'
+              %a.copy-reactions{data: {activity: @activity.id, present: true, absent: true, unknown: true}}
+                %i.fa.fa-files-o
+                = t 'activities.participant.copy_responses'
+            - if all_buttons
+              %li.divider{role: 'separator'}
+              %li
+                = link_to edit_group_activity_path(@group, @activity) do
+                  %i.fa.fa-pencil
+                  = t :edit
         = @activity.name
-        - if all_buttons
-          = link_to edit_group_activity_path(@group, @activity), class: 'pull-right' do
-            %i.fa.fa-pencil
 
 
       %table.table

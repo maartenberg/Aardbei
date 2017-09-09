@@ -57,7 +57,10 @@ Rails.application.routes.draw do
     end
 
     resources :groups, only: [:index, :show]
+
     resources :activities, only: [:index, :show]
+    get 'activities/:id/response_summary', to: 'activities#response_summary'
+
     resources :people, only: [:index, :show]
   end
 end

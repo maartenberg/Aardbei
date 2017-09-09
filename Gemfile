@@ -43,6 +43,9 @@ gem 'haml'
 gem 'rabl'
 gem 'oj'
 
+# Clipping
+gem 'clipboard-rails'
+
 # Use Fontawesome icons
 gem 'font-awesome-sass'
 
