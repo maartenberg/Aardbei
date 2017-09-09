@@ -40,19 +40,19 @@ class Api::ActivitiesController < ApiController
     absentnames = absent
       .map{|p| p.person.first_name }
 
-    if presentnames
+    if presentnames.count > 0
       present_mess = I18n.t('activities.participant.these_present', count: present.count, names: presentnames.join(', '))
     else
       present_mess = I18n.t('activities.participant.none_present')
     end
 
-    if unknownnames
+    if unknownnames.count > 0
       unknown_mess = I18n.t('activities.participant.these_unknown', count: unknown.count, names: unknownnames.join(', '))
     else
       unknown_mess = I18n.t('activities.participant.none_unknown')
     end
 
-    if absentnames
+    if absentnames.count > 0
       absent_mess = I18n.t('activities.participant.these_absent', count: absent.count, names: absentnames.join(', '))
     else
       absent_mess = I18n.t('activities.participant.none_absent')
