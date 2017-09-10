@@ -10,6 +10,7 @@ module AuthenticationHelper
     if new
       if remember == 1
         token = Session.new_token
+        expiry = 1.years.since
         cookies.signed.permanent[:remember_token] = {
           value: token,
           httponly: true
