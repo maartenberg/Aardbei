@@ -1,7 +1,14 @@
 # Parameters for sending mail
+# smtp or mailgun
+MAIL_METHOD=
+MAIL_FROM_ADDRESS=
+
+SMTP_SERVER=
+SMTP_USER=
+SMTP_PASS=
+
 MAILGUN_DOMAIN=
 MAILGUN_API_KEY=
-MAIL_FROM_ADDRESS=
 
 # To be used in link construction
 AARDBEI_HOSTNAME=
