@@ -1,8 +1,8 @@
 class ActivitiesController < ApplicationController
   include GroupsHelper
   include ActivitiesHelper
-  before_action :set_activity_and_group, only: [:show, :edit, :update, :destroy, :presence]
-  before_action :set_group,            except: [:show, :edit, :update, :destroy, :presence]
+  before_action :set_activity_and_group, only: [:show, :edit, :update, :destroy, :presence, :change_organizer]
+  before_action :set_group,            except: [:show, :edit, :update, :destroy, :presence, :change_organizer]
   before_action :require_membership!
   before_action :require_leader!, only: [:mass_new, :mass_create, :new, :create, :destroy]
   before_action :require_organizer!, only: [:edit, :update, :change_organizer]
@@ -162,7 +162,7 @@ class ActivitiesController < ApplicationController
   private
     # The Activity's group takes precedence over whatever's in the URL, set_group not required (and can be mislead)
     def set_activity_and_group
-      @activity = Activity.find(params[:id])
+      @activity = Activity.find(params[:id] || params[:activity_id])
       @group = @activity.group
     end
 
