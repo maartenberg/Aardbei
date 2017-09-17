@@ -1,0 +1,18 @@
+%h1
+  = t 'settings.settings'
+
+%h2
+  = t 'settings.email_settings'
+
+= form_tag(update_email_settings_path, method: "post", class: "form") do
+  .row
+    .col-md-4
+      -#= hidden_field_tag(:send_attendance_reminder, "off")
+      %label
+        = check_box_tag(:send_attendance_reminder, 'send_attendance_reminder', @send_attendance_reminder)
+        = t('settings.names.send_attendance_reminder')
+    .col-md-6
+      %p
+        %em= t 'settings.descriptions.send_attendance_reminder'
+
+  = submit_tag t('helpers.submit.submit', model: t('settings.settings'))

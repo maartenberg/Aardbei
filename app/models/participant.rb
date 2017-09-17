@@ -52,6 +52,7 @@ class Participant < ApplicationRecord
     self.notes = notes
     self.save
 
+    return unless self.person.send_attendance_reminder
     ParticipantMailer.attendance_reminder(self.person, self.activity).deliver_later
   end
 

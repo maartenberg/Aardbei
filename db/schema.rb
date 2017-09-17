@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917093221) do
+ActiveRecord::Schema.define(version: 20170917140643) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -79,8 +79,9 @@ ActiveRecord::Schema.define(version: 20170917093221) do
     t.date     "birth_date"
     t.string   "email"
     t.boolean  "is_admin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "send_attendance_reminder", default: true
     t.index ["email"], name: "index_people_on_email", unique: true
   end
 

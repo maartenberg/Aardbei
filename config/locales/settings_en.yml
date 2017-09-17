@@ -1,0 +1,11 @@
+en:
+  settings:
+    settings: "Preferences"
+    saved: "Preferences saved!"
+    email_settings: "Email notifications"
+
+    names:
+      send_attendance_reminder: "Send notification on auto-respond"
+
+    descriptions:
+      send_attendance_reminder: "Receive an email if you haven't responded to an activity and your response is automatically set to 'attending'. When youreceive this reminder, you still have the possibility to change your response."

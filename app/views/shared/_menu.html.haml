@@ -35,8 +35,9 @@
 
       %ul.nav.navbar-nav.navbar-right
         %li
-          = link_to current_person do
-            = current_person.full_name
+          = link_to settings_path do
+            %i.fa.fa-cogs{'aria-hidden': true}
+            = t 'settings.settings'
         %li
           = link_to logout_path, confirm: "Really log out?", method: :delete do
             %i.fa.fa-sign-out{'aria-hidden': true}

@@ -15,4 +15,18 @@ class DashboardController < ApplicationController
       .where(attending: nil)
       .paginate(page: params[:nrpage], per_page: 5)
   end
+
+  def settings
+    @person = current_person
+    @send_attendance_reminder = @person.send_attendance_reminder
+  end
+
+  def update_email_settings
+    p = current_person
+    p.send_attendance_reminder = params[:send_attendance_reminder]
+    p.save
+
+    flash_message(:success, t('settings.saved'))
+    redirect_to root_path
+  end
 end

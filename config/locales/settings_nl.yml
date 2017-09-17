@@ -1,0 +1,11 @@
+nl:
+  settings:
+    settings: "Instellingen"
+    saved: "Instellingen opgeslagen!"
+    email_settings: "Emailnotificaties"
+
+    names:
+      send_attendance_reminder: "Stuur een herinnering bij niet gereageerd"
+
+    descriptions:
+      send_attendance_reminder: "Ontvang een email als je niet hebt gereageerd op een activiteit en je reactie automatisch op 'aanwezig' wordt gezet. Wanneer je deze herinnering ontvangt is het nog mogelijk om je reactie aan te passen."

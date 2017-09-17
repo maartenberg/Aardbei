@@ -2,6 +2,7 @@
 <ul>
   <li><%= @person.birth_date %></li>
   <li><%= @person.email %></li>
+  <li>AttendanceReminder: <%= @person.send_attendance_reminder.to_i %></li>
 </ul>
 <%= link_to t(:edit), edit_person_path(@person) %> |
 <%= link_to t(:back), people_path %>
