@@ -1,0 +1,10 @@
+[Unit]
+Description=Clear expired Aardbei Sessions weekly
+After=network.target
+
+[Timer]
+Unit=aardbei-clear-sessions.service
+OnCalendar=weekly
+
+[Install]
+WantedBy=multi-user.target

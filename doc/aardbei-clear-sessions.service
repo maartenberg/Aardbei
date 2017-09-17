@@ -1,0 +1,13 @@
+[Unit]
+Description=Clear expired Aardbei-sessions
+After=network.target
+
+[Service]
+User=aardbei
+Group=aardbei
+Type=oneshot
+WorkingDirectory=/home/aardbei/aardbei
+ExecStart=/home/aardbei/.rbenv/shims/rails sessions:clean
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=Job queue for Aardbei
+After=network.target
+
+[Service]
+User=aardbei
+Group=aardbei
+WorkingDirectory=/home/aardbei/aardbei
+ExecStart=/home/aardbei/.rbenv/shims/bundle exec /home/aardbei/aardbei/bin/delayed_job start
+Type=forking
+PIDFile=/home/aardbei/aardbei/tmp/pids/delayed_job.pid
+
+[Install]
+WantedBy=multi-user.target
