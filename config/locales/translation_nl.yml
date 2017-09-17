@@ -35,6 +35,8 @@ nl:
         participants: Deelnemers  #g
         people: Mensen  #g
         start: Start  #g
+        reminder_at: Herinnering om
+        reminder_done: Herinnering verstuurd
 
       group:
         activities: Activiteiten  #g

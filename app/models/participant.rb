@@ -47,6 +47,9 @@ class Participant < ApplicationRecord
     return unless self.attending.nil?
 
     self.attending = true
+    notes = self.notes || ""
+    notes << '[auto]'
+    self.notes = notes
     self.save
 
     ParticipantMailer.attendance_reminder(self.person, self.activity).deliver_later

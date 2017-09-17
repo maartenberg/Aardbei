@@ -19,6 +19,7 @@ nl:
     errors:
       must_be_before_start: "moet voor start zijn"
       must_be_after_start: "moet na start zijn"
+      must_be_before_deadline: "moet voor deadline zijn"
       already_in: "persoon doet al mee aan activiteit"
 
     participant:

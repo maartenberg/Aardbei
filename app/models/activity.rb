@@ -49,8 +49,10 @@ class Activity < ApplicationRecord
   validates :start, presence: true
   validate  :deadline_before_start, unless: "self.deadline.blank?"
   validate  :end_after_start,       unless: "self.end.blank?"
+  validate  :reminder_before_deadline, unless: "self.reminder_at.blank?"
 
   after_create :create_missing_participants!
+  after_commit :schedule_reminder, if: Proc.new {|a| a.previous_changes["reminder_at"] }
 
   # Get all people (not participants) that are organizers. Does not include
   # group leaders, although they may modify the activity as well.
@@ -154,6 +156,15 @@ class Activity < ApplicationRecord
 
     participants = self.participants.where(attending: nil)
     participants.each { |p| p.send_reminder }
+
+    self.reminder_done = true
+    self.save
+  end
+
+  def schedule_reminder
+    return if self.reminder_at.nil? || self.reminder_done
+
+    self.delay(run_at: self.reminder_at).send_reminder
   end
 
   private
@@ -169,6 +180,14 @@ class Activity < ApplicationRecord
   def end_after_start
     if self.end < self.start
       errors.add(:end, I18n.t('activities.errors.must_be_after_start'))
+    end
+  end
+
+  # Assert that the reminder for non-response is sent while participants still
+  # can change their response.
+  def reminder_before_deadline
+    if self.reminder_at > self.deadline
+      errors.add(:reminder_at, I18n.t('activities.errors.must_be_before_deadline'))
     end
   end
 end

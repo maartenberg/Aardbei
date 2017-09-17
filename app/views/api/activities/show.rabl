@@ -1,6 +1,6 @@
 object @activity
 
-attributes :id, :name, :start, :end, :deadline, :location
+attributes :id, :name, :start, :end, :deadline, :location, :reminder_at
 
 node :response_counts do
   c = @activity.state_counts
