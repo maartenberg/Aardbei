@@ -1,0 +1,21 @@
+%p= t 'authentication.emails.greeting', name: @person.first_name
+
+%p= t 'activities.emails.attendance_reminder.havenot_responded', activity: @activity.name
+
+%p= t 'activities.emails.attendance_reminder.if_cannot', deadline: l(@activity.deadline, format: :short)
+
+%p
+  = link_to group_activity_url(@activity.group, @activity) do
+    = t 'activities.emails.open_activity'
+
+%p
+  = t('activities.emails.ending').sample
+  %br
+  Aardbei
+
+%hr
+%footer
+  %p
+    = t 'activities.emails.dont_want_mail'
+    %a{href: "https://aardbei.maartenberg.nl/settings"}
+      = t 'activities.emails.open_settings'

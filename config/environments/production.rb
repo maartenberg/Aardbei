@@ -84,7 +84,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.delivery_method = ENV['MAIL_METHOD']
+  config.action_mailer.delivery_method = ENV['MAIL_METHOD'].to_sym
   config.action_mailer.smtp_settings = {
     address: ENV['SMTP_SERVER'],
     user_name: ENV['SMTP_USER'],

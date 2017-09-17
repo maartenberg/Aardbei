@@ -64,3 +64,14 @@ en:
       organizers: "Organizers"
       description: "Description"
       deadline: "Deadline"
+
+    emails:
+      open_activity: "Open activity"
+      open_settings: "Preferences"
+      dont_want_mail: "If you no longer want to receive these emails, change your preferences using the following link:"
+      ending:
+        - "Cheers,"
+      attendance_reminder:
+        subject: "You are now listed as 'attending' for %{activity}"
+        havenot_responded: "You have not yet indicated if you will be at %{activity}. Because we assume that you're present if you don't respond, your response has been set to 'attending'."
+        if_cannot: "If you wish to change this, you can change your response until %{deadline} using the following link:"

@@ -64,3 +64,21 @@ nl:
       organizers: "Organisatoren"
       description: "Omschrijving"
       deadline: "Deadline"
+
+    emails:
+      open_activity: "Activiteit openen"
+      open_settings: "Instellingen"
+      dont_want_mail: "Als je dit soort mailtjes niet meer wilt ontvangen, kun je dit uitschakelen via de volgende link:"
+      ending:
+        - "Met griendelijke vroet,"
+        - "Met groetelijke doei,"
+        - "Hopende je voldoende te hebben geïnformeerd,"
+        - "Met aanmeldende groet,"
+        - "Met grappige tekst onderaan de mail,"
+        - "Met geautomatiseerde groet,"
+        - "Doi,"
+        - "Talla,"
+      attendance_reminder:
+        subject: "Je bent automatisch aangemeld voor %{activity}"
+        havenot_responded: "Je hebt nog niet aangegeven of je bij %{activity} kunt zijn. Omdat we ervan uitgaan dat je er bent als je niks aangeeft, is je reactie automatisch op 'aanwezig' gezet."
+        if_cannot: "Als je toch niet aanwezig kunt zijn, kan je dit tot %{deadline} aangeven via de volgende link:"

@@ -28,6 +28,16 @@ class Activity < ApplicationRecord
   #     when the normal participants (everyone who isn't an organizer or group
   #     leader) may not change their own attendance anymore. Disabled if set to
   #     nil.
+  #
+  # @!attribute reminder_at
+  #   @return [TimeWithZone]
+  #     when all participants which haven't responded yet (attending is nil)
+  #     will be automatically set to 'present' and emailed. Must be before the
+  #     deadline, disabled if nil.
+  #
+  # @!attribute reminder_done
+  #   @return [Boolean]
+  #     whether or not sending the reminder has finished.
 
   belongs_to :group
 
@@ -133,6 +143,17 @@ class Activity < ApplicationRecord
     end
 
     result
+  end
+
+  # Send a reminder to all participants who haven't responded, and set their
+  # response to 'attending'.
+  def send_reminder
+    # Sanity check that the reminder date didn't change while queued.
+    return unless !self.reminder_done && self.reminder_at
+    return if self.reminder_at > Time.zone.now
+
+    participants = self.participants.where(attending: nil)
+    participants.each { |p| p.send_reminder }
   end
 
   private

@@ -41,4 +41,15 @@ class Participant < ApplicationRecord
     self.activity.may_change?(person) ||
     self.person == person
   end
+
+  # Set attending to true if nil, and notify the Person via email.
+  def send_reminder
+    return unless self.attending.nil?
+
+    self.attending = true
+    self.save
+
+    ParticipantMailer.attendance_reminder(self.person, self.activity).deliver_later
+  end
+
 end
