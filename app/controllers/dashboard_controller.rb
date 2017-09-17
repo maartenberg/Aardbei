@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
     @upcoming = current_person
       .participants
       .joins(:activity)
-      .where('activities.start >= ?', DateTime.now)
+      .where('activities.end >= ? OR (activities.end IS NULL AND activities.start >= ?)', DateTime.now, DateTime.now)
       .order('activities.start ASC')
       .paginate(page: params[:upage], per_page: 10)
     @user_organized = @upcoming
