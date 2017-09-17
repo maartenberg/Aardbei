@@ -42,6 +42,11 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
+    set_edit_parameters!
+  end
+
+  # Shared lookups for rendering the edit-view
+  def set_edit_parameters!
     @non_organizers = @activity.participants.where(is_organizer: [false, nil])
     @organizers = @activity.organizers
 
@@ -100,6 +105,7 @@ class ActivitiesController < ApplicationController
         }
         format.json { render :show, status: :ok, location: @activity }
       else
+        set_edit_parameters!
         format.html { render :edit }
         format.json { render json: @activity.errors, status: :unprocessable_entity }
       end
