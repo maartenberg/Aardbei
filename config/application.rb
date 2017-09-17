@@ -17,5 +17,7 @@ module Aardbei
 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = :nl
+
+    config.active_job.queue_adapter = :delayed_job
   end
 end
