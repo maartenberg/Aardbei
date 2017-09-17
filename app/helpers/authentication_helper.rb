@@ -33,6 +33,8 @@ module AuthenticationHelper
           value: s.id,
           httponly: true
         }
+      else
+        session[:session_id] = s.id
       end
     end
   end
@@ -57,6 +59,10 @@ module AuthenticationHelper
     # Case 1: User has an active session inside the cookie.
     # We verify that the session hasn't expired yet.
     if session[:user_id] && session[:expires].to_time > DateTime.now
+
+      get_user_session
+
+      return false if !@user_session.active || @user_session.expires < Time.now
 
       return true
 
@@ -92,9 +98,8 @@ module AuthenticationHelper
     if @user_session
       @user_session
     else
-      @user_session ||= Session.find(
-        cookies.signed.permanent[:session_id]
-      )
+      id = cookies.signed.permanent[:session_id] || session[:session_id]
+      @user_session ||= Session.find(id)
     end
 
     # Edge case if a session no longer exists in the database

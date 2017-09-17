@@ -8,6 +8,7 @@ nl:
     please_sign_in: "Log eerst in"
     remember_me: "Onthouden"
 
+    current_password: "Huidig wachtwoord"
     new_password: "Nieuw wachtwoord"
     new_password_confirm: "Herhaal nieuw wachtwoord"
 
@@ -16,6 +17,7 @@ nl:
     unknown_email: "Onbekend e-mailadres."
     invalid_token: "Ongeldig token!"
     expired_token: "Je token is verlopen, vraag een nieuwe aan."
+    invalid_pass: "Je huidige wachtwoord is onjuist."
     invalid_user_or_pass: "Gebruikersnaam en/of wachtwoord onjuist."
     login_required: "Je moet eerst inloggen."
     admin_required: "Je moet een beheerder zijn om dat te doen."
@@ -26,7 +28,9 @@ nl:
     password_repeat_mismatch: "Je hebt niet twee keer hetzelfde wachtwoord ingevuld!"
     activation_complete: "Je account is geactiveerd, je kunt nu inloggen."
     password_reset_complete: "Je wachtwoord is opnieuw ingesteld, je kunt nu inloggen."
+    password_changed: "Je wachtwoord is veranderd!"
     user_person_mail_mismatch: "moet hetzelfde zijn als het emailadres van de verbonden persoon"
+    password_blank: "Je wachtwoord kan niet leeg zijn."
 
     emails:
       sent: "Mail verstuurd!"

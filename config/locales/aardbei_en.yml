@@ -38,6 +38,8 @@ en:
   send_email: "Send email"
   overview: "Overzicht"
 
+  somethingbroke: "Something broke!"
+
   areyousure: "Are you sure?"
 
   value_required: "A required value was omitted."

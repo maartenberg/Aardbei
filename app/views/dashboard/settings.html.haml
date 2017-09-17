@@ -7,7 +7,6 @@
 = form_tag(update_email_settings_path, method: "post", class: "form") do
   .row
     .col-md-4
-      -#= hidden_field_tag(:send_attendance_reminder, "off")
       %label
         = check_box_tag(:send_attendance_reminder, 'send_attendance_reminder', @send_attendance_reminder)
         = t('settings.names.send_attendance_reminder')
@@ -15,4 +14,30 @@
       %p
         %em= t 'settings.descriptions.send_attendance_reminder'
 
-  = submit_tag t('helpers.submit.submit', model: t('settings.settings'))
+  = submit_tag t('helpers.submit.submit', model: t('settings.settings')), class: 'btn btn-primary'
+
+%h2
+  = t 'settings.logout_all_sessions'
+
+%p
+  %em= t 'settings.descriptions.logout_all_sessions'
+
+%p
+  = t 'settings.descriptions.logged_in_at_count', count: @active_sessions
+
+= form_tag(logout_all_path, method: 'post', class: 'form') do
+  = submit_tag t('settings.logout_all_sessions'), class: 'btn btn-danger', data: {confirm: t(:areyousure)}
+%h2
+  = t 'settings.change_password'
+
+= form_tag(update_password_path, method: 'post', class: 'form') do
+  .form-group
+    = label_tag(:current_password, t('authentication.current_password'))
+    = password_field_tag(:current_password, '', class: 'form-control')
+  .form-group
+    = label_tag(:new_password, t('authentication.new_password'))
+    = password_field_tag(:new_password, '', class: 'form-control')
+  .form-group
+    = label_tag(:new_password_confirm, t('authentication.new_password_confirm'))
+    = password_field_tag(:new_password_confirm, '', class: 'form-control')
+  = submit_tag t('settings.change_password'), class: 'btn btn-primary'

@@ -18,6 +18,13 @@ class User < ApplicationRecord
 
   before_validation :email_same_as_person
 
+  # Set all sessions associated with this User to inactive, for instance after
+  # a password change, or when the user selects this options in the Settings.
+  def logout_all_sessions!
+    sessions = Session.where(user: self)
+    sessions.update_all(active: false)
+  end
+
   private
   # Assert that the user's email address is the same as the email address of
   # the associated Person.

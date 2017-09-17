@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root to: 'dashboard#home'
   get 'settings', to: 'dashboard#settings', as: :settings
   post 'settings', to: 'dashboard#update_email_settings', as: :update_email_settings
+  post 'update_password', to: 'dashboard#update_password', as: :update_password
+  post 'logout_all', to: 'dashboard#logout_all_sessions', as: :logout_all
 
   get  'login', to: 'authentication#login_form', as: :login
   post 'login', to: 'authentication#login'

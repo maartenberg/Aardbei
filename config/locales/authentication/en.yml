@@ -8,6 +8,7 @@ en:
     please_sign_in: "Please sign in"
     remember_me: "Remember me"
 
+    current_password: "Current password"
     new_password: "New password"
     new_password_confirm: "Confirm new password"
 
@@ -17,6 +18,7 @@ en:
     invalid_token: "Invalid token!"
     expired_token: "Your token has expired, please request another one."
     invalid_user_or_pass: "Invalid username/password combination!"
+    invalid_pass: "Your current password is incorrect." # In settings only
     login_required: "You need to be logged in to do that."
     admin_required: "You need to be an administrator to do that."
     organizer_required: "You need to be an organizer to do that."
@@ -26,7 +28,9 @@ en:
     password_repeat_mismatch: "Password confirmation does not match your password!"
     activation_complete: "Your account has been confirmed, you may now log in."
     password_reset_complete: "Your password has been reset, you may now log in."
+    password_changed: "Your password has been changed!"
     user_person_mail_mismatch: "must be the same as associated person's email"
+    password_blank: "Your password cannot be blank."
 
     emails:
       sent: "An email has been sent, check your inbox!"

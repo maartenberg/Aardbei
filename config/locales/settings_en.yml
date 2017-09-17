@@ -3,6 +3,7 @@ en:
     settings: "Preferences"
     saved: "Preferences saved!"
     email_settings: "Email notifications"
+    change_password: "Change password"
 
     names:
       send_attendance_reminder: "Send notification on auto-respond"

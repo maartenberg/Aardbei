@@ -19,6 +19,8 @@ nl:
 
   areyousure: "Weet je het zeker?"
 
+  somethingbroke: "Er is iets misgegaan!"
+
   value_required: "Een verplichte vraag was leeg."
 
   invalid_csrf: "Ongeldig authenticiteitstoken! Als je hier terecht bent gekomen na het klikken op een link is het mogelijk dat iemand iets naars probeerde!"
