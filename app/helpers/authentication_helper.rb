@@ -121,7 +121,9 @@ module AuthenticationHelper
     if !is_logged_in?
       flash_message(:warning, I18n.t('authentication.login_required'))
       redirect_to controller: 'authentication', action: 'login_form'
+      return false
     end
+    return true
   end
 
   def require_admin!
