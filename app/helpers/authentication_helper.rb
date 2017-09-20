@@ -99,7 +99,7 @@ module AuthenticationHelper
       @user_session
     else
       id = cookies.signed.permanent[:session_id] || session[:session_id]
-      @user_session ||= Session.find(id)
+      @user_session ||= Session.find_by(id: id)
     end
 
     # Edge case if a session no longer exists in the database
