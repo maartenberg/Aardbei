@@ -1,7 +1,30 @@
+# ['production', 'development']
+RAILS_ENV=
+
+# ['en', 'nl']
+AARDBEI_LOCALE=
+
+# Used in link construction, like 'localhost:3000', 'aardbei.maartenberg.nl'
+AARDBEI_HOSTNAME=
+
+# Set '1' if RAILS_ENV is production, but you're not running a real webserver.
+RAILS_SERVE_STATIC_FILES=
+
+# Full path to the cloned directory. (Run `pwd` if unsure)
+AARDBEI_PATH=
+
+# Generate using `rails secret`
+SECRET_KEY_BASE=
+
+# Database credentials if in production
+DB_NAME=
+DB_USER=
+DB_PASS=
+
 # Parameters for sending mail
-# smtp or mailgun
-MAIL_METHOD=
 MAIL_FROM_ADDRESS=
+# ['smtp', 'sendmail', 'mailgun']
+MAIL_METHOD=
 
 SMTP_SERVER=
 SMTP_USER=
@@ -9,24 +32,6 @@ SMTP_PASS=
 
 MAILGUN_DOMAIN=
 MAILGUN_API_KEY=
-
-# To be used in link construction
-AARDBEI_HOSTNAME=
-
-SECRET_KEY_BASE=
-# ['production', 'development']
-RAILS_ENV=
-
-# Set to '1' if in staging and/or not running a 'real' server or assets won't work
-RAILS_SERVE_STATIC_FILES=
-
-# Database credentials
-DB_NAME=
-DB_USER=
-DB_PASS=
-
-# Where are we?
-AARDBEI_PATH=
 
 # Do we bind to a socket or port?
 PUMA_BIND=
