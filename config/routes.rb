@@ -52,6 +52,10 @@ Rails.application.routes.draw do
       post 'change_organizer', to: 'activities#change_organizer'
       put 'presence', to: 'activities#presence', on: :member
       patch 'presence', to: 'activities#presence', on: :member
+
+      post 'subgroups', to: 'activities#create_subgroup', as: 'create_subgroup'
+      patch 'subgroups/:subgroup_id', to: 'activities#update_subgroup', as: 'update_subgroup'
+      delete 'subgroups(/:subgroup_id)', to: 'activities#destroy_subgroup', as: 'destroy_subgroup'
     end
   end
   get 'my_groups', to: 'groups#user_groups', as: :user_groups

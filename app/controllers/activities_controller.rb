@@ -1,11 +1,12 @@
 class ActivitiesController < ApplicationController
   include GroupsHelper
   include ActivitiesHelper
-  before_action :set_activity_and_group, only: [:show, :edit, :update, :destroy, :presence, :change_organizer]
-  before_action :set_group,            except: [:show, :edit, :update, :destroy, :presence, :change_organizer]
+  before_action :set_activity_and_group, only: [:show, :edit, :update, :destroy, :presence, :change_organizer, :create_subgroup, :update_subgroup, :destroy_subgroup]
+  before_action :set_group,            except: [:show, :edit, :update, :destroy, :presence, :change_organizer, :create_subgroup, :update_subgroup, :destroy_subgroup]
+  before_action :set_subgroup, only: [:update_subgroup, :destroy_subgroup]
   before_action :require_membership!
   before_action :require_leader!, only: [:mass_new, :mass_create, :new, :create, :destroy]
-  before_action :require_organizer!, only: [:edit, :update, :change_organizer]
+  before_action :require_organizer!, only: [:edit, :update, :change_organizer, :create_subgroup, :update_subgroup, :destroy_subgroup]
 
   # GET /groups/:id/activities
   # GET /activities.json
@@ -33,6 +34,10 @@ class ActivitiesController < ApplicationController
       .find_by(person: current_person)
     @counts = @activity.state_counts
     @num_participants = @counts.values.sum
+    @assignable_subgroups = @activity.subgroups
+      .where(is_assignable: true)
+      .order(name: :asc)
+      .pluck(:name)
   end
 
   # GET /activities/new
@@ -55,6 +60,9 @@ class ActivitiesController < ApplicationController
 
     @non_organizers_options.sort!
     @organizers_options.sort!
+
+    @subgroup = Subgroup.new if !@subgroup
+    @subgroups = @activity.subgroups.order(is_assignable: :desc, name: :asc)
   end
 
   # POST /activities
@@ -125,6 +133,40 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  # POST /activities/1/subgroups
+  def create_subgroup
+    @subgroup = Subgroup.new(subgroup_params)
+    @subgroup.activity = @activity
+
+    if @subgroup.save
+      flash_message :success, I18n.t('activities.subgroups.created')
+      redirect_to edit_group_activity_path(@group, @activity)
+    else
+      flash_message :danger, I18n.t('activities.subgroups.create_failed')
+      set_edit_parameters!
+      render :edit
+    end
+  end
+
+  # PATCH /activities/1/subgroups/:subgroup_id
+  def update_subgroup
+    if @subgroup.update(subgroup_params)
+      flash_message :success, I18n.t('activities.subgroups.updated')
+      redirect_to edit_group_activity_path(@group, @activity)
+    else
+      flash_message :danger, I18n.t('activities.subgroups.update_failed')
+      set_edit_parameters!
+      render :edit
+    end
+  end
+
+  # DELETE /activities/1/subgroups/:subgroup_id
+  def destroy_subgroup
+    @subgroup.destroy
+    flash_message :success, I18n.t('activities.subgroups.destroyed')
+    redirect_to edit_group_activity_path(@group, @activity)
+  end
+
   # PATCH/PUT /groups/:group_id/activities/:id/presence
   # PATCH/PUT /groups/:group_id/activities/:id/presence.json
   def presence
@@ -176,8 +218,16 @@ class ActivitiesController < ApplicationController
       @group = Group.find(params[:group_id])
     end
 
+    def set_subgroup
+      @subgroup = Subgroup.find(params[:subgroup_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
       params.require(:activity).permit(:name, :description, :location, :start, :end, :deadline, :reminder_at)
+    end
+
+    def subgroup_params
+      params.require(:subgroup).permit(:name, :is_assignable)
     end
 end

@@ -45,6 +45,9 @@ class Activity < ApplicationRecord
     dependent: :destroy
   has_many :people, through: :participants
 
+  has_many :subgroups,
+    dependent: :destroy
+
   validates :name, presence: true
   validates :start, presence: true
   validate  :deadline_before_start, unless: "self.deadline.blank?"
@@ -52,6 +55,7 @@ class Activity < ApplicationRecord
   validate  :reminder_before_deadline, unless: "self.reminder_at.blank?"
 
   after_create :create_missing_participants!
+  after_create :copy_default_subgroups!
   after_commit :schedule_reminder, if: Proc.new {|a| a.previous_changes["reminder_at"] }
 
   # Get all people (not participants) that are organizers. Does not include
@@ -112,6 +116,18 @@ class Activity < ApplicationRecord
         activity: self,
         person: p,
       )
+    end
+  end
+
+  # Create Subgroups from the defaults set using DefaultSubgroups
+  def copy_default_subgroups!
+    defaults = self.group.default_subgroups
+
+    defaults.each do |dsg|
+      sg = Subgroup.new(activity: self)
+      sg.name = dsg.name
+      sg.is_assignable = dsg.is_assignable
+      sg.save! # Should never fail, as DSG and SG have identical validation, and names cannot clash.
     end
   end
 

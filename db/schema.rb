@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930201201) do
+ActiveRecord::Schema.define(version: 20171001124009) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -103,6 +103,15 @@ ActiveRecord::Schema.define(version: 20170930201201) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "subgroups", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.string   "name",          null: false
+    t.boolean  "is_assignable"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["activity_id"], name: "index_subgroups_on_activity_id"
   end
 
   create_table "tokens", force: :cascade do |t|

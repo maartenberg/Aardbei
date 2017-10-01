@@ -75,3 +75,17 @@ en:
         subject: "You are now listed as 'attending' for %{activity}"
         havenot_responded: "You have not yet indicated if you will be at %{activity}. Because we assume that you're present if you don't respond, your response has been set to 'attending'."
         if_cannot: "If you wish to change this, you can change your response until %{deadline} using the following link:"
+
+    subgroups:
+      manage: 'Manage subgroups'
+      create: 'Create subgroup'
+      created: 'Subgroup created.'
+      create_failed: 'Could not create subgroup!'
+
+      update: 'Update subgroup'
+      updated: 'Subgroup updated.'
+      update_failed: 'Could not update subgroup!'
+
+      destroy: 'Destroy subgroup'
+      destroyed: 'Subgroup destroyed.'
+      none: 'There are no subgroups.'

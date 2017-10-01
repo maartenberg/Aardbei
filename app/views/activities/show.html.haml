@@ -63,6 +63,14 @@
             - if @activity.deadline
               = l @activity.deadline, format: :long
 
+        - if @assignable_subgroups.any?
+          %tr
+            %td
+              = t 'activerecord.attributes.activity.subgroups'
+
+            %td
+              = @assignable_subgroups.join(', ')
+
   - if @ownparticipant
     .col-md-3
       .panel.panel-default

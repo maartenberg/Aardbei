@@ -33,6 +33,68 @@
     - else
       = t 'activities.organizers.no_organizers'
 
-= link_to t(:back), group_activity_path(@group, @activity)
-|
-= link_to t(:overview), group_activities_path(@group)
+%h2
+  = t 'activities.subgroups.manage'
+
+.row
+  .col-md-6
+    %h4
+      = t 'activities.subgroups.create'
+
+    = form_for(@subgroup, url: group_activity_create_subgroup_path(@group, @activity), method: :post) do |f|
+
+      - if @subgroup.errors.any?
+        .has-error.form-group#error_explanation
+          %ul
+            - @subgroup.errors.full_messages.each do |message|
+              %li= message
+
+      .form-group{ class: [ ('has-error' if @subgroup.errors.any?) ] }
+
+        %label
+          = t 'activerecord.attributes.subgroup.name'
+        = f.text_field :name, class: 'form-control'
+
+      .form-group
+        .check-box
+          %label
+            = f.check_box :is_assignable
+            = t 'activerecord.attributes.subgroup.is_assignable'
+            (
+            %i.fa.fa-random
+            )
+
+      = f.submit t('activities.subgroups.create'), class: 'btn btn-success'
+
+  .col-md-6
+    - if @activity.subgroups.blank?
+      %p
+        = t 'activities.subgroups.none'
+    - else
+      %table.table
+        %tr
+          %th
+            = t 'activerecord.attributes.subgroup.name'
+
+          %th
+            %i.fa.fa-random
+
+          %th
+            %i.fa.fa-cogs
+        - @subgroups.each do |sg|
+          %tr
+            %td= sg.name
+            %td
+              = link_to group_activity_update_subgroup_path(@group, @activity, sg.id, 'subgroup[is_assignable]' => !sg.is_assignable), method: :patch, class: 'btn btn-default btn-xs' do
+                - if sg.is_assignable
+                  %i.fa.fa-check
+                - else
+                  %i.fa.fa-times
+
+            %td
+              = link_to group_activity_destroy_subgroup_path(@group, @activity, sg.id), method: :delete, class: 'btn btn-danger btn-xs' do
+                %i.fa.fa-trash
+
+.btn-group
+  = link_to t(:back), group_activity_path(@group, @activity), class: 'btn btn-default'
+  = link_to t(:overview), group_activities_path(@group), class: 'btn btn-default'
