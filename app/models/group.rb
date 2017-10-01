@@ -13,6 +13,9 @@ class Group < ApplicationRecord
   has_many :activities,
     dependent: :destroy
 
+  has_many :default_subgroups,
+    dependent: :destroy
+
   validates :name,
     presence: true,
     uniqueness: {

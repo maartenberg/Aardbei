@@ -36,6 +36,10 @@ Rails.application.routes.draw do
     get 'mass_add', to: 'groups#mass_add_members'
     post 'mass_add', to: 'groups#process_mass_add_members'
 
+    post 'subgroups', to: 'groups#create_default_subgroup', as: 'create_default_subgroup'
+    patch 'subgroups/:default_subgroup_id', to: 'groups#update_default_subgroup', as: 'update_default_subgroup'
+    delete 'subgroups(/:default_subgroup_id)', to: 'groups#destroy_default_subgroup', as: 'destroy_default_subgroup'
+
     resources :members do
       post 'promote', to: 'members#promote', on: :member
       post 'demote', to: 'members#demote', on: :member

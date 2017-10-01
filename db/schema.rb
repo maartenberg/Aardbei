@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917140643) do
+ActiveRecord::Schema.define(version: 20170930201201) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 20170917140643) do
     t.datetime "reminder_at"
     t.boolean  "reminder_done"
     t.index ["group_id"], name: "index_activities_on_group_id"
+  end
+
+  create_table "default_subgroups", force: :cascade do |t|
+    t.integer  "group_id"
+    t.string   "name",          null: false
+    t.boolean  "is_assignable"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["group_id"], name: "index_default_subgroups_on_group_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

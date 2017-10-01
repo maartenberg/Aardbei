@@ -1,0 +1,59 @@
+%h1
+  = t 'groups.edit'
+
+= render 'form', group: @group
+
+%h2
+  = t 'defaultsubgroups.manage'
+
+%p
+  = t 'defaultsubgroups.settings_blurb'
+
+.row
+  .col-md-6
+    %h4
+      = t 'defaultsubgroups.create'
+
+    -#= form_tag(group_create_default_subgroup_path(@group), method: :post, class: 'form') do
+    = form_for(@defaultsubgroup, url: group_create_default_subgroup_path(@group), method: :post) do |f|
+      - if @defaultsubgroup.errors.any?
+        .has-error.form-group#error_explanation
+          %ul
+            - @defaultsubgroup.errors.full_messages.each do |message|
+              %li
+                = message
+
+      .form-group{ class: [ ('has-error' if @defaultsubgroup.errors.any?) ] }
+        %label
+          = t 'activerecord.attributes.default_subgroup.name'
+        = f.text_field(:name, class: 'form-control')
+
+      .form-group
+        .check-box
+          %label
+            = f.check_box(:is_assignable)
+            = t 'activerecord.attributes.default_subgroup.is_assignable'
+
+      = f.submit t('defaultsubgroups.create'), class: 'btn btn-success'
+
+  .col-md-6
+    %h4
+      = t 'defaultsubgroups.destroy'
+
+    - if @group.default_subgroups.blank?
+      %p
+        = t 'defaultsubgroups.none'
+
+    - else
+      = form_tag(group_destroy_default_subgroup_path(@group), method: :delete, class: 'form') do
+        .form-group
+          %label
+            = t 'activerecord.models.default_subgroup.one'
+          - options = @group.default_subgroups.pluck(:name, :id)
+          = select_tag(:default_subgroup_id, options_for_select(options), class: 'form-control')
+
+        = submit_tag(t('defaultsubgroups.destroy'), class: 'btn btn-danger')
+
+.row
+  .col-xs-12
+    = link_to t(:back), @group, class: 'btn btn-default'
