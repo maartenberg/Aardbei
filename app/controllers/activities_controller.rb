@@ -38,6 +38,10 @@ class ActivitiesController < ApplicationController
       .where(is_assignable: true)
       .order(name: :asc)
       .pluck(:name)
+    @subgroup_ids = @activity.subgroups
+      .order(name: :asc)
+      .pluck(:name, :id)
+    @subgroup_ids.prepend( ['*' , 'all'] )
   end
 
   # GET /activities/new

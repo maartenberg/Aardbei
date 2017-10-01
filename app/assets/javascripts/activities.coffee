@@ -2,6 +2,7 @@ $(document).on 'turbolinks:load', ->
   clipboard = new Clipboard('.copy-reactions', {
     'text': clipreactions
   })
+  $('#subgroup_filter').on('change', (e) -> filterparticipants(e))
 
 @clipreactions = (trigger) ->
   id = trigger.dataset['activity']
@@ -24,3 +25,12 @@ $(document).on 'turbolinks:load', ->
     res.push(resp['unknown']['message'])
 
   res.join('\n')
+
+@filterparticipants = (e) ->
+  show = e.target.value
+  if (show != 'all')
+	  selector = "[data-subgroup-id=" + e.target.value + "]"
+	  $('.participant-row').hide()
+	  $(selector).show()
+  else
+    $('.participant-row').show()

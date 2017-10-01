@@ -17,6 +17,7 @@ class Participant < ApplicationRecord
 
   belongs_to :person
   belongs_to :activity
+  belongs_to :subgroup, optional: true
 
   validates :person_id,
     uniqueness: {

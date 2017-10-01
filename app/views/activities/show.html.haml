@@ -87,14 +87,18 @@
             emptytext: t('activities.participant.add_notes')
 
 .hidden-xs
-  %h2
-    = @num_participants
-    = t 'activities.participant.plural'
-    = render partial: "state_counts", locals: {counts: @counts}
+  .row
+    .col-md-6
+      %h2
+        = @num_participants
+        = t 'activities.participant.plural'
+        = render partial: "state_counts", locals: {counts: @counts}
+    .col-md-6
+      = select_tag(:subgroup_filter, options_for_select(@subgroup_ids), class: 'form-control')
 
   %table.table.table-bordered
     - @participants.each do |p|
-      %tr{class: p.row_class, data: {person_id: p.person.id, activity_id: @activity.id}}
+      %tr.participant-row{class: p.row_class, data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
         %td
           = p.person.full_name
           - if p.is_organizer
