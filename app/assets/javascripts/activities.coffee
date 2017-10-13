@@ -2,7 +2,7 @@ $(document).on 'turbolinks:load', ->
   clipboard = new Clipboard('.copy-reactions', {
     'text': clipreactions
   })
-  $('#subgroup_filter').on('change', (e) -> filterparticipants(e))
+  $('.subgroup-filter').on('change', (e) -> filterparticipants(e))
 
 @clipreactions = (trigger) ->
   id = trigger.dataset['activity']
