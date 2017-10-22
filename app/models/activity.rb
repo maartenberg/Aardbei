@@ -183,7 +183,42 @@ class Activity < ApplicationRecord
     self.delay(run_at: self.reminder_at).send_reminder
   end
 
+  # Assign a subgroup to all attending participants without one.
+  def assign_subgroups!
+    # Sanity check: we need subgroups to divide into.
+    return unless self.subgroups.any?
+
+    # Get participants in random order
+    ps = self
+      .participants
+      .where(attending: true)
+      .where(subgroup: nil)
+      .to_a
+
+    ps.shuffle!
+
+    # Get groups, link to participant count
+    groups = self
+      .subgroups
+      .where(is_assignable: true)
+      .to_a
+      .map { |sg| [sg.participants.count, sg] }
+
+    ps.each do |p|
+      # Sort groups so the group with the least participants gets the following participant
+      groups.sort!
+
+      # Assign participant to group with least members
+      p.subgroup = groups.first.second
+      p.save
+
+      # Update the group's position in the list, will sort when next participant is processed.
+      groups.first[0] += 1
+    end
+  end
+
   private
+
   # Assert that the deadline for participants to change the deadline, if any,
   # is set before the event starts.
   def deadline_before_start
