@@ -34,3 +34,8 @@ $(document).on 'turbolinks:load', ->
 	  $(selector).show()
   else
     $('.participant-row').show()
+
+@updatecounts = (subgroupid) ->
+  selector = 'tr.participant-row'
+  if (subgroupid)
+    selector = 'tr.participant-row[data-subgroup-id=' + subgroupid + ']'
