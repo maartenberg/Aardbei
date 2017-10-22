@@ -13,55 +13,55 @@ function setup_handlers()
 // Creates an AJAX-request and registers the appropriate handlers once it is done.
 function change_presence(e)
 {
-	// Gather data
-	var group, person, activity, state;
-	group 	 = this.dataset["groupId"];
-	person   = this.dataset["personId"];
-	activity = this.dataset["activityId"];
-	rstate 	 = this.dataset["newState"];
+    // Gather data
+    var group, person, activity, state;
+    group    = this.dataset["groupId"];
+    person   = this.dataset["personId"];
+    activity = this.dataset["activityId"];
+    rstate   = this.dataset["newState"];
 
-	var state;
-	switch (rstate)
-	{
-		case "present":
-			state = true;
-			break;
+    var state;
+    switch (rstate)
+    {
+        case "present":
+            state = true;
+            break;
 
-		case "absent":
-			state = false;
-			break;
+        case "absent":
+            state = false;
+            break;
 
-		case "unknown":
-			state = null;
-			break;
-	}
+        case "unknown":
+            state = null;
+            break;
+    }
 
-	// Make request
-	var req;
-	req = $.ajax(`/groups/${group}/activities/${activity}/presence`,
-		{
-		  method: 'PUT',
-		  data: {person_id: person, attending: state},
-		  statusCode: {
-			423: function() {
-				alert( "De deadline is al verstreken! Vraag orgi of bestuur of het nog kan.");
-			},
-			403: function() {
-				alert( "Je hebt geen rechten om iemand anders aan te passen!");
-			}
-		  }
-		}
-	)
-	.done( activity_changed );
+    // Make request
+    var req;
+    req = $.ajax(`/groups/${group}/activities/${activity}/presence`,
+        {
+          method: 'PUT',
+          data: {person_id: person, attending: state},
+          statusCode: {
+            423: function() {
+                alert( "De deadline is al verstreken! Vraag orgi of bestuur of het nog kan.");
+            },
+            403: function() {
+                alert( "Je hebt geen rechten om iemand anders aan te passen!");
+            }
+          }
+        }
+    )
+    .done( activity_changed );
 
-	// Pack data for success
-	req.aardbei_activity_data =
-		{
-			group: group,
-			person: person,
-			activity: activity,
-			state: state
-		};
+    // Pack data for success
+    req.aardbei_activity_data =
+        {
+            group: group,
+            person: person,
+            activity: activity,
+            state: state
+        };
 }
 
 // Update all references on the page to this activity:
@@ -69,40 +69,40 @@ function change_presence(e)
 // 2. The present/absent buttons
 function activity_changed(data, textStatus, xhr)
 {
-	// Unpack activity-data
-	var target;
-	target = xhr.aardbei_activity_data;
+    // Unpack activity-data
+    var target;
+    target = xhr.aardbei_activity_data;
 
-	// Determine what color and icons we're going to use
-	var new_rowclass;
-	var new_confirm_icon, new_decline_icon;
-	switch (target.state)
-	{
-		case true:
-			new_rowclass = "success";
-			new_confirm_icon = check_selected;
-			new_decline_icon = times_unselected;
-			break;
+    // Determine what color and icons we're going to use
+    var new_rowclass;
+    var new_confirm_icon, new_decline_icon;
+    switch (target.state)
+    {
+        case true:
+            new_rowclass = "success";
+            new_confirm_icon = check_selected;
+            new_decline_icon = times_unselected;
+            break;
 
-		case false:
-			new_rowclass = "danger";
-			new_confirm_icon = check_unselected;
-			new_decline_icon = times_selected;
-			break;
+        case false:
+            new_rowclass = "danger";
+            new_confirm_icon = check_unselected;
+            new_decline_icon = times_selected;
+            break;
 
-		case null:
-			new_rowclass = "warning";
-			new_confirm_icon = check_unselected;
-			new_decline_icon = times_unselected;
-			break;
-	}
+        case null:
+            new_rowclass = "warning";
+            new_confirm_icon = check_unselected;
+            new_decline_icon = times_unselected;
+            break;
+    }
 
-	// Update all tr's containing this person's presence
-	$(`tr[data-person-id=${target.person}][data-activity-id=${target.activity}]`)
-	  .removeClass('success danger warning')
-	  .addClass(new_rowclass);
+    // Update all tr's containing this person's presence
+    $(`tr[data-person-id=${target.person}][data-activity-id=${target.activity}]`)
+      .removeClass('success danger warning')
+      .addClass(new_rowclass);
 
-	// Update all buttons for this person's presence
+    // Update all buttons for this person's presence
     $(`.btn-present[data-person-id=${target.person}][data-activity-id=${target.activity}]`)
       .html(new_confirm_icon);
     $(`.btn-absent[data-person-id=${target.person}][data-activity-id=${target.activity}]`)
@@ -113,11 +113,14 @@ function activity_changed(data, textStatus, xhr)
       .append(" Present");
     $(`.btn-absent[data-person-id=${target.person}][data-activity-id=${target.activity}][data-wide=1]`)
       .append(" Absent");
+
+    if (window.updatecounts != undefined)
+        updatecounts(window.subgroupfilter);
 }
 
 function alert_failure(data, textStatus, xhr)
 {
-	alert(`Something broke! We got a ${textStatus}, (${data}).`);
+    alert(`Something broke! We got a ${textStatus}, (${data}).`);
 }
 
 var check_unselected = '<i class="fa fa-check"></i>';

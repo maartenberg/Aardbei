@@ -33,9 +33,11 @@ $(document).on 'turbolinks:load', ->
     $('.participant-row').hide()
     $(selector).show()
     @updatecounts(show)
+    this.subgroupfilter = show
   else
     $('.participant-row').show()
     @updatecounts()
+    this.subgroupfilter = null
 
 @updatecounts = (subgroupid) ->
   selector = 'tr.countable.participant-row'
