@@ -95,7 +95,8 @@
         = t 'activities.participant.plural'
         = render partial: "state_counts", locals: {counts: @counts}
     .col-md-6
-      = select_tag(:subgroup_filter, options_for_select(@subgroup_ids), class: 'form-control subgroup-filter')
+      - if @activity.subgroups.any?
+        = select_tag(:subgroup_filter, options_for_select(@subgroup_ids), class: 'form-control subgroup-filter')
 
   %table.table.table-bordered
     - @participants.each do |p|
@@ -113,11 +114,12 @@
             = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
 .hidden-sm.hidden-md.hidden-lg
-  .panel.panel-default
-    .panel-heading
-      = t 'activerecord.attrs.activities.subgroups'
-    .panel-body
-      = select_tag(:subgroup_filter, options_for_select(@subgroup_ids), class: 'form-control subgroup-filter')
+  - if @activity.subgroups.any?
+    .panel.panel-default
+      .panel-heading
+        = t 'activerecord.attrs.activities.subgroups'
+      .panel-body
+        = select_tag(:subgroup_filter, options_for_select(@subgroup_ids), class: 'form-control subgroup-filter')
 
   .panel.panel-default.panel-success
     .panel-heading
