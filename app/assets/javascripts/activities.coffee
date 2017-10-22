@@ -29,13 +29,32 @@ $(document).on 'turbolinks:load', ->
 @filterparticipants = (e) ->
   show = e.target.value
   if (show != 'all')
-	  selector = "[data-subgroup-id=" + e.target.value + "]"
-	  $('.participant-row').hide()
-	  $(selector).show()
+    selector = "[data-subgroup-id=" + e.target.value + "]"
+    $('.participant-row').hide()
+    $(selector).show()
+    @updatecounts(show)
   else
     $('.participant-row').show()
+    @updatecounts()
 
 @updatecounts = (subgroupid) ->
-  selector = 'tr.participant-row'
+  selector = 'tr.countable.participant-row'
+  selectorend = '[style!="display: none;"]'
+
   if (subgroupid)
-    selector = 'tr.participant-row[data-subgroup-id=' + subgroupid + ']'
+    selectorend = '[data-subgroup-id=' + subgroupid + ']' + selectorend
+
+  pselect = selector + '.success' + selectorend
+  uselect = selector + '.warning' + selectorend
+  aselect = selector + '.danger' + selectorend
+
+  numall = $(selector + selectorend).length
+  numpresent = $(pselect).length
+  numunknown = $(uselect).length
+  numabsent  = $(aselect).length
+
+  $('.state-count.all-count').html(numall)
+  $('.state-count.present-count').html(numpresent)
+  $('.state-count.unknown-count').html(numunknown)
+  $('.state-count.absent-count').html(numabsent)
+  [numpresent, numabsent, numunknown]

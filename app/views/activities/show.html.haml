@@ -90,7 +90,8 @@
   .row
     .col-md-6
       %h2
-        = @num_participants
+        %span.state-count.all-count
+          = @num_participants
         = t 'activities.participant.plural'
         = render partial: "state_counts", locals: {counts: @counts}
     .col-md-6
@@ -98,7 +99,7 @@
 
   %table.table.table-bordered
     - @participants.each do |p|
-      %tr.participant-row{class: p.row_class, data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
+      %tr.participant-row.countable{class: p.row_class, data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
         %td
           = p.person.full_name
           - if p.is_organizer
@@ -129,7 +130,7 @@
           %i.fa.fa-angle-up
 
         = t 'activities.state.present'
-        %span.badge
+        %span.badge.state-count.present-count
           = @counts[true] || "0"
 
     %table.table.collapse#present-collapse
@@ -162,7 +163,7 @@
 
         = t 'activities.state.need_response'
 
-        %span.badge
+        %span.badge.state-count.unknown-count
           = @counts[nil] || "0"
 
     %table.table.collapse#unknown-collapse
@@ -194,7 +195,7 @@
 
         = t 'activities.state.absent'
 
-        %span.badge
+        %span.badge.state-count.absent-count
           = @counts[false] || "0"
 
     %table.table.collapse#absent-collapse
