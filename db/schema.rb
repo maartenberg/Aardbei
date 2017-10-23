@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171001150124) do
+ActiveRecord::Schema.define(version: 20171023080215) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -20,10 +20,12 @@ ActiveRecord::Schema.define(version: 20171001150124) do
     t.datetime "end"
     t.datetime "deadline"
     t.integer  "group_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.datetime "reminder_at"
     t.boolean  "reminder_done"
+    t.boolean  "subgroup_division_enabled"
+    t.boolean  "subgroup_division_done"
     t.index ["group_id"], name: "index_activities_on_group_id"
   end
 
