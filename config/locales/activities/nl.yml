@@ -21,6 +21,7 @@ nl:
       must_be_after_start: "moet na start zijn"
       must_be_before_deadline: "moet voor deadline zijn"
       already_in: "persoon doet al mee aan activiteit"
+      cannot_divide_without_subgroups: "moet indeelbare subgroep hebben"
 
     participant:
       singular: "deelnemer"

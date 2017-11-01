@@ -46,6 +46,8 @@ nl:
         reminder_at: Herinnering om
         reminder_done: Herinnering verstuurd
         subgroups: :activerecord.models.subgroup.other
+        subgroup_division_enabled: Subgroepen indelen
+        subgroup_division_done: Subgroepen ingedeeld
 
       group:
         activities: Activiteiten  #g

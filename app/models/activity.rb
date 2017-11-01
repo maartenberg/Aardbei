@@ -38,6 +38,14 @@ class Activity < ApplicationRecord
   # @!attribute reminder_done
   #   @return [Boolean]
   #     whether or not sending the reminder has finished.
+  #
+  # @!attribute subgroup_division_enabled
+  #   @return [Boolean]
+  #     whether automatic subgroup division on the deadline is enabled.
+  #
+  # @!attribute subgroup_division_done
+  #   @return [Boolean]
+  #     whether subgroup division has been performed.
 
   belongs_to :group
 
@@ -53,10 +61,17 @@ class Activity < ApplicationRecord
   validate  :deadline_before_start, unless: "self.deadline.blank?"
   validate  :end_after_start,       unless: "self.end.blank?"
   validate  :reminder_before_deadline, unless: "self.reminder_at.blank?"
+  validate  :subgroups_for_division_present, on: :update
 
   after_create :create_missing_participants!
   after_create :copy_default_subgroups!
-  after_commit :schedule_reminder, if: Proc.new {|a| a.previous_changes["reminder_at"] }
+  after_commit :schedule_reminder,
+               if: Proc.new { |a| a.previous_changes["reminder_at"] }
+  after_commit :schedule_subgroup_division,
+               if: Proc.new { |a| (a.previous_changes['deadline'] ||
+                                   a.previous_changes['subgroup_division_enabled']) &&
+                                  !a.subgroup_division_done &&
+                                  a.subgroup_division_enabled }
 
   # Get all people (not participants) that are organizers. Does not include
   # group leaders, although they may modify the activity as well.
@@ -123,12 +138,16 @@ class Activity < ApplicationRecord
   def copy_default_subgroups!
     defaults = self.group.default_subgroups
 
+    # If there are no subgroups, there cannot be subgroup division.
+    self.update_attribute(:subgroup_division_enabled, false) if defaults.none?
+
     defaults.each do |dsg|
       sg = Subgroup.new(activity: self)
       sg.name = dsg.name
       sg.is_assignable = dsg.is_assignable
       sg.save! # Should never fail, as DSG and SG have identical validation, and names cannot clash.
     end
+
   end
 
   # Create multiple Activities from data in a CSV file, assign to a group, return.
@@ -181,6 +200,12 @@ class Activity < ApplicationRecord
     return if self.reminder_at.nil? || self.reminder_done
 
     self.delay(run_at: self.reminder_at).send_reminder
+  end
+
+  def schedule_subgroup_division
+    return if self.deadline.nil? || self.subgroup_division_done
+
+    self.delay(run_at: self.deadline).assign_subgroups!
   end
 
   # Assign a subgroup to all attending participants without one.

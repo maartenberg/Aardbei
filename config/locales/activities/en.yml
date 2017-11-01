@@ -19,7 +19,9 @@ en:
     errors:
       must_be_before_start: "must be before start"
       must_be_after_start: "must be after start"
+      must_be_before_deadline: "must be before deadline"
       already_in: "person already participates in activity"
+      cannot_divide_without_subgroups: "a divisible subgroup must exist"
 
     participant:
       singular: "participant"

@@ -44,6 +44,11 @@
       <%= f.label :reminder_at %>
       <%= f.datetime_field :reminder_at, class: 'form-control' %>
     </div>
+    <div class="form-group">
+      <div class="check-box">
+        <%= f.check_box(:subgroup_division_enabled) %>
+        <%= t 'activerecord.attributes.activity.subgroup_division_enabled' %>
+      </div>
     <%= f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
