@@ -84,6 +84,13 @@ nl:
         subject: "Je bent automatisch aangemeld voor %{activity}"
         havenot_responded: "Je hebt nog niet aangegeven of je bij %{activity} kunt zijn. Omdat we ervan uitgaan dat je er bent als je niks aangeeft, is je reactie automatisch op 'aanwezig' gezet."
         if_cannot: "Als je toch niet aanwezig kunt zijn, kan je dit tot %{deadline} aangeven via de volgende link:"
+      subgroup_notification:
+        subject: "Je bent ingedeeld in subgroep %{subgroup} voor %{activity}"
+        yoursubgroupis: "De aankomende opkomst %{activity} gebruikt subgroepen, en jij bent ingedeeld in subgroep %{subgroup}."
+        subgroupmembers: "De andere mensen in deze subgroep zijn: %{others}"
+        noothersinsubgroup: "Er zijn geen andere mensen in deze subgroep. :("
+        allsubgroups: "Alle groepjes (inclusief de jouwe) zijn:"
+        cannotdecline: "Deze email is verstuurd toen de deadline voor het afmelden verstreek. Als je om wat voor reden dan ook toch niet kan, neem dan contact op met de Drerrie (afmeld@maartenberg.nl) of een van de organisators van de opkomst (%{organizers})."
 
     subgroups:
       manage: 'Subgroepen aanpassen'

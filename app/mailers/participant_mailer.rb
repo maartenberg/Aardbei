@@ -7,4 +7,32 @@ class ParticipantMailer < ApplicationMailer
 
     mail(to: @person.email, subject: subject)
   end
+
+  def subgroup_notification(person, activity, participant)
+    @person = person
+    @activity = activity
+
+    @subgroup = participant.subgroup.name
+
+    @others = participant
+      .subgroup
+      .participants
+      .where.not(person: @person)
+      .map { |pp| pp.person.full_name }
+      .sort
+      .join(', ')
+
+    @subgroups = @activity
+      .subgroups
+      .order(name: :asc)
+
+    @organizers = @activity
+      .organizer_names
+      .sort
+      .join(', ')
+
+    subject = I18n.t('activities.emails.subgroup_notification.subject', subgroup: @subgroup, activity: @activity.name)
+
+    mail(to: @person.email, subject: subject)
+  end
 end

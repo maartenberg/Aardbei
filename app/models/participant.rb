@@ -57,4 +57,11 @@ class Participant < ApplicationRecord
     ParticipantMailer.attendance_reminder(self.person, self.activity).deliver_later
   end
 
+  # Send subgroup information email if person is attending.
+  def send_subgroup_notification
+    return unless self.attending && self.subgroup
+
+    ParticipantMailer.subgroup_notification(self.person, self.activity, self).deliver_later
+  end
+
 end

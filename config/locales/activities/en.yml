@@ -78,6 +78,13 @@ en:
         havenot_responded: "You have not yet indicated if you will be at %{activity}. Because we assume that you're present if you don't respond, your response has been set to 'attending'."
         if_cannot: "If you wish to change this, you can change your response until %{deadline} using the following link:"
 
+      subgroup_notification:
+        subject: "You have been assigned to subgroup %{subgroup} for %{activity}"
+        yoursubgroupis: "The upcoming activity %{activity} uses subgroups, and you have been assigned to subgroup %{subgroup}."
+        subgroupmembers: "The other people in this subgroup are: %{others}"
+        allsubgroups: "All subgroups (including yours):"
+        cannotdecline: "This email was sent when the deadline expired. If you find you cannot attend, please contact the Drerrie, or one of the organisers (%{organizers})."
+
     subgroups:
       manage: 'Manage subgroups'
       create: 'Create subgroup'

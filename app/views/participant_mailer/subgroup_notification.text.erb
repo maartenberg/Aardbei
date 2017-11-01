@@ -1,0 +1,26 @@
+<%= t 'authentication.emails.greeting', name: @person.first_name %>
+
+<%= t 'activities.emails.subgroup_notification.yoursubgroupis', activity: @activity.name, subgroup: @subgroup %>
+
+<% if !@others.empty? %>
+<%= t 'activities.emails.subgroup_notification.subgroupmembers', others: @others %>
+<% else %>
+<%= t 'activities.emails.subgroup_notification.noothersinsubgroup' %>
+<% end %>
+
+<%= t 'activity.emails.subgroup_notification.allsubgroups' %>
+
+<% @subgroups.each do |sg| %>
+- <%= sg.name %>: <%= sg.participant_names.join(', ') %>
+<% end %>
+
+<%= t 'activity.emails.subgroup_notification.cannotdecline', organizers: @organizers %>
+
+<%= group_activity_url(@activity.group, @activity) %>
+
+<%= t('activities.emails.ending').sample %>
+Aardbei
+
+---
+<%= t 'activities.emails.dont_want_mail' %>
+https://aardbei.maartenberg.nl/settings

@@ -79,6 +79,10 @@ class Activity < ApplicationRecord
     self.participants.includes(:person).where(is_organizer: true)
   end
 
+  def organizer_names
+    self.organizers.map { |o| o.person.full_name }
+  end
+
   # Determine whether the passed Person participates in the activity.
   def is_participant?(person)
     Participant.exists?(
@@ -205,11 +209,11 @@ class Activity < ApplicationRecord
   def schedule_subgroup_division
     return if self.deadline.nil? || self.subgroup_division_done
 
-    self.delay(run_at: self.deadline).assign_subgroups!
+    self.delay(run_at: self.deadline).assign_subgroups!(mail: true)
   end
 
   # Assign a subgroup to all attending participants without one.
-  def assign_subgroups!
+  def assign_subgroups!(mail= false)
     # Sanity check: we need subgroups to divide into.
     return unless self.subgroups.any?
 
@@ -240,6 +244,22 @@ class Activity < ApplicationRecord
       # Update the group's position in the list, will sort when next participant is processed.
       groups.first[0] += 1
     end
+
+    if mail
+      self.notify_subgroups!
+    end
+  end
+
+  # Notify participants of the current subgroups, if any.
+  def notify_subgroups!
+    ps = self
+      .participants
+      .joins(:person)
+      .where.not(subgroup: nil)
+
+    ps.each do |pp|
+      pp.send_subgroup_notification
+    end
   end
 
   private
@@ -264,6 +284,13 @@ class Activity < ApplicationRecord
   def reminder_before_deadline
     if self.reminder_at > self.deadline
       errors.add(:reminder_at, I18n.t('activities.errors.must_be_before_deadline'))
+    end
+  end
+
+  # Assert that there is at least one divisible subgroup.
+  def subgroups_for_division_present
+    if self.subgroups.where(is_assignable: true).none?
+      errors.add(:subgroup_division_enabled, I18n.t('activities.errors.cannot_divide_without_subgroups'))
     end
   end
 end
