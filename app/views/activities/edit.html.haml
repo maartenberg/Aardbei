@@ -83,7 +83,10 @@
             %i.fa.fa-cogs
         - @subgroups.each do |sg|
           %tr
-            %td= sg.name
+            %td
+              = sg.name
+              = surround '(', ')' do
+                = sg.participants.count
             %td
               = link_to group_activity_update_subgroup_path(@group, @activity, sg.id, 'subgroup[is_assignable]' => !sg.is_assignable), method: :patch, class: 'btn btn-default btn-xs' do
                 - if sg.is_assignable
