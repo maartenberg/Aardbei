@@ -53,7 +53,8 @@ class ActivitiesController < ApplicationController
     @subgroup_ids = @activity.subgroups
       .order(name: :asc)
       .pluck(:name, :id)
-    @subgroup_ids.prepend( ['*' , 'all'] )
+    @subgroup_ids.prepend( [I18n.t('activities.subgroups.filter_nofilter'), 'all'] )
+    @subgroup_ids.append( [I18n.t('activities.subgroups.filter_nogroup'), 'withoutgroup'] )
   end
 
   # GET /activities/new

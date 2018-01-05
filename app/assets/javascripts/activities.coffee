@@ -28,16 +28,22 @@ $(document).on 'turbolinks:load', ->
 
 @filterparticipants = (e) ->
   show = e.target.value
-  if (show != 'all')
+  if (show == 'all')
+    $('.participant-row').show()
+    @updatecounts()
+    this.subgroupfilter = null
+  else if (show == 'withoutgroup')
+    selector = "tr.participant-row.success:not([data-subgroup-id])"
+    $('.participant-row').hide()
+    $(selector).show()
+    @updatecounts()
+    this.subgroupfilter = show
+  else
     selector = "[data-subgroup-id=" + e.target.value + "]"
     $('.participant-row').hide()
     $(selector).show()
     @updatecounts(show)
     this.subgroupfilter = show
-  else
-    $('.participant-row').show()
-    @updatecounts()
-    this.subgroupfilter = null
 
 @updatecounts = (subgroupid) ->
   selector = 'tr.countable.participant-row'
