@@ -98,6 +98,9 @@ nl:
       created: 'Subgroep aangemaakt.'
       create_failed: 'Kon subgroep niet opslaan!'
 
+      edit: 'Subgroepindeling bewerken'
+      edited: 'Subgroepindeling bijgewerkt.'
+
       update: 'Subgroep bijwerken'
       updated: 'Subgroep bijgewerkt.'
       update_failed: 'Kon subgroep niet bijwerken!'
@@ -105,3 +108,5 @@ nl:
       destroy: 'Subgroep verwijderen'
       destroyed: 'Subgroep verwijderd.'
       none: 'Er zijn geen subgroepen.'
+
+      only_present_people: 'Je ziet alleen maar mensen die zijn aangemeld in dit overzicht, omdat mensen die zijn afgemeld niet in een subgroep kunnen zitten.'

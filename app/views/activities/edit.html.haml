@@ -98,6 +98,11 @@
               = link_to group_activity_destroy_subgroup_path(@group, @activity, sg.id), method: :delete, class: 'btn btn-danger btn-xs' do
                 %i.fa.fa-trash
 
+      = link_to(group_activity_edit_subgroups_path(@group, @activity), class: 'btn btn-default') do
+        %i.fa.fa-edit
+        = t 'activities.subgroups.edit'
+
+
 .btn-group
   = link_to t(:back), group_activity_path(@group, @activity), class: 'btn btn-default'
   = link_to t(:overview), group_activities_path(@group), class: 'btn btn-default'

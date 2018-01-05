@@ -25,6 +25,18 @@ class Participant < ApplicationRecord
       message: I18n.t('activities.errors.already_in')
     }
 
+  HUMAN_ATTENDING = {
+    true => I18n.t('activities.state.present'),
+    false => I18n.t('activities.state.absent'),
+    nil => I18n.t('activities.state.unknown')
+  }
+
+  # @return [String]
+  #   the name for the Participant's current state in the current locale.
+  def human_attending
+    HUMAN_ATTENDING[self.attending]
+  end
+
   # TODO: Move to a more appropriate place
   # @return [String]
   #   the class for a row containing this activity.

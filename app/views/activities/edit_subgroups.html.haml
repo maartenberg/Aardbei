@@ -1,0 +1,31 @@
+.row
+  .alert.alert-info
+    = t 'activities.subgroups.only_present_people'
+.row
+  .col-md-12
+    = form_tag(group_activity_update_subgroups_path(@group, @activity)) do
+      %table.table
+        %tr
+          %th
+            Naam
+
+          %th
+            Huidig
+
+          %th
+            Nieuw
+
+        - @participants.each do |p|
+          %tr
+            %td
+              = p.person.full_name
+
+            %td
+              = p.subgroup&.name || '--'
+
+            %td
+              = select_tag("participant_subgroups[#{p.id}]", options_for_select(@subgroup_options, p.subgroup_id || 'nil'), class: 'form-control input-sm')
+
+      = submit_tag("Opslaan", class: 'btn btn-primary')
+      = link_to(edit_group_activity_path(@group, @activity), class: 'btn btn-default') do
+        = t :back

@@ -1,12 +1,24 @@
 class ActivitiesController < ApplicationController
   include GroupsHelper
   include ActivitiesHelper
-  before_action :set_activity_and_group, only: [:show, :edit, :update, :destroy, :presence, :change_organizer, :create_subgroup, :update_subgroup, :destroy_subgroup]
-  before_action :set_group,            except: [:show, :edit, :update, :destroy, :presence, :change_organizer, :create_subgroup, :update_subgroup, :destroy_subgroup]
+
+  has_activity_id = [
+    :show, :edit, :edit_subgroups, :update, :update_subgroups, :destroy,
+    :presence, :change_organizer, :create_subgroup, :update_subgroup,
+    :destroy_subgroup
+  ]
+  before_action :set_activity_and_group, only: has_activity_id
+  before_action :set_group,            except: has_activity_id
+
   before_action :set_subgroup, only: [:update_subgroup, :destroy_subgroup]
   before_action :require_membership!
-  before_action :require_leader!, only: [:mass_new, :mass_create, :new, :create, :destroy]
-  before_action :require_organizer!, only: [:edit, :update, :change_organizer, :create_subgroup, :update_subgroup, :destroy_subgroup]
+  before_action :require_leader!, only: [
+    :mass_new, :mass_create, :new, :create, :destroy
+  ]
+  before_action :require_organizer!, only: [
+    :edit, :update, :change_organizer, :create_subgroup, :update_subgroup,
+    :destroy_subgroup, :edit_subgroups, :update_subgroups
+  ]
 
   # GET /groups/:id/activities
   # GET /activities.json
@@ -52,6 +64,66 @@ class ActivitiesController < ApplicationController
   # GET /activities/1/edit
   def edit
     set_edit_parameters!
+  end
+
+  # GET /activities/1/edit_subgroups
+  def edit_subgroups
+    @subgroups = @activity.subgroups.order(is_assignable: :desc, name: :asc)
+
+    if @subgroups.none?
+      flash_message(:error, I18n.t('activities.errors.cannot_subgroup_without_subgroups'))
+      redirect_to group_activity_edit(@group, @activity)
+    end
+
+    @subgroup_options = @subgroups.map { |sg| [sg.name, sg.id] }
+    @subgroup_options.prepend(['--', 'nil'])
+
+    @participants = @activity.participants
+      .joins(:person)
+      .where.not(attending: false)
+      .order(:subgroup_id)
+      .order('people.first_name', 'people.last_name')
+  end
+
+  # POST /activities/1/update_subgroups
+  def update_subgroups
+    # TODO:
+    # voor elke key in participant_subgroups
+    # pak participant, subgroup
+    # verifieer participant hoort bij activiteit
+    # verifieer subgroup hoort bij activiteit
+    # (impl dat editen mogen al gecheckt is, check of dit zo is!)
+    # doe veranderen
+    # knikker alles in een transactie want dan atomisch enzo cool en leuk
+    # S: on error netjes bleren maar wat er mis kan gaan is bijna alleen gekut dus meh
+    kappen = false
+
+    Participant.transaction do
+      params[:participant_subgroups].each do |k, v|
+        p = Participant.find_by id: k
+        sg = Subgroup.find_by id: v unless v == 'nil'
+
+        if !p || p.activity != @activity || (!sg && v != 'nil') || (sg && sg.activity != @activity)
+          flash_message(:danger, I18n.t(:somethingbroke))
+          redirect_to group_activity_edit_subgroups_path(@group, @activity)
+          kappen = true
+          raise ActiveRecord::Rollback
+        end
+
+        if v != 'nil'
+          p.subgroup = sg
+        else
+          p.subgroup = nil
+        end
+
+        p.save
+      end
+    end
+
+    unless kappen
+      flash_message(:success, I18n.t('activities.subgroups.edited'))
+      redirect_to edit_group_activity_path(@group, @activity)
+    end
   end
 
   # Shared lookups for rendering the edit-view

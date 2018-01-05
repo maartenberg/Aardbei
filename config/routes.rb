@@ -56,6 +56,9 @@ Rails.application.routes.draw do
       post 'subgroups', to: 'activities#create_subgroup', as: 'create_subgroup'
       patch 'subgroups/:subgroup_id', to: 'activities#update_subgroup', as: 'update_subgroup'
       delete 'subgroups(/:subgroup_id)', to: 'activities#destroy_subgroup', as: 'destroy_subgroup'
+
+      get 'edit_subgroups', to: 'activities#edit_subgroups'
+      post 'update_subgroups', to: 'activities#update_subgroups'
     end
   end
   get 'my_groups', to: 'groups#user_groups', as: :user_groups
