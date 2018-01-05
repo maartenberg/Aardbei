@@ -19,6 +19,8 @@ class Participant < ApplicationRecord
   belongs_to :activity
   belongs_to :subgroup, optional: true
 
+  after_validation :clear_subgroup, if: 'self.attending != true'
+
   validates :person_id,
     uniqueness: {
       scope: :activity_id,
@@ -74,6 +76,11 @@ class Participant < ApplicationRecord
     return unless self.attending && self.subgroup
 
     ParticipantMailer.subgroup_notification(self.person, self.activity, self).deliver_later
+  end
+
+  # Clear subgroup if person is set to 'not attending'.
+  def clear_subgroup
+    self.subgroup = nil
   end
 
 end
