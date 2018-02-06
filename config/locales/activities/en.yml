@@ -107,3 +107,15 @@ en:
       filter_nofilter: 'Show everyone'
 
       only_present_people: "Only people who will attend are listed, because people who don't cannot be in a subgroup."
+
+      clear: 'Clear subgroups'
+      clear_explanation: 'This removes everyone in a assignable subgroup from their subgroup! Are you sure you want this?'
+      cleared: 'Subgroups cleared.'
+
+      redistribute: 'Redistribute subgroups'
+      redistribute_explanation: 'This removes everyone in a assignable subgroup from that subgroup, and then randomly reassigns everyone to their subgroup. Are you sure you want this?'
+      redistributed: 'Subgroups redistributed.'
+
+      distribute_remaining: 'Distribute remaining to subgroups'
+      distribute_remaining_explanation: 'This distributes all remaining attending participants not yet in a subgroup to a subgroup. Do you want this?'
+      remaining_distributed: 'Remaining participants distributed.'

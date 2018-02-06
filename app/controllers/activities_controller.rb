@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
   has_activity_id = [
     :show, :edit, :edit_subgroups, :update, :update_subgroups, :destroy,
     :presence, :change_organizer, :create_subgroup, :update_subgroup,
-    :destroy_subgroup
+    :destroy_subgroup, :immediate_subgroups, :clear_subgroups
   ]
   before_action :set_activity_and_group, only: has_activity_id
   before_action :set_group,            except: has_activity_id
@@ -17,7 +17,8 @@ class ActivitiesController < ApplicationController
   ]
   before_action :require_organizer!, only: [
     :edit, :update, :change_organizer, :create_subgroup, :update_subgroup,
-    :destroy_subgroup, :edit_subgroups, :update_subgroups
+    :destroy_subgroup, :edit_subgroups, :update_subgroups, :immediate_subgroups,
+    :clear_subgroups
   ]
 
   # GET /groups/:id/activities
@@ -88,26 +89,18 @@ class ActivitiesController < ApplicationController
 
   # POST /activities/1/update_subgroups
   def update_subgroups
-    # TODO:
-    # voor elke key in participant_subgroups
-    # pak participant, subgroup
-    # verifieer participant hoort bij activiteit
-    # verifieer subgroup hoort bij activiteit
-    # (impl dat editen mogen al gecheckt is, check of dit zo is!)
-    # doe veranderen
-    # knikker alles in een transactie want dan atomisch enzo cool en leuk
-    # S: on error netjes bleren maar wat er mis kan gaan is bijna alleen gekut dus meh
-    kappen = false
-
     Participant.transaction do
+      # For each key in participant_subgroups:
       params[:participant_subgroups].each do |k, v|
+        # Get Participant, Subgroup
         p = Participant.find_by id: k
         sg = Subgroup.find_by id: v unless v == 'nil'
 
+        # Verify that the Participant and Subgroup belong to this activity
+        # Edit-capability is enforced by before_filter.
         if !p || p.activity != @activity || (!sg && v != 'nil') || (sg && sg.activity != @activity)
           flash_message(:danger, I18n.t(:somethingbroke))
           redirect_to group_activity_edit_subgroups_path(@group, @activity)
-          kappen = true
           raise ActiveRecord::Rollback
         end
 
@@ -121,10 +114,33 @@ class ActivitiesController < ApplicationController
       end
     end
 
-    unless kappen
-      flash_message(:success, I18n.t('activities.subgroups.edited'))
-      redirect_to edit_group_activity_path(@group, @activity)
+    flash_message(:success, I18n.t('activities.subgroups.edited'))
+    redirect_to edit_group_activity_path(@group, @activity)
+  end
+
+  # POST /activities/1/immediate_subgroups
+  def immediate_subgroups
+    if params[:overwrite]
+      @activity.clear_subgroups!
     end
+
+    @activity.assign_subgroups!
+
+    if params[:overwrite]
+      flash_message(:success, I18n.t('activities.subgroups.redistributed'))
+    else
+      flash_message(:success, I18n.t('activities.subgroups.remaining_distributed'))
+    end
+
+    redirect_to edit_group_activity_path(@group, @activity)
+  end
+
+  # POST /activities/1/clear_subgroups
+  def clear_subgroups
+    @activity.clear_subgroups!
+
+    flash_message(:success, I18n.t('activities.subgroups.cleared'))
+    redirect_to edit_group_activity_path(@group, @activity)
   end
 
   # Shared lookups for rendering the edit-view

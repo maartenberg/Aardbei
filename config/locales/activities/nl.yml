@@ -114,3 +114,15 @@ nl:
       filter_nofilter: 'Toon iedereen'
 
       only_present_people: 'Je ziet alleen maar mensen die zijn aangemeld in dit overzicht, omdat mensen die zijn afgemeld niet in een subgroep kunnen zitten.'
+
+      clear: 'Subgroepen legen'
+      clear_explanation: 'Dit verwijdert iedereen in een indeelbare subgroep uit zijn subgroep! Weet je zeker dat je dit wilt?'
+      cleared: 'Subgroepen geleegd.'
+
+      redistribute: 'Subgroepen opnieuw indelen'
+      redistribute_explanation: 'Dit verwijdert iedereen in een indeelbare subgroep uit die subgroep, en deelt daarna iedereen willekeurig opnieuw in. Weet je zeker dat je dit wilt?'
+      redistributed: 'Subgroepen opnieuw ingedeeld.'
+
+      distribute_remaining: 'Overgebleven naar subgroepen'
+      distribute_remaining_explanation: 'Dit deelt iedereen die is aangemeld, maar nog niet in een subgroep zit, in in een willekeurige subgroep (volgens normale volgorde van kleinste groep eerst). Wil je dit?'
+      remaining_distributed: 'Overgebleven personen ingedeeld in subgroepen.'

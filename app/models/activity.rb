@@ -250,6 +250,25 @@ class Activity < ApplicationRecord
     end
   end
 
+  def clear_subgroups!(only_assignable = true)
+    sgs = self
+      .subgroups
+
+    if only_assignable
+    sgs = sgs
+      .where(is_assignable: true)
+    end
+
+    ps = self
+      .participants
+      .where(subgroup: sgs)
+
+    ps.each do |p|
+      p.subgroup = nil
+      p.save
+    end
+  end
+
   # Notify participants of the current subgroups, if any.
   def notify_subgroups!
     ps = self

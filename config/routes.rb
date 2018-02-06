@@ -59,6 +59,8 @@ Rails.application.routes.draw do
 
       get 'edit_subgroups', to: 'activities#edit_subgroups'
       post 'update_subgroups', to: 'activities#update_subgroups'
+      post 'immediate_subgroups', to: 'activities#immediate_subgroups'
+      post 'clear_subgroups', to: 'activities#clear_subgroups'
     end
   end
   get 'my_groups', to: 'groups#user_groups', as: :user_groups
