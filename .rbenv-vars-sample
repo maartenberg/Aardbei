@@ -35,3 +35,6 @@ MAILGUN_API_KEY=
 
 # Do we bind to a socket or port?
 PUMA_BIND=
+
+# Set to enable Sentry reporting
+SENTRY_DSN=

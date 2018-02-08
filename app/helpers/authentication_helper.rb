@@ -123,6 +123,10 @@ module AuthenticationHelper
       redirect_to controller: 'authentication', action: 'login_form'
       return false
     end
+
+    Raven.user_context(
+      user_firstname: current_person.first_name
+    )
     return true
   end
 

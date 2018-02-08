@@ -64,6 +64,9 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
+# Error reporting
+gem 'sentry-raven'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
