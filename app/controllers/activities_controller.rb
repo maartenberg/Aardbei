@@ -115,7 +115,7 @@ class ActivitiesController < ApplicationController
     end
 
     flash_message(:success, I18n.t('activities.subgroups.edited'))
-    redirect_to edit_group_activity_path(@group, @activity)
+    redirect_to edit_group_activity_path(@group, @activity, anchor: 'subgroups')
   end
 
   # POST /activities/1/immediate_subgroups
@@ -192,7 +192,7 @@ class ActivitiesController < ApplicationController
     end
     flash_message(:success, message)
 
-    redirect_to edit_group_activity_path(@group, @activity)
+    redirect_to edit_group_activity_path(@group, @activity, anchor: 'organizers-add')
   end
 
   # PATCH/PUT /activities/1
@@ -233,7 +233,7 @@ class ActivitiesController < ApplicationController
 
     if @subgroup.save
       flash_message :success, I18n.t('activities.subgroups.created')
-      redirect_to edit_group_activity_path(@group, @activity)
+      redirect_to edit_group_activity_path(@group, @activity, anchor: 'subgroups-add')
     else
       flash_message :danger, I18n.t('activities.subgroups.create_failed')
       set_edit_parameters!
@@ -245,7 +245,7 @@ class ActivitiesController < ApplicationController
   def update_subgroup
     if @subgroup.update(subgroup_params)
       flash_message :success, I18n.t('activities.subgroups.updated')
-      redirect_to edit_group_activity_path(@group, @activity)
+      redirect_to edit_group_activity_path(@group, @activity, anchor: 'subgroups')
     else
       flash_message :danger, I18n.t('activities.subgroups.update_failed')
       set_edit_parameters!
@@ -257,7 +257,7 @@ class ActivitiesController < ApplicationController
   def destroy_subgroup
     @subgroup.destroy
     flash_message :success, I18n.t('activities.subgroups.destroyed')
-    redirect_to edit_group_activity_path(@group, @activity)
+    redirect_to edit_group_activity_path(@group, @activity, anchor: 'subgroups')
   end
 
   # PATCH/PUT /groups/:group_id/activities/:id/presence
