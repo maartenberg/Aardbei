@@ -75,6 +75,7 @@ nl:
       open_activity: "Activiteit openen"
       open_settings: "Instellingen"
       dont_want_mail: "Als je dit soort mailtjes niet meer wilt ontvangen, kun je dit uitschakelen via de volgende link:"
+      cant_turn_off: "Omdat deze mail belangrijk is kan je hem niet uitzetten."
       ending:
         - "Met griendelijke vroet,"
         - "Met groetelijke doei,"

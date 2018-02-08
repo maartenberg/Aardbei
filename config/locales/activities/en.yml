@@ -71,6 +71,7 @@ en:
       open_activity: "Open activity"
       open_settings: "Preferences"
       dont_want_mail: "If you no longer want to receive these emails, change your preferences using the following link:"
+      cant_turn_off: "This email cannot be disabled, because it contains important information."
       ending:
         - "Cheers,"
       attendance_reminder:
