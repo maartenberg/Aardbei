@@ -29,6 +29,7 @@ nl:
       notes: "Opmerkingen"
       add_notes: "Opmerkingen toevoegen"
       yourresponse: "Jouw antwoord"
+      yoursubgroup: "Jouw subgroep"
 
       copy_responses: "Kopieer overzicht"
       copy_absent: "Kopieer afwezigen"

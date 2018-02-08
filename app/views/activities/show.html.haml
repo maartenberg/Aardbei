@@ -25,22 +25,26 @@
 
 
       %table.table
-        %tr
-          %td
-            = t 'activities.attrs.organizers'
-          %td
-            = @organizers
-        %tr
-          %td
-            = t 'activities.attrs.description'
-          %td
-            = @activity.description
+        - unless @organizers.blank?
+          %tr
+            %td
+              = t 'activities.attrs.organizers'
+            %td
+              = @organizers
 
-        %tr
-          %td
-            = t 'activities.attrs.where'
-          %td
-            = @activity.location
+        - unless @activity.description.blank?
+          %tr
+            %td
+              = t 'activities.attrs.description'
+            %td
+              = @activity.description
+
+        - unless @activity.location.blank?
+          %tr
+            %td
+              = t 'activities.attrs.where'
+            %td
+              = @activity.location
 
         %tr
           %td
@@ -55,12 +59,12 @@
               - else
                 = l @activity.end, format: :long
 
-        %tr
-          %td
-            = t 'activities.attrs.deadline'
+        - if @activity.deadline
+          %tr
+            %td
+              = t 'activities.attrs.deadline'
 
-          %td
-            - if @activity.deadline
+            %td
               = l @activity.deadline, format: :long
 
         - if @assignable_subgroups.any?
@@ -70,6 +74,13 @@
 
             %td
               = @assignable_subgroups.join(', ')
+
+        - if @ownparticipant&.subgroup
+          %tr
+            %td
+              = t 'activities.participant.yoursubgroup'
+            %td
+              = @ownparticipant.subgroup.name
 
   - if @ownparticipant
     .col-md-3
