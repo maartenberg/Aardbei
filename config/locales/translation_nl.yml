@@ -48,6 +48,7 @@ nl:
         subgroups: :activerecord.models.subgroup.other
         subgroup_division_enabled: Subgroepen indelen
         subgroup_division_done: Subgroepen ingedeeld
+        no_response_action: Actie bij geen reactie
 
       group:
         activities: Activiteiten  #g

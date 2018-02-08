@@ -46,6 +46,12 @@ class Activity < ApplicationRecord
   # @!attribute subgroup_division_done
   #   @return [Boolean]
   #     whether subgroup division has been performed.
+  #
+  # @!attribute no_response_action
+  #   @return [Boolean]
+  #     what action to take when a participant has not responded and the
+  #     reminder is being sent. True to set the participant to attending, false
+  #     to set to absent.
 
   belongs_to :group
 

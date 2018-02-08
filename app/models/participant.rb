@@ -61,7 +61,7 @@ class Participant < ApplicationRecord
   def send_reminder
     return unless self.attending.nil?
 
-    self.attending = true
+    self.attending = self.activity.no_response_action
     notes = self.notes || ""
     notes << '[auto]'
     self.notes = notes

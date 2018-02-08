@@ -75,7 +75,8 @@ en:
         - "Cheers,"
       attendance_reminder:
         subject: "You are now listed as 'attending' for %{activity}"
-        havenot_responded: "You have not yet indicated if you will be at %{activity}. Because we assume that you're present if you don't respond, your response has been set to 'attending'."
+        set_to_present: "You have not yet indicated if you will be at %{activity}. Because we assume that you're present if you don't respond, your response has been set to 'attending'."
+        set_to_absent: "You have not yet indicated if you will be at %{activity}. This activity is set to assume to set you to absent if you don't respond, so your response has been set to 'absent'."
         if_cannot: "If you wish to change this, you can change your response until %{deadline} using the following link:"
 
       subgroup_notification:

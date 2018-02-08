@@ -1,6 +1,10 @@
 <%= t 'authentication.emails.greeting', name: @person.first_name %>
 
-<%= t 'activities.emails.attendance_reminder.havenot_responded', activity: @activity.name %>
+<% if @activity.no_response_action %>
+<%= t 'activities.emails.attendance_reminder.set_to_present', activity: @activity.name %>
+<% else %>
+<%= t 'activities.emails.attendance_reminder.set_to_absent', activity: @activity.name %>
+<% end %>
 
 <%= t 'activities.emails.attendance_reminder.if_cannot', deadline: l(@activity.deadline, format: :short) %>
 

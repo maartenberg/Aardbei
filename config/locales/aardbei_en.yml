@@ -83,3 +83,4 @@ en:
         end: "End"
         description: "Description"
         deadline: "Deadline"
+        no_response_action: "Action when no response"

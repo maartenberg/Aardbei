@@ -1,6 +1,9 @@
 %p= t 'authentication.emails.greeting', name: @person.first_name
 
-%p= t 'activities.emails.attendance_reminder.havenot_responded', activity: @activity.name
+- if @activity.no_response_action
+  %p= t 'activities.emails.attendance_reminder.set_to_present', activity: @activity.name
+- else
+  %p= t 'activities.emails.attendance_reminder.set_to_absent', activity: @activity.name
 
 %p= t 'activities.emails.attendance_reminder.if_cannot', deadline: l(@activity.deadline, format: :short)
 

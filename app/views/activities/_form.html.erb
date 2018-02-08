@@ -40,15 +40,25 @@
       <%= f.label :deadline %>
       <%= f.datetime_field :deadline, class: 'form-control' %>
     </div>
-    <div class="form-group">
-      <%= f.label :reminder_at %>
-      <%= f.datetime_field :reminder_at, class: 'form-control' %>
+    <div class="form-group row">
+      <div class="col-md-6">
+        <%= f.label :reminder_at %>
+        <%= f.datetime_field :reminder_at, class: 'form-control' %>
+      </div>
+      <div class="col-md-6">
+        <%= f.label :no_response_action %>
+        <%= f.select(:no_response_action, options_for_select([
+          [I18n.t('activities.no_response_action.auto_present'), 'true'],
+          [I18n.t('activities.no_response_action.auto_absent'), 'false']
+        ], selected: @activity.no_response_action.to_s), {}, {class: 'form-control'}) %>
+      </div>
     </div>
     <div class="form-group">
       <div class="check-box">
         <%= f.check_box(:subgroup_division_enabled) %>
         <%= t 'activerecord.attributes.activity.subgroup_division_enabled' %>
       </div>
+    </div>
     <div class="form-group btn-group">
       <%= f.submit class: 'btn btn-primary' %>
       <% unless activity.new_record? %>
