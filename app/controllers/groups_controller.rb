@@ -19,11 +19,13 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    @organized_activities = current_person.organized_activities.
-      joins(:activity).where(
-        'activities.group_id': @group.id
-    )
-    if @organized_activities.count > 0
+    @organized_activities = current_person
+      .organized_activities
+      .joins(:activity)
+      .where('activities.group_id': @group.id)
+      .where('start > ?', Date.today)
+
+    if @organized_activities.any?
       @groupmenu = 'col-md-6'
     else
       @groupmenu = 'col-md-12'
