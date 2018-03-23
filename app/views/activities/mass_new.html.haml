@@ -11,6 +11,6 @@
     .col-md-12
       = form_tag(group_activities_mass_new_path(@group), method: 'post', multipart: true) do
         .form-group
-          = file_field_tag 'spreadsheet'
+          = file_field_tag 'spreadsheet', required: true
         .form-group
-          = submit_tag
+          = submit_tag("Go!", class: 'btn btn-warning', confirm: t(:areyousure))

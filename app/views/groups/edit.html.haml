@@ -55,5 +55,7 @@
         = submit_tag(t('defaultsubgroups.destroy'), class: 'btn btn-danger')
 
 .row
-  .col-xs-12
-    = link_to t(:back), @group, class: 'btn btn-default'
+  .col-md-12
+    .btn-group
+      = link_to t(:back), @group, class: 'btn btn-default'
+      = link_to t('activities.mass_import_short'), group_activities_mass_new_path(@group), class: 'btn btn-default'

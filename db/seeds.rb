@@ -22,7 +22,8 @@ u = User.create!(
   email: 'maarten@maartenberg.nl',
   person: p,
   password: 'aardbei123',
-  password_confirmation: 'aardbei123'
+  password_confirmation: 'aardbei123',
+  confirmed: true
 )
 
 p2 = Person.create!(

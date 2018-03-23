@@ -8,6 +8,7 @@ nl:
     edit: "Activiteit bewerken"
     updated: "Activiteit bijgewerkt."
     destroyed: "Activiteit verwijderd."
+    mass_import_short: "Activiteiten importeren"
     mass_import: "Meerdere activiteiten aanmaken in %{group}"
     mass_imported: "%{count} activiteiten aangemaakt!"
 

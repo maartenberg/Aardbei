@@ -176,15 +176,31 @@ class Activity < ApplicationRecord
       st            = Time.strptime(row['start_time'], '%H:%M')
       a.start       = Time.zone.local(sd.year, sd.month, sd.day, st.hour, st.min)
 
-      if not row['end_date'].blank?
+      unless row['end_date'].blank?
         ed          = Date.strptime(row['end_date'])
         et          = Time.strptime(row['end_time'], '%H:%M')
         a.end       = Time.zone.local(ed.year, ed.month, ed.day, et.hour, et.min)
       end
 
-      dd            = Date.strptime(row['deadline_date'])
-      dt            = Time.strptime(row['deadline_time'], '%H:%M')
-      a.deadline    = Time.zone.local(dd.year, dd.month, dd.day, dt.hour, dt.min)
+      unless row['deadline_date'].blank?
+        dd            = Date.strptime(row['deadline_date'])
+        dt            = Time.strptime(row['deadline_time'], '%H:%M')
+        a.deadline    = Time.zone.local(dd.year, dd.month, dd.day, dt.hour, dt.min)
+      end
+
+      unless row['reminder_at_date'].blank?
+        rd            = Date.strptime(row['reminder_at_date'])
+        rt            = Time.strptime(row['reminder_at_time'], '%H:%M')
+        a.reminder_at = Time.zone.local(rd.year, rd.month, rd.day, rt.hour, rt.min)
+      end
+
+      unless row['subgroup_division_enabled'].blank?
+        a.subgroup_division_enabled = row['subgroup_division_enabled'].downcase == 'y'
+      end
+
+      unless row['no_response_action'].blank?
+        a.no_response_action = row['no_response_action'].downcase == 'p'
+      end
 
       result << a
     end

@@ -8,6 +8,7 @@ en:
     edit: "Edit activity"
     updated: "Activity updated."
     destroyed: "Activity destroyed."
+    mass_import_short: "Import activities"
     mass_import: "Create multiple activities in %{group}"
     mass_imported: "%{count} activities created!"
 
