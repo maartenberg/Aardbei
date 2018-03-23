@@ -1,7 +1,9 @@
 <%= form_for([@group, activity]) do |f| %>
   <% if activity.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+      <h2>
+        <%= I18n.t(:could_not_be_saved, errorcount: I18n.t(:error, count: activity.errors.count), class: I18n.t('activities.singular')) %>
+      </h2>
 
       <ul>
       <% activity.errors.full_messages.each do |message| %>
