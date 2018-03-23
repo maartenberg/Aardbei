@@ -75,7 +75,8 @@ Group.all.each do |g|
       start: starttime,
       end: endtime,
       deadline: deadline,
-      group: g
+      group: g,
+      no_response_action: Faker::Boolean.boolean
     )
   end
 end
