@@ -314,7 +314,7 @@ class Activity < ApplicationRecord
 
   # Assert that there is at least one divisible subgroup.
   def subgroups_for_division_present
-    if self.subgroups.where(is_assignable: true).none?
+    if self.subgroups.where(is_assignable: true).none? && subgroup_division_enabled?
       errors.add(:subgroup_division_enabled, I18n.t('activities.errors.cannot_divide_without_subgroups'))
     end
   end
