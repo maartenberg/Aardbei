@@ -12,6 +12,9 @@ en:
     mass_import: "Create multiple activities in %{group}"
     mass_imported: "%{count} activities created!"
 
+    upcoming: 'Upcoming activities'
+    past: 'Past activities'
+
     mass_import_explanation: "Download the example file using the link below, fill in the fields (end and deadline are optional), and upload the file using the upload form."
 
     upcoming_yours: "Upcoming activities organized by you"

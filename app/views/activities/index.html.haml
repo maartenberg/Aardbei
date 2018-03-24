@@ -1,11 +1,23 @@
 %h1
-  = t 'activerecord.models.activity.other'
-
-= link_to new_group_activity_path(@group), class: 'btn btn-default pull-right' do
-  %i.fa.fa-plus
-  = t 'activities.new'
+  - if params[:past]
+    = t 'activities.past'
+  - else
+    = t 'activities.upcoming'
 
 - isleader = @group.leaders.include?(current_person) || current_person.is_admin?
+.btn-group.pull-right
+  - if params[:past]
+    = link_to group_activities_path(@group), class: 'btn btn-default' do
+      %i.fa.fa-history
+      = t 'activities.upcoming'
+  - else
+    = link_to group_activities_path(@group, past: true), class: 'btn btn-default' do
+      %i.fa.fa-history
+      = t 'activities.past'
+  - if isleader
+    = link_to new_group_activity_path(@group), class: 'btn btn-default' do
+      %i.fa.fa-plus
+      = t 'activities.new'
 
 %table.table
   %thead
@@ -40,4 +52,3 @@
               %i.fa.fa-pencil
 
 = will_paginate @activities
-

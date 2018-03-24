@@ -24,10 +24,17 @@ class ActivitiesController < ApplicationController
   # GET /groups/:id/activities
   # GET /activities.json
   def index
-    @activities = @group.activities
-      .where('start > ?', Time.now)
-      .order(start: :asc)
-      .paginate(page: params[:page], per_page: 25)
+    if params[:past]
+      @activities = @group.activities
+        .where('start < ?', Time.now)
+        .order(start: :desc)
+        .paginate(page: params[:page], per_page: 25)
+    else
+      @activities = @group.activities
+        .where('start > ?', Time.now)
+        .order(start: :asc)
+        .paginate(page: params[:page], per_page: 25)
+    end
   end
 
   # GET /activities/1
