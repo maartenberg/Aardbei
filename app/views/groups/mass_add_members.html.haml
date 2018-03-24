@@ -2,8 +2,17 @@
   .row
     .col-md-12
       %h1
-        Mass-adding members to
-        = @group.name
-      = form_tag("/groups/#{@group.id}/mass_add", method: 'post', multipart: true) do
-        = file_field_tag 'spreadsheet'
-        = submit_tag
+        = t 'groups.mass_add_members', group: @group.name
+  .row
+    .col-md-12
+      %p
+        = t 'groups.mass_add_explanation'
+      = link_to asset_path('batch_persons.csv'), class: 'btn btn-default' do
+        = t :download
+  .row
+    .col-md-12
+      = form_tag(group_mass_add_path(@group), method: 'post', multipart: true) do
+        .form-group
+          = file_field_tag 'spreadsheet', required: true
+        .form-group
+          = submit_tag("Go!", class: 'btn btn-warning', confirm: t(:areyousure))

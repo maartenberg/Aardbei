@@ -22,6 +22,11 @@ en:
     member_updated: "Member updated."
     member_removed: "%{name} was removed from the group."
 
+    mass_add_members: "Adding multiple members to %{group}"
+    mass_add_short: "Import members"
+    mass_add_explanation: "Download the example file using the link below, and fill in this file in the format shown. Upload the completed form using the form at the bottom of this page. Note that all data fields will be ignored if a user with the same email address exists. Date of birth is not required."
+    mass_add_success: "%{count} members added to group."
+
     member:
       add: "New Member"
       adding: "Add member to %{name}"

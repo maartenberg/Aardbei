@@ -1,10 +1,10 @@
 class GroupsController < ApplicationController
   include GroupsHelper
-  before_action :set_group, only: [:show, :edit, :update, :destroy, :create_default_subgroup, :update_default_subgroup, :destroy_default_subgroup]
+  before_action :set_group, only: [:show, :edit, :update, :destroy, :create_default_subgroup, :update_default_subgroup, :destroy_default_subgroup, :mass_add_members, :process_mass_add_members]
   before_action :set_default_subgroup, only: [:update_default_subgroup, :destroy_default_subgroup]
-  before_action :require_admin!, only: [:index, :process_mass_add_members, :mass_add_members]
+  before_action :require_admin!, only: [:index]
   before_action :require_membership!, only: [:show]
-  before_action :require_leader!, only: [:edit, :update, :destroy, :create_default_subgroup, :update_default_subgroup, :destroy_default_subgroup]
+  before_action :require_leader!, only: [:edit, :update, :destroy, :create_default_subgroup, :update_default_subgroup, :destroy_default_subgroup, :process_mass_add_members, :mass_add_members]
 
   # GET /groups
   # GET /groups.json
@@ -102,23 +102,21 @@ class GroupsController < ApplicationController
   end
 
   def mass_add_members
-    @group = Group.find(params[:group_id])
   end
 
   def process_mass_add_members
-    @group = Group.find(params[:group_id])
     require 'csv'
     uploaded_io = params[:spreadsheet]
     result = Person.from_csv(uploaded_io.read)
 
     result.each do |p|
       m = Member.find_by(person: p, group: @group)
-      if not m
+      unless m
         m = Member.new(person: p, group: @group)
         m.save!
       end
     end
-    flash_message(:success, "#{result.count} people added to group")
+    flash_message(:success, I18n.t('groups.mass_add_success', count: result.count))
     redirect_to group_members_path(@group)
   end
 
