@@ -36,6 +36,10 @@ Rails.application.routes.draw do
     get 'mass_add', to: 'groups#mass_add_members'
     post 'mass_add', to: 'groups#process_mass_add_members'
 
+    post 'subgroups', to: 'groups#create_default_subgroup', as: 'create_default_subgroup'
+    patch 'subgroups/:default_subgroup_id', to: 'groups#update_default_subgroup', as: 'update_default_subgroup'
+    delete 'subgroups(/:default_subgroup_id)', to: 'groups#destroy_default_subgroup', as: 'destroy_default_subgroup'
+
     resources :members do
       post 'promote', to: 'members#promote', on: :member
       post 'demote', to: 'members#demote', on: :member
@@ -48,6 +52,15 @@ Rails.application.routes.draw do
       post 'change_organizer', to: 'activities#change_organizer'
       put 'presence', to: 'activities#presence', on: :member
       patch 'presence', to: 'activities#presence', on: :member
+
+      post 'subgroups', to: 'activities#create_subgroup', as: 'create_subgroup'
+      patch 'subgroups/:subgroup_id', to: 'activities#update_subgroup', as: 'update_subgroup'
+      delete 'subgroups(/:subgroup_id)', to: 'activities#destroy_subgroup', as: 'destroy_subgroup'
+
+      get 'edit_subgroups', to: 'activities#edit_subgroups'
+      post 'update_subgroups', to: 'activities#update_subgroups'
+      post 'immediate_subgroups', to: 'activities#immediate_subgroups'
+      post 'clear_subgroups', to: 'activities#clear_subgroups'
     end
   end
   get 'my_groups', to: 'groups#user_groups', as: :user_groups

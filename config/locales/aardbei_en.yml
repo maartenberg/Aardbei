@@ -46,6 +46,13 @@ en:
 
   invalid_csrf: "You submitted an invalid request! If you got here after clicking a link, it's possible that someone is doing something nasty!"
 
+  could_not_be_saved: "%{errorcount} prevented this %{class} from being saved:"
+
+  error:
+    zero: "no errors"
+    one: "an error"
+    other: "%{count} errors"
+
   activerecord:
     models:
       person:
@@ -83,3 +90,4 @@ en:
         end: "End"
         description: "Description"
         deadline: "Deadline"
+        no_response_action: "Action when no response"

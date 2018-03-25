@@ -19,8 +19,15 @@ nl:
 
   areyousure: "Weet je het zeker?"
 
-  somethingbroke: "Er is iets misgegaan!"
+  somethingbroke: "Er is iets misgegaan! Neem contact op als dit blijft gebeuren."
 
   value_required: "Een verplichte vraag was leeg."
 
   invalid_csrf: "Ongeldig authenticiteitstoken! Als je hier terecht bent gekomen na het klikken op een link is het mogelijk dat iemand iets naars probeerde!"
+
+  could_not_be_saved: "Door %{errorcount} kon deze %{class} niet worden opgeslagen:"
+
+  error:
+    zero: "geen fouten"
+    one: "een fout"
+    other: "%{count} fouten"

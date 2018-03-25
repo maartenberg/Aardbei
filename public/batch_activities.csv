@@ -1,2 +1,2 @@
-name,description,location,start_date,start_time,end_date,end_time,deadline_date,deadline_time
-Name,Description,Location,2017-12-31,12:34:00,2017-12-31,12:43:00,2017-12-28,13:37:00
+name,description,location,start_date,start_time,end_date,end_time,deadline_date,deadline_time,reminder_at_date,reminder_at_time,subgroup_division_enabled,no_response_action
+Name,Description,Where,2017-12-31,12:34,2017-12-31,12:43,2017-12-28,13:37,2017-12-27,23:59,Y(es)/N(o),P(resent)/A(bsent)

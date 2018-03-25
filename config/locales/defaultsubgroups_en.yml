@@ -1,0 +1,16 @@
+en:
+  defaultsubgroups:
+    manage: 'Manage default subgroups'
+    settings_blurb: "The groups set here will be added automatically to each new activity that is created. Note that actually assigning participants to groups has to be enabled separately."
+
+    create: 'Add default subgroup'
+    created: 'Default subgroup added.'
+    create_failed: 'Could not create default subgroup!'
+
+    updated: 'Default subgroup updated.'
+    update_failed: 'Could not update default subgroup!'
+
+    destroy: 'Remove default subgroup'
+    destroyed: 'Default subgroup destroyed.'
+
+    none: 'There are no default subgroups.'

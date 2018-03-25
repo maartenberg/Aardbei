@@ -7,10 +7,11 @@ class DashboardController < ApplicationController
       .joins(:activity)
       .where('activities.end >= ? OR (activities.end IS NULL AND activities.start >= ?)', DateTime.now, DateTime.now)
       .order('activities.start ASC')
-      .paginate(page: params[:upage], per_page: 10)
     @user_organized = @upcoming
       .where(is_organizer: true)
       .limit(3)
+    @upcoming = @upcoming
+      .paginate(page: params[:upage], per_page: 10)
     @need_response = @upcoming
       .where(attending: nil)
       .paginate(page: params[:nrpage], per_page: 5)

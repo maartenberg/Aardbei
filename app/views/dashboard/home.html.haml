@@ -90,21 +90,22 @@
                     = link_to group do
                       = group.name
 
-    .col-md-6
-      .panel.panel-default
-        .panel-heading
-          = t 'dashboard.organized_you'
+    - if @user_organized.any?
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            = t 'dashboard.organized_you'
 
-        .panel-body
-          %table.table.table-striped.table-bordered
-            %tbody
-              - @user_organized.each do |p|
-                - a = p.activity
-                %tr
-                  %td
-                    = link_to group_activity_url(a.group, a) do
-                      = a.name
-                      = "(#{a.human_state_counts})"
+          .panel-body
+            %table.table.table-striped.table-bordered
+              %tbody
+                - @user_organized.each do |p|
+                  - a = p.activity
+                  %tr
+                    %td
+                      = link_to group_activity_url(a.group, a) do
+                        = a.name
+                        = "(#{a.human_state_counts})"
 
   .row
     .col-md-12

@@ -1,0 +1,16 @@
+nl:
+  defaultsubgroups:
+    manage: 'Standaard subgroepen aanpassen'
+    settings_blurb: "De groepen die hier staan aangegeven worden automatisch aangemaakt voor iedere nieuwe activiteit die wordt toegevoegd. Het daadwerkelijk indelen in deze groepen moet wel per activiteit worden ingeschakeld."
+
+    create: 'Standaardgroep toevoegen'
+    created: 'Standaardgroep toegevoegd.'
+    create_failed: 'Kon de standaardgroep niet opslaan!'
+
+    updated: 'Standaardgroep bijgewerkt.'
+    update_failed: 'Kon de standaardgroep niet bijwerken!'
+
+    destroy: 'Standaardgroep verwijderen'
+    destroyed: 'Standaardgroep verwijderd.'
+
+    none: 'Er zijn geen standaardgroepen.'

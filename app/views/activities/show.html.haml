@@ -25,22 +25,26 @@
 
 
       %table.table
-        %tr
-          %td
-            = t 'activities.attrs.organizers'
-          %td
-            = @organizers
-        %tr
-          %td
-            = t 'activities.attrs.description'
-          %td
-            = @activity.description
+        - unless @organizers.blank?
+          %tr
+            %td
+              = t 'activities.attrs.organizers'
+            %td
+              = @organizers
 
-        %tr
-          %td
-            = t 'activities.attrs.where'
-          %td
-            = @activity.location
+        - unless @activity.description.blank?
+          %tr
+            %td
+              = t 'activities.attrs.description'
+            %td
+              = @activity.description
+
+        - unless @activity.location.blank?
+          %tr
+            %td
+              = t 'activities.attrs.where'
+            %td
+              = @activity.location
 
         %tr
           %td
@@ -55,13 +59,28 @@
               - else
                 = l @activity.end, format: :long
 
-        %tr
-          %td
-            = t 'activities.attrs.deadline'
+        - if @activity.deadline
+          %tr
+            %td
+              = t 'activities.attrs.deadline'
 
-          %td
-            - if @activity.deadline
+            %td
               = l @activity.deadline, format: :long
+
+        - if @assignable_subgroups.any?
+          %tr
+            %td
+              = t 'activerecord.attributes.activity.subgroups'
+
+            %td
+              = @assignable_subgroups.join(', ')
+
+        - if @ownparticipant&.subgroup
+          %tr
+            %td
+              = t 'activities.participant.yoursubgroup'
+            %td
+              = @ownparticipant.subgroup.name
 
   - if @ownparticipant
     .col-md-3
@@ -79,14 +98,20 @@
             emptytext: t('activities.participant.add_notes')
 
 .hidden-xs
-  %h2
-    = @num_participants
-    = t 'activities.participant.plural'
-    = render partial: "state_counts", locals: {counts: @counts}
+  .row
+    .col-md-6
+      %h2
+        %span.state-count.all-count
+          = @num_participants
+        = t 'activities.participant.plural'
+        = render partial: "state_counts", locals: {counts: @counts}
+    .col-md-6
+      - if @activity.subgroups.any?
+        = select_tag(:subgroup_filter, options_for_select(@subgroup_ids), class: 'form-control subgroup-filter')
 
   %table.table.table-bordered
     - @participants.each do |p|
-      %tr{class: p.row_class, data: {person_id: p.person.id, activity_id: @activity.id}}
+      %tr.participant-row.countable{class: p.row_class, data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
         %td
           = p.person.full_name
           - if p.is_organizer
@@ -100,6 +125,13 @@
             = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
 .hidden-sm.hidden-md.hidden-lg
+  - if @activity.subgroups.any?
+    .panel.panel-default
+      .panel-heading
+        = t 'activerecord.attrs.activities.subgroups'
+      .panel-body
+        = select_tag(:subgroup_filter, options_for_select(@subgroup_ids), class: 'form-control subgroup-filter')
+
   .panel.panel-default.panel-success
     .panel-heading
       %a{role: 'button', href: '#present-collapse', data: {toggle: 'collapse'}, 'aria-expanded': 'false'}
@@ -111,13 +143,13 @@
           %i.fa.fa-angle-up
 
         = t 'activities.state.present'
-        %span.badge
+        %span.badge.state-count.present-count
           = @counts[true] || "0"
 
     %table.table.collapse#present-collapse
       %tbody
         - @participants.where(attending: true).each do |p|
-          %tr{data: {person_id: p.person.id, activity_id: @activity.id}}
+          %tr.participant-row{data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
             %td
               = p.person.full_name
               - if p.is_organizer
@@ -127,7 +159,7 @@
               - if p.person.id == current_person.id || all_buttons
                 = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
-          %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
+          %tr.participant-row{data: {person_id: p.person_id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
             %td{colspan: "2"}
               = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
 
@@ -144,13 +176,13 @@
 
         = t 'activities.state.need_response'
 
-        %span.badge
+        %span.badge.state-count.unknown-count
           = @counts[nil] || "0"
 
     %table.table.collapse#unknown-collapse
       %tbody
         - @participants.where(attending: nil).each do |p|
-          %tr{data: {person_id: p.person.id, activity_id: @activity.id}}
+          %tr.participant-row{data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
             %td
               = p.person.full_name
               - if p.is_organizer
@@ -160,7 +192,7 @@
               - if p.person.id == current_person.id || all_buttons
                 = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
-          %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
+          %tr.participant-row{data: {person_id: p.person_id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
             %td{colspan: "2"}
               = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
 
@@ -176,13 +208,13 @@
 
         = t 'activities.state.absent'
 
-        %span.badge
+        %span.badge.state-count.absent-count
           = @counts[false] || "0"
 
     %table.table.collapse#absent-collapse
       %tbody
         - @participants.where(attending: false).each do |p|
-          %tr{data: {person_id: p.person.id, activity_id: @activity.id}}
+          %tr.participant-row{data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
             %td
               = p.person.full_name
               - if p.is_organizer
@@ -192,6 +224,6 @@
               - if p.person.id == current_person.id || all_buttons
                 = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
-          %tr{data: {person_id: p.person_id, activity_id: @activity.id}}
+          %tr.participant-row{data: {person_id: p.person_id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
             %td{colspan: "2"}
               = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"

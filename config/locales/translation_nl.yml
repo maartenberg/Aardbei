@@ -24,6 +24,14 @@ nl:
       token: Token  #g
       user: Gebruiker  #g
 
+      default_subgroup:
+        one: Standaardgroep
+        other: Standaardgroepen
+
+      subgroup:
+        one: Subgroep
+        other: Subgroepen
+
     attributes:
       activity:
         deadline: Deadline  #g
@@ -37,9 +45,14 @@ nl:
         start: Start  #g
         reminder_at: Herinnering om
         reminder_done: Herinnering verstuurd
+        subgroups: :activerecord.models.subgroup.other
+        subgroup_division_enabled: Subgroepen indelen
+        subgroup_division_done: Subgroepen ingedeeld
+        no_response_action: Actie bij geen reactie
 
       group:
         activities: Activiteiten  #g
+        default_subgroups: Standaardsubgroepen
         members: Leden  #g
         name: Naam  #g
         people: Mensen  #g
@@ -87,3 +100,11 @@ nl:
         email: E-mail  #g
         password_digest: Wachtwoord-digest  #g
         person: :activerecord.models.person  #g
+
+      default_subgroup:
+        name: Naam
+        is_assignable: Gebruiken voor indelen
+
+      subgroup:
+        name: Naam
+        is_assignable: Gebruiken voor indelen

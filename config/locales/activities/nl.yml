@@ -8,8 +8,12 @@ nl:
     edit: "Activiteit bewerken"
     updated: "Activiteit bijgewerkt."
     destroyed: "Activiteit verwijderd."
+    mass_import_short: "Activiteiten importeren"
     mass_import: "Meerdere activiteiten aanmaken in %{group}"
     mass_imported: "%{count} activiteiten aangemaakt!"
+
+    upcoming: 'Aankomende activiteiten'
+    past: 'Afgelopen activiteiten'
 
     mass_import_explanation: "Download het voorbeeldbestand via de link hieronder, vul de velden in in het formaat zoals het staat aangegeven (einde en deadline zijn niet verplicht), en upload het via de knop onderaan."
 
@@ -21,6 +25,7 @@ nl:
       must_be_after_start: "moet na start zijn"
       must_be_before_deadline: "moet voor deadline zijn"
       already_in: "persoon doet al mee aan activiteit"
+      cannot_divide_without_subgroups: "moet indeelbare subgroep hebben"
 
     participant:
       singular: "deelnemer"
@@ -28,6 +33,7 @@ nl:
       notes: "Opmerkingen"
       add_notes: "Opmerkingen toevoegen"
       yourresponse: "Jouw antwoord"
+      yoursubgroup: "Jouw subgroep"
 
       copy_responses: "Kopieer overzicht"
       copy_absent: "Kopieer afwezigen"
@@ -66,10 +72,15 @@ nl:
       description: "Omschrijving"
       deadline: "Deadline"
 
+    no_response_action:
+      auto_present: 'Automatisch aanmelden'
+      auto_absent: 'Automatisch afmelden'
+
     emails:
       open_activity: "Activiteit openen"
       open_settings: "Instellingen"
       dont_want_mail: "Als je dit soort mailtjes niet meer wilt ontvangen, kun je dit uitschakelen via de volgende link:"
+      cant_turn_off: "Omdat deze mail belangrijk is kan je hem niet uitzetten."
       ending:
         - "Met griendelijke vroet,"
         - "Met groetelijke doei,"
@@ -80,6 +91,50 @@ nl:
         - "Doi,"
         - "Talla,"
       attendance_reminder:
-        subject: "Je bent automatisch aangemeld voor %{activity}"
-        havenot_responded: "Je hebt nog niet aangegeven of je bij %{activity} kunt zijn. Omdat we ervan uitgaan dat je er bent als je niks aangeeft, is je reactie automatisch op 'aanwezig' gezet."
-        if_cannot: "Als je toch niet aanwezig kunt zijn, kan je dit tot %{deadline} aangeven via de volgende link:"
+        subject_present: "Je bent automatisch aangemeld voor %{activity}"
+        subject_absent: "Je bent automatisch afgemeld voor %{activity}"
+        set_to_present: "Je hebt nog niet aangegeven of je bij %{activity} kunt zijn. De organisatoreen van deze activiteit gaan ervan uit dat je er wel bent als je niets aangeeft,  dus je reactie is op 'aanwezig' gezet."
+        set_to_absent: "Je hebt nog niet aangegeven of je bij %{activity} kan zijn. De organisatoren van deze activiteit gaan ervan uit dat je er niet bent als je niets aangeeft, dus je reactie is op 'afwezig' gezet."
+        if_cannot: "Als je dit nog wilt veranderen kan je dit tot %{deadline} aangeven via de volgende link:"
+
+      subgroup_notification:
+        subject: "Je bent ingedeeld in subgroep %{subgroup} voor %{activity}"
+        yoursubgroupis: "De aankomende opkomst %{activity} gebruikt subgroepen, en jij bent ingedeeld in subgroep %{subgroup}."
+        subgroupmembers: "De andere mensen in deze subgroep zijn: %{others}"
+        noothersinsubgroup: "Er zijn geen andere mensen in deze subgroep. :("
+        allsubgroups: "Alle groepjes (inclusief de jouwe) zijn:"
+        cannotdecline: "Deze email is verstuurd toen de deadline voor het afmelden verstreek. Als je om wat voor reden dan ook toch niet kan, neem dan contact op met de Drerrie (afmeld@maartenberg.nl) of een van de organisators van de opkomst (%{organizers})."
+
+    subgroups:
+      manage: 'Subgroepen aanpassen'
+      create: 'Subgroep aanmaken'
+      created: 'Subgroep aangemaakt.'
+      create_failed: 'Kon subgroep niet opslaan!'
+
+      edit: 'Subgroepindeling bewerken'
+      edited: 'Subgroepindeling bijgewerkt.'
+
+      update: 'Subgroep bijwerken'
+      updated: 'Subgroep bijgewerkt.'
+      update_failed: 'Kon subgroep niet bijwerken!'
+
+      destroy: 'Subgroep verwijderen'
+      destroyed: 'Subgroep verwijderd.'
+      none: 'Er zijn geen subgroepen.'
+
+      filter_nogroup: 'Aangemeld, geen groep'
+      filter_nofilter: 'Toon iedereen'
+
+      only_present_people: 'Je ziet alleen maar mensen die zijn aangemeld in dit overzicht, omdat mensen die zijn afgemeld niet in een subgroep kunnen zitten.'
+
+      clear: 'Subgroepen legen'
+      clear_explanation: 'Dit verwijdert iedereen in een indeelbare subgroep uit zijn subgroep! Weet je zeker dat je dit wilt?'
+      cleared: 'Subgroepen geleegd.'
+
+      redistribute: 'Subgroepen opnieuw indelen'
+      redistribute_explanation: 'Dit verwijdert iedereen in een indeelbare subgroep uit die subgroep, en deelt daarna iedereen willekeurig opnieuw in. Weet je zeker dat je dit wilt?'
+      redistributed: 'Subgroepen opnieuw ingedeeld.'
+
+      distribute_remaining: 'Overgebleven naar subgroepen'
+      distribute_remaining_explanation: 'Dit deelt iedereen die is aangemeld, maar nog niet in een subgroep zit, in in een willekeurige subgroep (volgens normale volgorde van kleinste groep eerst). Wil je dit?'
+      remaining_distributed: 'Overgebleven personen ingedeeld in subgroepen.'

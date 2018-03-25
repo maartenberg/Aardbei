@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917140643) do
+ActiveRecord::Schema.define(version: 20180206181016) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -20,11 +20,23 @@ ActiveRecord::Schema.define(version: 20170917140643) do
     t.datetime "end"
     t.datetime "deadline"
     t.integer  "group_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.datetime "reminder_at"
     t.boolean  "reminder_done"
+    t.boolean  "subgroup_division_enabled"
+    t.boolean  "subgroup_division_done"
+    t.boolean  "no_response_action",        default: true
     t.index ["group_id"], name: "index_activities_on_group_id"
+  end
+
+  create_table "default_subgroups", force: :cascade do |t|
+    t.integer  "group_id"
+    t.string   "name",          null: false
+    t.boolean  "is_assignable"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["group_id"], name: "index_default_subgroups_on_group_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -67,9 +79,11 @@ ActiveRecord::Schema.define(version: 20170917140643) do
     t.text     "notes"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "subgroup_id"
     t.index ["activity_id"], name: "index_participants_on_activity_id"
     t.index ["person_id", "activity_id"], name: "index_participants_on_person_id_and_activity_id", unique: true
     t.index ["person_id"], name: "index_participants_on_person_id"
+    t.index ["subgroup_id"], name: "index_participants_on_subgroup_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -94,6 +108,15 @@ ActiveRecord::Schema.define(version: 20170917140643) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "subgroups", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.string   "name",          null: false
+    t.boolean  "is_assignable"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["activity_id"], name: "index_subgroups_on_activity_id"
   end
 
   create_table "tokens", force: :cascade do |t|

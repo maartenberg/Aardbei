@@ -1,0 +1,28 @@
+.row
+  .col-md-12
+    %table.table
+      %tr
+        %th
+          Naam
+
+        %th
+          Status
+
+        %th
+          Huidig
+
+        %th
+          Nieuw
+
+      - @participants.each do |p|
+        %td
+          = p.person.full_name
+
+        %td
+          = p.attending
+
+        %td
+          = p.subgroup.name
+
+        %td
+          TODO
