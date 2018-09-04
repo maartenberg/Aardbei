@@ -39,6 +39,18 @@ class Participant < ApplicationRecord
     HUMAN_ATTENDING[self.attending]
   end
 
+  ICAL_ATTENDING = {
+    true => 'ATTENDING',
+    false => 'CANCELLED',
+    nil => 'TENTATIVE'
+  }
+
+  # @return [String]
+  #   the ICal attending response.
+  def ical_attending
+    ICAL_ATTENDING[self.attending]
+  end
+
   # TODO: Move to a more appropriate place
   # @return [String]
   #   the class for a row containing this activity.

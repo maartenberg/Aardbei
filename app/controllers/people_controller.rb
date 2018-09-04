@@ -94,6 +94,8 @@ class PeopleController < ApplicationController
     cal = Icalendar::Calendar.new
 
     @person.participants.joins(:activity).where('end > ?', 3.months.ago).each do |p|
+      next if !p.attending && params[:skipcancel]
+
       a = p.activity
       description_items = [a.description]
       orgi = a.organizer_names
@@ -118,10 +120,15 @@ class PeopleController < ApplicationController
 
       cal.event do |e|
         e.uid = group_activity_url a.group, a
+        e.ip_class = "PRIVATE"
         e.dtstart = a.start
         e.dtend = a.end
+
+        e.status = p.ical_attending
+
         e.summary = a.name
         e.location = a.location
+
         e.description = description_items.join "\n"
 
         e.url = group_activity_url a.group, a
