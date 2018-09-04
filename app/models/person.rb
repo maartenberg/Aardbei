@@ -24,6 +24,11 @@ class Person < ApplicationRecord
   #   @return [String]
   #     the person's email address.
   #
+  # @!attribute calendar_token
+  #   @return [String]
+  #     the calendar token that can be used to open this Person's events as an
+  #     ICAL file.
+  #
   # @!attribute is_admin
   #   @return [Boolean]
   #     whether or not the person has administrative rights.
@@ -35,6 +40,7 @@ class Person < ApplicationRecord
     dependent: :destroy
   has_many :groups, through: :members
   has_many :activities, through: :participants
+  has_secure_token :calendar_token
 
   validates :email, uniqueness: true
   validates :first_name, presence: true
