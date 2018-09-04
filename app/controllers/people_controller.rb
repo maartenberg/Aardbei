@@ -93,7 +93,7 @@ class PeopleController < ApplicationController
   def calendar
     cal = Icalendar::Calendar.new
 
-    @person.participants.joins(:activity).where('end > ?', 3.months.ago).each do |p|
+    @person.participants.joins(:activity).where('"end" > ?', 3.months.ago).each do |p|
       next if !p.attending && params[:skipcancel]
 
       a = p.activity
