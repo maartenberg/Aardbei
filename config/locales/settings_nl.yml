@@ -5,6 +5,7 @@ nl:
     email_settings: "Emailnotificaties"
     change_password: "Wachtwoord veranderen"
     logout_all_sessions: "Overal afmelden"
+    calendar: "Kalenderkoppeling"
 
     names:
       send_attendance_reminder: "Stuur een herinnering bij niet gereageerd"
@@ -13,3 +14,4 @@ nl:
       send_attendance_reminder: "Ontvang een email als je niet hebt gereageerd op een activiteit en je reactie automatisch op 'aanwezig' wordt gezet. Wanneer je deze herinnering ontvangt is het nog mogelijk om je reactie aan te passen."
       logout_all_sessions: "Deze knop indrukken zorgt ervoor dat je overal je wachtwoord opnieuw moet invoeren. Dit gebeurt ook als je je wachtwoord verandert."
       logged_in_at_count: "Je hebt op het moment %{count} actieve sessie(s)."
+      calendar: "Kopieer een van de volgende URL's naar een agenda-programma (bijvoorbeeld Google Calendar) om automatisch een evenement aan te laten maken voor elke activiteit. De eerste URL zal alle activiteiten overnemen, de tweede URL laat activiteiten weg waar je op 'Afwezig' staat."

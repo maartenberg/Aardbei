@@ -95,6 +95,13 @@ class Person < ApplicationRecord
 
     return result
   end
+
+  # @return [String]
+  #   the URL to access this person's calendar.
+  def calendar_url
+    person_calendar_url self.calendar_token
+  end
+
   private
   # Assert that the person's birth date, if any, lies in the past.
   def birth_date_cannot_be_in_future

@@ -4,9 +4,14 @@ en:
     saved: "Preferences saved!"
     email_settings: "Email notifications"
     change_password: "Change password"
+    logout_all_sessions: "Log out everywhere"
+    calendar: "Calendar integration"
 
     names:
       send_attendance_reminder: "Send notification on auto-respond"
 
     descriptions:
       send_attendance_reminder: "Receive an email if you haven't responded to an activity and your response is automatically set to 'attending'. When youreceive this reminder, you still have the possibility to change your response."
+      logout_all_sessions: "Pressing this button will require you to enter your password again on each of your devices. This will also happen if you change your password."
+      logged_in_at_count: "You are logged in on %{count} devices."
+      calendar: "Copy one of the following URLs to a calendar application (such as Google Calendar) to automatically make an event for each activity. The first URL will include all activities, the second url will omit activities where you are not attending."

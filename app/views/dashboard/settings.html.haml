@@ -2,6 +2,28 @@
   = t 'settings.settings'
 
 %h2
+  = t 'settings.calendar'
+
+.row
+  .col-md-12
+    %em
+      = t 'settings.descriptions.calendar'
+
+    .form-group
+      .input-group
+        = text_field_tag(:calurl, person_calendar_url(@person.calendar_token), readonly: true, id: 'calurl', class: 'form-control')
+        %span.input-group-btn
+          = button_tag(class: 'btn btn-default copy-url', data: {'clipboard-target': '#calurl'}) do
+            %i.fa.fa-files-o
+
+    .form-group
+      .input-group
+        = text_field_tag(:calurl_nocancel, person_calendar_url(@person.calendar_token, skipcancel: 1), readonly: true, id: 'calurl-skipcancel', class: 'form-control')
+        %span.input-group-btn
+          = button_tag(class: 'btn btn-default copy-url', data: {'clipboard-target': '#calurl-skipcancel'}) do
+            %i.fa.fa-files-o
+
+%h2
   = t 'settings.email_settings'
 
 = form_tag(update_email_settings_path, method: "post", class: "form") do
@@ -10,7 +32,7 @@
       %label
         = check_box_tag(:send_attendance_reminder, 'send_attendance_reminder', @send_attendance_reminder)
         = t('settings.names.send_attendance_reminder')
-    .col-md-6
+    .col-md-8
       %p
         %em= t 'settings.descriptions.send_attendance_reminder'
 
