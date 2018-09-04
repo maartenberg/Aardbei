@@ -1,7 +1,8 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
-  before_action :require_login!
-  before_action :require_admin!, except: [:show]
+  before_action :set_person_from_token, only: [:calendar]
+  before_action :require_login!, except: [:calendar]
+  before_action :require_admin!, except: [:calendar, :show]
 
   # GET /people
   # GET /people.json
@@ -88,10 +89,57 @@ class PeopleController < ApplicationController
     end
   end
 
+  # GET /c/:calendar_token
+  def calendar
+    cal = Icalendar::Calendar.new
+
+    @person.participants.joins(:activity).where('end > ?', 3.months.ago).each do |p|
+      a = p.activity
+      description_items = [a.description]
+      orgi = a.organizer_names
+      orgi_names = orgi.join ', '
+      orgi_line = case orgi.count
+                  when 0 then I18n.t 'activities.organizers.no_organizers'
+                  when 1 then "#{I18n.t 'activities.organizers.one'}: #{orgi_names}"
+                  else "#{I18n.t 'activities.organizers.other'}: #{orgi_names}"
+                  end
+
+      description_items << orgi_line
+
+      if a.subgroups.any?
+        if p.subgroup
+          description_items << "#{I18n.t 'activities.participant.yoursubgroup'}: #{p.subgroup}"
+        end
+
+        subgroup_names = a.subgroups.map(&:name).join ', '
+        description_items << "#{I18n.t 'activerecord.models.subgroup.other'}: #{subgroup_names}"
+
+      end
+
+      cal.event do |e|
+        e.uid = group_activity_url a.group, a
+        e.dtstart = a.start
+        e.dtend = a.end
+        e.summary = a.name
+        e.location = a.location
+        e.description = description_items.join "\n"
+
+        e.url = group_activity_url a.group, a
+      end
+    end
+
+    render plain: cal.to_ical
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params[:id])
+    end
+
+    # Set person from calendar token
+    def set_person_from_token
+      @person = Person.find_by(calendar_token: params[:calendar_token])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

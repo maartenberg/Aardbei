@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   post 'people/mass_new', to: 'people#mass_create'
   resources :people
 
+  get 'c/:calendar_token', to: 'people#calendar', as: 'person_calendar'
+
   resources :groups do
     get 'invite', to: 'members#invite'
     post 'invite', to: 'members#process_invite'
