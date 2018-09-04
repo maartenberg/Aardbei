@@ -126,7 +126,7 @@ class MembersController < ApplicationController
     respond_to do |format|
       format.html {
         redirect_to group_members_url(@group)
-        flash_message(:info, I18n.t('groups.member_removed', name: @member.person.name))
+        flash_message(:info, I18n.t('groups.member_removed', name: @member.person.full_name))
       }
       format.json { head :no_content }
     end
