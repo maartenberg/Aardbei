@@ -71,6 +71,9 @@ class Activity < ApplicationRecord
 
   after_create :create_missing_participants!
   after_create :copy_default_subgroups!
+  after_create :schedule_reminder
+  after_create :schedule_subgroup_division
+
   after_commit :schedule_reminder,
                if: Proc.new { |a| a.previous_changes["reminder_at"] }
   after_commit :schedule_subgroup_division,
