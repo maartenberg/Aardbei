@@ -93,7 +93,7 @@ nl:
       attendance_reminder:
         subject_present: "Je bent automatisch aangemeld voor %{activity}"
         subject_absent: "Je bent automatisch afgemeld voor %{activity}"
-        set_to_present: "Je hebt nog niet aangegeven of je bij %{activity} kunt zijn. De organisatoreen van deze activiteit gaan ervan uit dat je er wel bent als je niets aangeeft,  dus je reactie is op 'aanwezig' gezet."
+        set_to_present: "Je hebt nog niet aangegeven of je bij %{activity} kunt zijn. De organisatoren van deze activiteit gaan ervan uit dat je er wel bent als je niets aangeeft,  dus je reactie is op 'aanwezig' gezet."
         set_to_absent: "Je hebt nog niet aangegeven of je bij %{activity} kan zijn. De organisatoren van deze activiteit gaan ervan uit dat je er niet bent als je niets aangeeft, dus je reactie is op 'afwezig' gezet."
         if_cannot: "Als je dit nog wilt veranderen kan je dit tot %{deadline} aangeven via de volgende link:"
 
