@@ -92,12 +92,44 @@ class PeopleController < ApplicationController
   # GET /c/:calendar_token
   def calendar
     cal = Icalendar::Calendar.new
+    cal.x_wr_calname = 'Aardbei'
 
-    @person.participants.joins(:activity).where('"end" > ?', 3.months.ago).each do |p|
-      next if !p.attending && params[:skipcancel]
+    response.content_type = 'text/calendar'
 
+    selection = @person
+      .participants
+      .joins(:activity)
+      .where('"end" > ?', 3.months.ago)
+
+    if params[:skipcancel]
+      selection = selection
+        .where.not(attending: false)
+    end
+
+    selection.each do |p|
       a = p.activity
-      description_items = [a.description]
+
+      description_items = []
+      # The description consists of the following parts:
+      #  - The Participant's response and notes (if set),
+      #  - The Activity's description (if not empty),
+      #  - The names of the organizers,
+      #  - Subgroup information, if applicable,
+      #  - The URL.
+
+      # Response
+      yourresponse = "#{I18n.t 'activities.participant.yourresponse'}: #{p.human_attending}"
+
+      if p.notes.present?
+        yourresponse << " (#{p.notes})"
+      end
+
+      description_items << yourresponse
+
+      # Description
+      description_items << a.description if a.description.present?
+
+      # Organizers
       orgi = a.organizer_names
       orgi_names = orgi.join ', '
       orgi_line = case orgi.count
@@ -108,6 +140,7 @@ class PeopleController < ApplicationController
 
       description_items << orgi_line
 
+      # Subgroups
       if a.subgroups.any?
         if p.subgroup
           description_items << "#{I18n.t 'activities.participant.yoursubgroup'}: #{p.subgroup}"
@@ -118,9 +151,12 @@ class PeopleController < ApplicationController
 
       end
 
+      # URL
+      a_url = group_activity_url a.group, a
+      description_items << a_url
+
       cal.event do |e|
-        e.uid = group_activity_url a.group, a
-        e.ip_class = "PRIVATE"
+        e.uid = a_url
         e.dtstart = a.start
         e.dtend = a.end
 
@@ -131,10 +167,11 @@ class PeopleController < ApplicationController
 
         e.description = description_items.join "\n"
 
-        e.url = group_activity_url a.group, a
+        e.url = a_url
       end
     end
 
+    cal.publish
     render plain: cal.to_ical
   end
 
