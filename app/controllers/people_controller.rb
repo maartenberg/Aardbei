@@ -91,87 +91,10 @@ class PeopleController < ApplicationController
 
   # GET /c/:calendar_token
   def calendar
-    cal = Icalendar::Calendar.new
-    cal.x_wr_calname = 'Aardbei'
-
     response.content_type = 'text/calendar'
 
-    selection = @person
-      .participants
-      .joins(:activity)
-      .where('"end" > ?', 3.months.ago)
+    cal = @person.calendar_feed
 
-    if params[:skipcancel]
-      selection = selection
-        .where.not(attending: false)
-    end
-
-    selection.each do |p|
-      a = p.activity
-
-      description_items = []
-      # The description consists of the following parts:
-      #  - The Participant's response and notes (if set),
-      #  - The Activity's description (if not empty),
-      #  - The names of the organizers,
-      #  - Subgroup information, if applicable,
-      #  - The URL.
-
-      # Response
-      yourresponse = "#{I18n.t 'activities.participant.yourresponse'}: #{p.human_attending}"
-
-      if p.notes.present?
-        yourresponse << " (#{p.notes})"
-      end
-
-      description_items << yourresponse
-
-      # Description
-      description_items << a.description if a.description.present?
-
-      # Organizers
-      orgi = a.organizer_names
-      orgi_names = orgi.join ', '
-      orgi_line = case orgi.count
-                  when 0 then I18n.t 'activities.organizers.no_organizers'
-                  when 1 then "#{I18n.t 'activities.organizers.one'}: #{orgi_names}"
-                  else "#{I18n.t 'activities.organizers.other'}: #{orgi_names}"
-                  end
-
-      description_items << orgi_line
-
-      # Subgroups
-      if a.subgroups.any?
-        if p.subgroup
-          description_items << "#{I18n.t 'activities.participant.yoursubgroup'}: #{p.subgroup}"
-        end
-
-        subgroup_names = a.subgroups.map(&:name).join ', '
-        description_items << "#{I18n.t 'activerecord.models.subgroup.other'}: #{subgroup_names}"
-
-      end
-
-      # URL
-      a_url = group_activity_url a.group, a
-      description_items << a_url
-
-      cal.event do |e|
-        e.uid = a_url
-        e.dtstart = a.start
-        e.dtend = a.end
-
-        e.status = p.ical_attending
-
-        e.summary = a.name
-        e.location = a.location
-
-        e.description = description_items.join "\n"
-
-        e.url = a_url
-      end
-    end
-
-    cal.publish
     render plain: cal.to_ical
   end
 
