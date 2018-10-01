@@ -32,6 +32,31 @@ class Group < ApplicationRecord
     self.activities.where('start > ?', DateTime.now)
   end
 
+  # @return [Array<Activity>]
+  #   the Activity/Activities that are the closest to the given point in time.
+  #   Logic is as follows:
+  #     - If one or more Activities start before and end after the given point
+  #       in time, these are returned.
+  #     - Additionally, the last 3 activities that ended are returned, as well
+  #       as any activities starting within the next 48 hours.
+  def current_activities(reference = Time.zone.now)
+    currently_active = self.activities
+      .where('start < ?', reference)
+      .where('end > ?', reference)
+
+    previous = self.activities
+      .where('end < ?', reference)
+      .order(end: :desc)
+      .limit(3)
+
+    upcoming = self.activities
+      .where('start > ?', reference)
+      .where('start < ?', reference.days_since(2))
+      .order(start: :asc)
+
+    return [currently_active, previous, upcoming].flatten
+  end
+
   # Determine whether the passed person is a member of the group.
   def is_member?(person)
     Member.exists?(
