@@ -54,7 +54,7 @@ class Group < ApplicationRecord
       .where('start < ?', reference.days_since(2))
       .order(start: :asc)
 
-    return [currently_active, previous, upcoming].flatten
+    return {currently_active: currently_active, previous: previous, upcoming: upcoming}
   end
 
   # Determine whether the passed person is a member of the group.
