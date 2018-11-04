@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180904163645) do
+ActiveRecord::Schema.define(version: 20181104220610) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 20180904163645) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "api_token"
+    t.index ["api_token"], name: "index_groups_on_api_token", unique: true
   end
 
   create_table "members", force: :cascade do |t|

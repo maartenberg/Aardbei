@@ -6,6 +6,7 @@ class Group < ApplicationRecord
   #   @return [String]
   #     the name of the group. Must be unique across all groups.
 
+  has_secure_token :api_token
   has_many :members,
     dependent: :destroy
   has_many :people, through: :members
