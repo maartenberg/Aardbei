@@ -75,7 +75,11 @@ Rails.application.routes.draw do
       get 'groups', to: 'me#groups'
     end
 
-    resources :groups, only: [:index, :show]
+    resources :groups, only: [:index, :show] do
+      get :current_activities, on: :member
+      get :previous_activities, on: :member
+      get :upcoming_activities, on: :member
+    end
 
     resources :activities, only: [:index, :show]
     get 'activities/:id/response_summary', to: 'activities#response_summary'

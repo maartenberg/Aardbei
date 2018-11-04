@@ -33,31 +33,33 @@ class Group < ApplicationRecord
   end
 
   # @return [Array<Activity>]
-  #   the Activity/Activities that are the closest to the given point in time.
-  #   Logic is as follows:
-  #     - If one or more Activities start before and end after the given point
-  #       in time, these are returned.
-  #     - Additionally, the last 3 activities that ended are returned, as well
-  #       as any activities starting within the next 48 hours.
+  #   all Activities that have started, and not yet ended.
   def current_activities(reference = Time.zone.now)
-    currently_active = self.activities
+    activities
       .where('start < ?', reference)
       .where('end > ?', reference)
+  end
 
-    previous = self.activities
+  # @return [Array<Activity>]
+  #   at most 3 activities that ended recently.
+  def previous_activities(reference = Time.zone.now)
+    activities
       .where('end < ?', reference)
       .order(end: :desc)
       .limit(3)
+  end
 
-    upcoming = self.activities
+  # @return [Array<Activity>]
+  #   all Activities starting within the next 48 hours.
+  def upcoming_activities(reference = Time.zone.now)
+    activities
       .where('start > ?', reference)
       .where('start < ?', reference.days_since(2))
       .order(start: :asc)
-
-    return {currently_active: currently_active, previous: previous, upcoming: upcoming}
   end
 
-  # Determine whether the passed person is a member of the group.
+  # @return [Boolean]
+  #   whether the passed person is a member of the group.
   def is_member?(person)
     Member.exists?(
       person: person,
@@ -65,7 +67,8 @@ class Group < ApplicationRecord
     ) || person.is_admin?
   end
 
-  # Determine whether the passed person is a group leader.
+  # @return [Boolean]
+  #   whether the passed person is a group leader.
   def is_leader?(person)
     Member.exists?(
       person: person,
