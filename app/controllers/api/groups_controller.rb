@@ -14,7 +14,7 @@ class Api::GroupsController < ApiController
   skip_before_action :set_group, :require_membership!, :api_require_authentication!, if: 'request.authorization'
 
   # API key based filter (both authenticates and authorizes)
-  before_action :api_auth_token, if: 'request.authorization'
+  before_action :api_auth_group_token, if: 'request.authorization'
 
   # GET /api/groups
   def index
@@ -47,16 +47,5 @@ class Api::GroupsController < ApiController
   # Set group from the :id parameter.
   def set_group
     @group = Group.find(params[:id])
-  end
-
-  # Authenticate a request by a 'Authorization: Group xxx'-header.
-  # Asserts that the client meant to pass a Group API key, and then sets the
-  # @group variable from the key's associated group.
-  def api_auth_token
-    words = request.authorization.split(' ')
-    head :unauthorized unless words[0].casecmp('group').zero?
-
-    @group = Group.find_by api_token: words[1]
-    head :unauthorized unless @group
   end
 end

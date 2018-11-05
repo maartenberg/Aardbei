@@ -1,21 +1,27 @@
+# Provides read-only access to Activities.
 class Api::ActivitiesController < ApiController
-  before_action :set_activity, only: [:show, :response_summary]
-  before_action :require_membership!, only: [:show, :reponse_summary]
-  before_action :api_require_admin!, only: [:index]
+  has_no_activity = [:index]
+
+  # Session-based authentication/authorization
+  before_action :set_activity,        except: has_no_activity
+  before_action :require_membership!, except: has_no_activity
+  before_action :api_require_admin!,  only: has_no_activity
+  skip_before_action :api_require_authentication!, :set_activity, :require_membership!, if: 'request.authorization'
+
+  # Group API-key-based authentication/authorization
+  before_action :api_auth_group_token,    if: 'request.authorization'
+  before_action :set_activity_from_group, if: 'request.authorization'
 
   # GET /api/activities
-  # GET /api/activities.json
   def index
     @activities = Activity.all
   end
 
   # GET /api/activities/1
-  # GET /api/activities/1.json
   def show
   end
 
   # GET /api/activities/1/response_summary
-  # GET /api/activities/1/response_summary.json
   def response_summary
     as = @activity
       .participants
@@ -78,9 +84,16 @@ class Api::ActivitiesController < ApiController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_activity
-      @activity = Activity.find(params[:id])
-      @group = @activity.group
-    end
+
+  # Set activity from the :id-parameter
+  def set_activity
+    @activity = Activity.find(params[:id])
+    @group = @activity.group
+  end
+
+  # Set activity from the :id-parameter, and assert that it belongs to the set @group.
+  def set_activity_from_group
+    @activity = Activity.find(params[:id])
+    head :unauthorized unless @activity.group == @group
+  end
 end
