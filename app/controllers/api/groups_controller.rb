@@ -6,9 +6,8 @@ class Api::GroupsController < ApiController
   before_action :api_require_admin!, only: has_no_group
 
   # GET /api/groups
-  # GET /api/groups.json
   def index
-    @api_groups = Group.all
+    @groups = Group.all
   end
 
   # GET /api/groups/1
