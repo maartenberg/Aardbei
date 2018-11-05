@@ -8,9 +8,10 @@ class Api::GroupsController < ApiController
   has_no_group = [:index]
 
   # Session-based authentication / authorization filters
-  before_action :set_group,           except: has_no_group, unless: 'request.authorization'
-  before_action :require_membership!, except: has_no_group, unless: 'request.authorization'
-  before_action :api_require_admin!,  only: has_no_group,   unless: 'request.authorization'
+  before_action :set_group,           except: has_no_group
+  before_action :require_membership!, except: has_no_group
+  before_action :api_require_admin!,  only:   has_no_group
+  skip_before_action :set_group, :require_membership!, :api_require_authentication!, if: 'request.authorization'
 
   # API key based filter (both authenticates and authorizes)
   before_action :api_auth_token, if: 'request.authorization'
@@ -53,7 +54,7 @@ class Api::GroupsController < ApiController
   # @group variable from the key's associated group.
   def api_auth_token
     words = request.authorization.split(' ')
-    head :unauthorized unless words[0].casecmp('Group').zero?
+    head :unauthorized unless words[0].casecmp('group').zero?
 
     @group = Group.find_by api_token: words[1]
     head :unauthorized unless @group
