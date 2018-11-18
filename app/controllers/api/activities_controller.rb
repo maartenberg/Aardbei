@@ -93,7 +93,12 @@ class Api::ActivitiesController < ApiController
 
   # Set activity from the :id-parameter, and assert that it belongs to the set @group.
   def set_activity_from_group
-    @activity = Activity.find(params[:id])
+    @activity = Activity.find_by id: params[:id]
+    unless @activity
+      head :not_found
+      return
+    end
+
     head :unauthorized unless @activity.group == @group
   end
 end
