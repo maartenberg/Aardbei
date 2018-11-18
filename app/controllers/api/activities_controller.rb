@@ -10,7 +10,7 @@ class Api::ActivitiesController < ApiController
 
   # Group API-key-based authentication/authorization
   before_action :api_auth_group_token,    if: 'request.authorization'
-  before_action :set_activity_from_group, if: 'request.authorization'
+  before_action :set_activity_with_group, if: 'request.authorization'
 
   # GET /api/activities
   def index
@@ -92,7 +92,7 @@ class Api::ActivitiesController < ApiController
   end
 
   # Set activity from the :id-parameter, and assert that it belongs to the set @group.
-  def set_activity_from_group
+  def set_activity_with_group
     @activity = Activity.find_by id: params[:id]
     unless @activity
       head :not_found
