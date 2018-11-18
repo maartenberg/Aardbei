@@ -1,5 +1,7 @@
 class GroupsController < ApplicationController
   include GroupsHelper
+  before_action :require_login!
+
   before_action :set_group, only: [:show, :edit, :update, :destroy, :create_default_subgroup, :update_default_subgroup, :destroy_default_subgroup, :mass_add_members, :process_mass_add_members]
   before_action :set_default_subgroup, only: [:update_default_subgroup, :destroy_default_subgroup]
   before_action :require_admin!, only: [:index]
