@@ -39,7 +39,7 @@ class Group < ApplicationRecord
     reference ||= Time.zone.now
     activities
       .where('start < ?', reference)
-      .where('end > ?', reference)
+      .where('activities.end > ?', reference)
   end
 
   # @return [Array<Activity>]
@@ -47,7 +47,7 @@ class Group < ApplicationRecord
   def previous_activities(reference = nil)
     reference ||= Time.zone.now
     activities
-      .where('end < ?', reference)
+      .where('activities.end < ?', reference)
       .order(end: :desc)
       .limit(3)
   end
