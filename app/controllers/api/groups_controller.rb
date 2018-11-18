@@ -26,19 +26,25 @@ class Api::GroupsController < ApiController
 
   # GET /api/groups/1/current_activities
   def current_activities
-    @activities = @group.current_activities
+    reference = try_parse_datetime params[:reference]
+    @activities = @group.current_activities reference
+
     render 'api/activities/index'
   end
 
   # GET /api/groups/1/upcoming_activities
   def upcoming_activities
-    @activities = @group.upcoming_activities
+    reference = try_parse_datetime params[:reference]
+    @activities = @group.upcoming_activities reference
+
     render 'api/activities/index'
   end
 
   # GET /api/groups/1/previous_activities
   def previous_activities
-    @activities = @group.previous_activities
+    reference = try_parse_datetime params[:reference]
+    @activities = @group.previous_activities reference
+
     render 'api/activities/index'
   end
 
@@ -47,5 +53,15 @@ class Api::GroupsController < ApiController
   # Set group from the :id parameter.
   def set_group
     @group = Group.find(params[:id])
+  end
+
+  # @return [DateTime] the parsed input.
+  def try_parse_datetime(input = nil)
+    return unless input
+    begin
+      DateTime.parse input
+    rescue ArgumentError
+      nil
+    end
   end
 end

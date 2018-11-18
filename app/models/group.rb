@@ -35,7 +35,8 @@ class Group < ApplicationRecord
 
   # @return [Array<Activity>]
   #   all Activities that have started, and not yet ended.
-  def current_activities(reference = Time.zone.now)
+  def current_activities(reference = nil)
+    reference ||= Time.zone.now
     activities
       .where('start < ?', reference)
       .where('end > ?', reference)
@@ -43,7 +44,8 @@ class Group < ApplicationRecord
 
   # @return [Array<Activity>]
   #   at most 3 activities that ended recently.
-  def previous_activities(reference = Time.zone.now)
+  def previous_activities(reference = nil)
+    reference ||= Time.zone.now
     activities
       .where('end < ?', reference)
       .order(end: :desc)
@@ -52,7 +54,8 @@ class Group < ApplicationRecord
 
   # @return [Array<Activity>]
   #   all Activities starting within the next 48 hours.
-  def upcoming_activities(reference = Time.zone.now)
+  def upcoming_activities(reference = nil)
+    reference ||= Time.zone.now
     activities
       .where('start > ?', reference)
       .where('start < ?', reference.days_since(2))
