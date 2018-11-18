@@ -110,11 +110,11 @@ module AuthenticationHelper
 
   def current_user
     get_user_session
-    @user_session.user
+    @user_session&.user
   end
 
   def current_person
-    current_user.person
+    current_user&.person
   end
 
   def require_login!

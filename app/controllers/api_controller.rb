@@ -10,16 +10,16 @@ class ApiController < ActionController::Base
 
   protected
   def api_require_authentication!
-    if !is_logged_in?
-      head :unauthorized
-    end
+    return if is_logged_in?
+
+    head :unauthorized
   end
 
   def api_require_admin!
-    if !current_person.is_admin?
-      @message = I18n.t('authentication.admin_required')
-      render 'api/error', status: :forbidden
-    end
+    return if current_person&.is_admin?
+
+    @message = I18n.t('authentication.admin_required')
+    render 'api/error', status: :forbidden
   end
 
   # Authenticate a request by a 'Authorization: Group xxx'-header.
@@ -35,9 +35,9 @@ class ApiController < ActionController::Base
 
   # Require user to be a member of group OR admin, requires @group set
   def require_membership!
-    if !current_person.groups.include?(@group) && !current_person.is_admin?
-      @message = I18n.t('authentication.membership_required')
-      render 'api/error', status: :forbidden
-    end
+    return if current_person&.groups.include?(@group) || current_person&.is_admin?
+
+    @message = I18n.t('authentication.membership_required')
+    render 'api/error', status: :forbidden
   end
 end
