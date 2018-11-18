@@ -20,9 +20,17 @@ nl:
         one: Persoon  #g
         other: Personen  #g
 
-      session: Sessie  #g
-      token: Token  #g
-      user: Gebruiker  #g
+      session:
+        one: Sessie
+        other: Sessies
+
+      token:
+        one: Token
+        other: Tokens
+
+      user:
+        one: Gebruiker
+        other: Gebruikers
 
       default_subgroup:
         one: Standaardgroep
@@ -96,10 +104,12 @@ nl:
         user: :activerecord.models.user  #g
 
       user:
-        confirmed: Bevestigd  #g
-        email: E-mail  #g
-        password_digest: Wachtwoord-digest  #g
-        person: :activerecord.models.person  #g
+        confirmed: Bevestigd
+        email: E-mail
+        password: Wachtwoord
+        password_confirmation: Wachtwoordcontrole
+        password_digest: Wachtwoord-digest
+        person: :activerecord.models.person
 
       default_subgroup:
         name: Naam

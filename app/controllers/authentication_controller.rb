@@ -99,11 +99,15 @@ class AuthenticationController < ApplicationController
 
   def reset_password
     token = Token.find_by(token: params[:token], tokentype: Token::TYPES[:password_reset])
-    if not token_valid? token
+    return unless token_valid? token
+
+    if params[:password_reset][:password].blank?
+      flash_message :warning, I18n.t('authentication.password_blank')
+      render 'authentication/reset_password_form', layout: 'void'
       return
     end
 
-    if not params[:password] == params[:password_confirmation]
+    unless params[:password_reset][:password] == params[:password_reset][:password_confirmation]
       flash_message(:warning, I18n.t('authentication.password_repeat_mismatch'))
       redirect_to action: 'reset_password_form', token: params[:token]
       return
