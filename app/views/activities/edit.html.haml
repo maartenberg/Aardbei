@@ -95,7 +95,7 @@
                   %i.fa.fa-times
 
             %td
-              = link_to group_activity_destroy_subgroup_path(@group, @activity, sg.id), method: :delete, class: 'btn btn-danger btn-xs' do
+              = link_to group_activity_destroy_subgroup_path(@group, @activity, sg.id), method: :delete, class: 'btn btn-danger btn-xs', data: {confirm: I18n.t(:areyousure)} do
                 %i.fa.fa-trash
 
       = link_to(group_activity_edit_subgroups_path(@group, @activity), class: 'btn btn-default') do
