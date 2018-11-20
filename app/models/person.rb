@@ -54,7 +54,7 @@ class Person < ApplicationRecord
 
   # The person's full name.
   def full_name
-    if self.infix
+    if self.infix&.present?
       [self.first_name, self.infix, self.last_name].join(' ')
     else
       [self.first_name, self.last_name].join(' ')
