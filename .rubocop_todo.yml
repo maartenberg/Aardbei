@@ -20,16 +20,6 @@ Rails/CreateTableWithTimestamps:
   Exclude:
     - 'db/migrate/20170210180426_remove_tokens_from_users.rb'
 
-# Offense count: 7
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: strict, flexible
-Rails/Date:
-  Exclude:
-    - 'app/controllers/groups_controller.rb'
-    - 'app/helpers/authentication_helper.rb'
-    - 'app/models/person.rb'
-    - 'db/seeds.rb'
-
 # Offense count: 1
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: slashes, arguments

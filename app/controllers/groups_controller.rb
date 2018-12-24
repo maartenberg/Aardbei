@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
                             .organized_activities
                             .joins(:activity)
                             .where('activities.group_id': @group.id)
-                            .where('start > ?', Date.today)
+                            .where('start > ?', Time.zone.today)
 
     @groupmenu = if @organized_activities.any?
                    'col-md-6'
@@ -34,7 +34,7 @@ class GroupsController < ApplicationController
                  end
 
     @upcoming = @group.activities
-                      .where('start > ?', Date.today)
+                      .where('start > ?', Time.zone.today)
                       .order('start ASC')
     @upcoming_ps = Participant
                    .where(person: current_person)

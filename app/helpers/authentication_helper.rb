@@ -60,7 +60,7 @@ module AuthenticationHelper
   def logged_in?
     # Case 1: User has an active session inside the cookie.
     # We verify that the session hasn't expired yet.
-    if session[:user_id] && session[:expires].to_time.future?
+    if session[:user_id] && session[:expires]&.future?
 
       user_session
 
