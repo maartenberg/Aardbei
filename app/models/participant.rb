@@ -36,7 +36,7 @@ class Participant < ApplicationRecord
   # @return [String]
   #   the name for the Participant's current state in the current locale.
   def human_attending
-    HUMAN_ATTENDING[self.attending]
+    HUMAN_ATTENDING[attending]
   end
 
   ICAL_ATTENDING = {
@@ -48,16 +48,16 @@ class Participant < ApplicationRecord
   # @return [String]
   #   the ICal attending response.
   def ical_attending
-    ICAL_ATTENDING[self.attending]
+    ICAL_ATTENDING[attending]
   end
 
   # TODO: Move to a more appropriate place
   # @return [String]
   #   the class for a row containing this activity.
   def row_class
-    if self.attending
+    if attending
       "success"
-    elsif self.attending == false
+    elsif attending == false
       "danger"
     else
       "warning"
@@ -65,30 +65,30 @@ class Participant < ApplicationRecord
   end
 
   def may_change?(person)
-    self.activity.may_change?(person) ||
+    activity.may_change?(person) ||
       self.person == person
   end
 
   # Set attending to true if nil, and notify the Person via email.
   def send_reminder
-    return unless self.attending.nil?
+    return unless attending.nil?
 
-    self.attending = self.activity.no_response_action
+    self.attending = activity.no_response_action
     notes = self.notes || ""
     notes << '[auto]'
     self.notes = notes
-    self.save
+    save
 
-    return unless self.person.send_attendance_reminder
+    return unless person.send_attendance_reminder
 
-    ParticipantMailer.attendance_reminder(self.person, self.activity).deliver_later
+    ParticipantMailer.attendance_reminder(person, activity).deliver_later
   end
 
   # Send subgroup information email if person is attending.
   def send_subgroup_notification
-    return unless self.attending && self.subgroup
+    return unless attending && subgroup
 
-    ParticipantMailer.subgroup_notification(self.person, self.activity, self).deliver_later
+    ParticipantMailer.subgroup_notification(person, activity, self).deliver_later
   end
 
   # Clear subgroup if person is set to 'not attending'.

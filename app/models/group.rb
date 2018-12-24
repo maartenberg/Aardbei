@@ -25,12 +25,12 @@ class Group < ApplicationRecord
 
   # @return [Array<Member>] the members in the group who are also group leaders.
   def leaders
-    self.members.includes(:person).where(is_leader: true)
+    members.includes(:person).where(is_leader: true)
   end
 
   # @return [Array<Activity>] the activities that haven't started yet.
   def future_activities
-    self.activities.where('start > ?', Time.now)
+    activities.where('start > ?', Time.now)
   end
 
   # @return [Array<Activity>]

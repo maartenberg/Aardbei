@@ -20,18 +20,18 @@ class Member < ApplicationRecord
   # Create Participants for this Member for all the group's future activities, where the member isn't enrolled yet.
   # Intended to be called after the member is added to the group.
   def create_future_participants!
-    activities = self.group.future_activities
+    activities = group.future_activities
 
-    unless self.person.activities.empty?
+    unless person.activities.empty?
       activities = activities.where(
-        'activities.id NOT IN (?)', self.person.activities.ids
+        'activities.id NOT IN (?)', person.activities.ids
       )
     end
 
     activities.each do |a|
       Participant.create!(
         activity: a,
-        person: self.person
+        person: person
       )
     end
   end
@@ -40,8 +40,8 @@ class Member < ApplicationRecord
   # Intended to be called before the member is deleted.
   def delete_future_participants!
     participants = Participant.where(
-      person_id: self.person.id,
-      activity: self.group.future_activities
+      person_id: person.id,
+      activity: group.future_activities
     )
 
     participants.each(&:destroy!)

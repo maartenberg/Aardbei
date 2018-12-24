@@ -54,25 +54,25 @@ class Person < ApplicationRecord
 
   # The person's full name.
   def full_name
-    if self.infix&.present?
-      [self.first_name, self.infix, self.last_name].join(' ')
+    if infix&.present?
+      [first_name, infix, last_name].join(' ')
     else
-      [self.first_name, self.last_name].join(' ')
+      [first_name, last_name].join(' ')
     end
   end
 
   # The person's reversed name, to sort by surname.
   def reversed_name
-    if self.infix
-      [self.last_name, self.infix, self.first_name].join(', ')
+    if infix
+      [last_name, infix, first_name].join(', ')
     else
-      [self.last_name, self.first_name].join(', ')
+      [last_name, first_name].join(', ')
     end
   end
 
   # All activities where this person is an organizer.
   def organized_activities
-    self.participants.includes(:activity).where(is_organizer: true)
+    participants.includes(:activity).where(is_organizer: true)
   end
 
   # Create multiple Persons from data found in a csv file, return those.
@@ -100,7 +100,7 @@ class Person < ApplicationRecord
   # @return [String]
   #   the URL to access this person's calendar.
   def calendar_url
-    person_calendar_url self.calendar_token
+    person_calendar_url calendar_token
   end
 
   # @return [Icalendar::Calendar]
@@ -111,10 +111,10 @@ class Person < ApplicationRecord
 
     tzid = 1.seconds.since.time_zone.tzinfo.name
 
-    selection = self
-                .participants
-                .joins(:activity)
-                .where('"end" > ?', 3.months.ago)
+    selection =
+      participants
+      .joins(:activity)
+      .where('"end" > ?', 3.months.ago)
 
     if skip_absent
       selection = selection
@@ -190,7 +190,7 @@ class Person < ApplicationRecord
 
   # Assert that the person's birth date, if any, lies in the past.
   def birth_date_cannot_be_in_future
-    errors.add(:birth_date, I18n.t('person.errors.cannot_future')) if self.birth_date && self.birth_date > Date.today
+    errors.add(:birth_date, I18n.t('person.errors.cannot_future')) if birth_date && birth_date > Date.today
   end
 
   # Explicitly force nil to false in the admin field.
@@ -201,6 +201,6 @@ class Person < ApplicationRecord
   # Ensure the person's user email is updated at the same time as the person's
   # email.
   def update_user_email
-    self.user&.update!(email: self.email)
+    user&.update!(email: email)
   end
 end

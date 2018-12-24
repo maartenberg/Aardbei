@@ -87,17 +87,17 @@ class Activity < ApplicationRecord
   # Get all people (not participants) that are organizers. Does not include
   # group leaders, although they may modify the activity as well.
   def organizers
-    self.participants.includes(:person).where(is_organizer: true)
+    participants.includes(:person).where(is_organizer: true)
   end
 
   def organizer_names
-    self.organizers.map { |o| o.person.full_name }
+    organizers.map { |o| o.person.full_name }
   end
 
   # Determine whether the passed Person participates in the activity.
   def participant?(person)
     Participant.exists?(
-      activity_id: self.id,
+      activity_id: id,
       person_id: person.id
     )
   end
@@ -106,19 +106,19 @@ class Activity < ApplicationRecord
   def organizer?(person)
     Participant.exists?(
       person_id: person.id,
-      activity_id: self.id,
+      activity_id: id,
       is_organizer: true
     )
   end
 
   # Query the database to determine the amount of participants that are present/absent/unknown
   def state_counts
-    self.participants.group(:attending).count
+    participants.group(:attending).count
   end
 
   # Return participants attending, absent, unknown
   def human_state_counts
-    c = self.state_counts
+    c = state_counts
     p = c[true]
     a = c[false]
     u = c[nil]
@@ -128,16 +128,16 @@ class Activity < ApplicationRecord
   # Determine whether the passed Person may change this activity.
   def may_change?(person)
     person.is_admin ||
-      self.organizer?(person) ||
-      self.group.leader?(person)
+      organizer?(person) ||
+      group.leader?(person)
   end
 
   # Create Participants for all People that
   #  1. are members of the group
   #  2. do not have Participants (and thus, no way to confirm) yet
   def create_missing_participants!
-    people = self.group.people
-    people = people.where('people.id NOT IN (?)', self.people.ids) unless self.participants.empty?
+    people = group.people
+    people = people.where('people.id NOT IN (?)', self.people.ids) unless participants.empty?
 
     people.each do |p|
       Participant.create(
@@ -149,10 +149,10 @@ class Activity < ApplicationRecord
 
   # Create Subgroups from the defaults set using DefaultSubgroups
   def copy_default_subgroups!
-    defaults = self.group.default_subgroups
+    defaults = group.default_subgroups
 
     # If there are no subgroups, there cannot be subgroup division.
-    self.update_attribute(:subgroup_division_enabled, false) if defaults.none?
+    update_attribute(:subgroup_division_enabled, false) if defaults.none?
 
     defaults.each do |dsg|
       sg = Subgroup.new(activity: self)
@@ -210,48 +210,48 @@ class Activity < ApplicationRecord
   # response to 'attending'.
   def send_reminder
     # Sanity check that the reminder date didn't change while queued.
-    return unless !self.reminder_done && self.reminder_at
-    return if self.reminder_at > Time.zone.now
+    return unless !reminder_done && reminder_at
+    return if reminder_at > Time.zone.now
 
     participants = self.participants.where(attending: nil)
     participants.each(&:send_reminder)
 
     self.reminder_done = true
-    self.save
+    save
   end
 
   def schedule_reminder
-    return if self.reminder_at.nil? || self.reminder_done
+    return if reminder_at.nil? || reminder_done
 
-    self.delay(run_at: self.reminder_at).send_reminder
+    delay(run_at: reminder_at).send_reminder
   end
 
   def schedule_subgroup_division
-    return if self.deadline.nil? || self.subgroup_division_done
+    return if deadline.nil? || subgroup_division_done
 
-    self.delay(run_at: self.deadline).assign_subgroups!(mail: true)
+    delay(run_at: deadline).assign_subgroups!(mail: true)
   end
 
   # Assign a subgroup to all attending participants without one.
   def assign_subgroups!(mail = false)
     # Sanity check: we need subgroups to divide into.
-    return unless self.subgroups.any?
+    return unless subgroups.any?
 
     # Get participants in random order
-    ps = self
-         .participants
-         .where(attending: true)
-         .where(subgroup: nil)
-         .to_a
+    ps =
+      participants
+      .where(attending: true)
+      .where(subgroup: nil)
+      .to_a
 
     ps.shuffle!
 
     # Get groups, link to participant count
-    groups = self
-             .subgroups
-             .where(is_assignable: true)
-             .to_a
-             .map { |sg| [sg.participants.count, sg] }
+    groups =
+      subgroups
+      .where(is_assignable: true)
+      .to_a
+      .map { |sg| [sg.participants.count, sg] }
 
     ps.each do |p|
       # Sort groups so the group with the least participants gets the following participant
@@ -265,21 +265,21 @@ class Activity < ApplicationRecord
       groups.first[0] += 1
     end
 
-    self.notify_subgroups! if mail
+    notify_subgroups! if mail
   end
 
   def clear_subgroups!(only_assignable = true)
-    sgs = self
-          .subgroups
+    sgs =
+      subgroups
 
     if only_assignable
       sgs = sgs
             .where(is_assignable: true)
     end
 
-    ps = self
-         .participants
-         .where(subgroup: sgs)
+    ps =
+      participants
+      .where(subgroup: sgs)
 
     ps.each do |p|
       p.subgroup = nil
@@ -289,10 +289,10 @@ class Activity < ApplicationRecord
 
   # Notify participants of the current subgroups, if any.
   def notify_subgroups!
-    ps = self
-         .participants
-         .joins(:person)
-         .where.not(subgroup: nil)
+    ps =
+      participants
+      .joins(:person)
+      .where.not(subgroup: nil)
 
     ps.each(&:send_subgroup_notification)
   end
@@ -302,22 +302,22 @@ class Activity < ApplicationRecord
   # Assert that the deadline for participants to change the deadline, if any,
   # is set before the event starts.
   def deadline_before_start
-    errors.add(:deadline, I18n.t('activities.errors.must_be_before_start')) if self.deadline > self.start
+    errors.add(:deadline, I18n.t('activities.errors.must_be_before_start')) if deadline > start
   end
 
   # Assert that the activity's end, if any, occurs after the event's start.
   def end_after_start
-    errors.add(:end, I18n.t('activities.errors.must_be_after_start')) if self.end < self.start
+    errors.add(:end, I18n.t('activities.errors.must_be_after_start')) if self.end < start
   end
 
   # Assert that the reminder for non-response is sent while participants still
   # can change their response.
   def reminder_before_deadline
-    errors.add(:reminder_at, I18n.t('activities.errors.must_be_before_deadline')) if self.reminder_at > self.deadline
+    errors.add(:reminder_at, I18n.t('activities.errors.must_be_before_deadline')) if reminder_at > deadline
   end
 
   # Assert that there is at least one divisible subgroup.
   def subgroups_for_division_present
-    errors.add(:subgroup_division_enabled, I18n.t('activities.errors.cannot_divide_without_subgroups')) if self.subgroups.where(is_assignable: true).none? && subgroup_division_enabled?
+    errors.add(:subgroup_division_enabled, I18n.t('activities.errors.cannot_divide_without_subgroups')) if subgroups.where(is_assignable: true).none? && subgroup_division_enabled?
   end
 end

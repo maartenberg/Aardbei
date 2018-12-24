@@ -53,7 +53,7 @@ class Token < ApplicationRecord
 
   # Defines the default expiry for the expiring tokens.
   def generate_expiry
-    case self.tokentype
+    case tokentype
     when TYPES[:password_reset]
       self.expires = 1.days.since
     when TYPES[:account_confirmation]

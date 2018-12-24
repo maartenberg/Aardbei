@@ -56,25 +56,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: Strict.
-Style/NumericLiterals:
-  MinDigits: 15
-
-# Offense count: 85
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'app/models/activity.rb'
-    - 'app/models/group.rb'
-    - 'app/models/member.rb'
-    - 'app/models/participant.rb'
-    - 'app/models/person.rb'
-    - 'app/models/subgroup.rb'
-    - 'app/models/token.rb'
-    - 'app/models/user.rb'
-
 # Offense count: 215
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.

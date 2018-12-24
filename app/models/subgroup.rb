@@ -6,8 +6,7 @@ class Subgroup < ApplicationRecord
   validates :activity, presence: true
 
   def participant_names
-    self
-      .participants
+    participants
       .joins(:person)
       .map { |p| p.person.full_name }
       .sort
