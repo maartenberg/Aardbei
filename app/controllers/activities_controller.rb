@@ -24,17 +24,17 @@ class ActivitiesController < ApplicationController
   # GET /groups/:id/activities
   # GET /activities.json
   def index
-    if params[:past]
-      @activities = @group.activities
+    @activities = if params[:past]
+                    @group.activities
                           .where('start < ?', Time.now)
                           .order(start: :desc)
                           .paginate(page: params[:page], per_page: 25)
-    else
-      @activities = @group.activities
+                  else
+                    @group.activities
                           .where('start > ?', Time.now)
                           .order(start: :asc)
                           .paginate(page: params[:page], per_page: 25)
-    end
+                  end
   end
 
   # GET /activities/1
@@ -111,11 +111,7 @@ class ActivitiesController < ApplicationController
           raise ActiveRecord::Rollback
         end
 
-        if v != 'nil'
-          p.subgroup = sg
-        else
-          p.subgroup = nil
-        end
+        p.subgroup = (sg if v != 'nil')
 
         p.save
       end
@@ -190,11 +186,11 @@ class ActivitiesController < ApplicationController
     @participant.is_organizer = params[:new_state]
     @participant.save
 
-    if params[:new_state] == "true"
-      message = I18n.t('activities.organizers.added', name: @participant.person.full_name)
-    else
-      message = I18n.t('activities.organizers.removed', name: @participant.person.full_name)
-    end
+    message = if params[:new_state] == "true"
+                I18n.t('activities.organizers.added', name: @participant.person.full_name)
+              else
+                I18n.t('activities.organizers.removed', name: @participant.person.full_name)
+              end
     flash_message(:success, message)
 
     redirect_to edit_group_activity_path(@group, @activity, anchor: 'organizers-add')

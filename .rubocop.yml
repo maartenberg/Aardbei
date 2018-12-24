@@ -58,18 +58,6 @@ Style/ColonMethodCall:
     - 'app/controllers/authentication_controller.rb'
     - 'app/models/token.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'app/controllers/activities_controller.rb'
-    - 'app/controllers/api/activities_controller.rb'
-    - 'app/controllers/groups_controller.rb'
-    - 'app/mailers/participant_mailer.rb'
-    - 'db/seeds.rb'
-
 # Offense count: 55
 Style/Documentation:
   Enabled: false

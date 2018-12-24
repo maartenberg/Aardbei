@@ -27,11 +27,11 @@ class GroupsController < ApplicationController
                             .where('activities.group_id': @group.id)
                             .where('start > ?', Date.today)
 
-    if @organized_activities.any?
-      @groupmenu = 'col-md-6'
-    else
-      @groupmenu = 'col-md-12'
-    end
+    @groupmenu = if @organized_activities.any?
+                   'col-md-6'
+                 else
+                   'col-md-12'
+                 end
 
     @upcoming = @group.activities
                       .where('start > ?', Date.today)

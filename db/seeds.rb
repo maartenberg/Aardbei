@@ -91,11 +91,7 @@ Person.all.each do |p|
       is_leader: Faker::Boolean.boolean(0.1)
     )
     g.activities.each do |a|
-      if Faker::Boolean.boolean(0.15)
-        notes = Faker::Hipster.sentence
-      else
-        notes = nil
-      end
+      notes = (Faker::Hipster.sentence if Faker::Boolean.boolean(0.15))
 
       # Participants are created on adding to group, no need to create
       part = Participant.find_by(

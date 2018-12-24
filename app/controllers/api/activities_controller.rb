@@ -40,23 +40,23 @@ module Api
 
       absentnames = absent.map { |p| p.person.first_name }
 
-      if presentnames.positive?
-        present_mess = I18n.t('activities.participant.these_present', count: present.count, names: presentnames.join(', '))
-      else
-        present_mess = I18n.t('activities.participant.none_present')
-      end
+      present_mess = if presentnames.positive?
+                       I18n.t('activities.participant.these_present', count: present.count, names: presentnames.join(', '))
+                     else
+                       I18n.t('activities.participant.none_present')
+                     end
 
-      if unknownnames.positive?
-        unknown_mess = I18n.t('activities.participant.these_unknown', count: unknown.count, names: unknownnames.join(', '))
-      else
-        unknown_mess = I18n.t('activities.participant.none_unknown')
-      end
+      unknown_mess = if unknownnames.positive?
+                       I18n.t('activities.participant.these_unknown', count: unknown.count, names: unknownnames.join(', '))
+                     else
+                       I18n.t('activities.participant.none_unknown')
+                     end
 
-      if absentnames.positive?
-        absent_mess = I18n.t('activities.participant.these_absent', count: absent.count, names: absentnames.join(', '))
-      else
-        absent_mess = I18n.t('activities.participant.none_absent')
-      end
+      absent_mess = if absentnames.positive?
+                      I18n.t('activities.participant.these_absent', count: absent.count, names: absentnames.join(', '))
+                    else
+                      I18n.t('activities.participant.none_absent')
+                    end
 
       @summary = {
         present: {

@@ -3,11 +3,11 @@ class ParticipantMailer < ApplicationMailer
     @person = person
     @activity = activity
 
-    if activity.no_response_action # is true
-      key = 'activities.emails.attendance_reminder.subject_present'
-    else
-      key = 'activities.emails.attendance_reminder.subject_absent'
-    end
+    key = if activity.no_response_action # is true
+            'activities.emails.attendance_reminder.subject_present'
+          else
+            'activities.emails.attendance_reminder.subject_absent'
+          end
 
     subject = I18n.t(key, activity: @activity.name)
 
