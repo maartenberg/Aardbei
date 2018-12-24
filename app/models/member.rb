@@ -12,10 +12,10 @@ class Member < ApplicationRecord
   before_destroy :delete_future_participants!
 
   validates :person_id,
-    uniqueness: {
-      scope: :group_id,
-      message: I18n.t('groups.member.already_in')
-    }
+            uniqueness: {
+              scope: :group_id,
+              message: I18n.t('groups.member.already_in')
+            }
 
   # Create Participants for this Member for all the group's future activities, where the member isn't enrolled yet.
   # Intended to be called after the member is added to the group.

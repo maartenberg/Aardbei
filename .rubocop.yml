@@ -22,18 +22,6 @@ Layout/AlignHash:
     - 'app/views/api/activities/show.rabl'
     - 'db/seeds.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_parameter, with_fixed_indentation
-Layout/AlignParameters:
-  Exclude:
-    - 'app/models/activity.rb'
-    - 'app/models/group.rb'
-    - 'app/models/member.rb'
-    - 'app/models/participant.rb'
-    - 'app/models/person.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.

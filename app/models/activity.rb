@@ -56,11 +56,11 @@ class Activity < ApplicationRecord
   belongs_to :group
 
   has_many :participants,
-    dependent: :destroy
+           dependent: :destroy
   has_many :people, through: :participants
 
   has_many :subgroups,
-    dependent: :destroy
+           dependent: :destroy
 
   validates :name, presence: true
   validates :start, presence: true

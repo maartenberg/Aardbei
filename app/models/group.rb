@@ -8,20 +8,20 @@ class Group < ApplicationRecord
 
   has_secure_token :api_token
   has_many :members,
-    dependent: :destroy
+           dependent: :destroy
   has_many :people, through: :members
 
   has_many :activities,
-    dependent: :destroy
+           dependent: :destroy
 
   has_many :default_subgroups,
-    dependent: :destroy
+           dependent: :destroy
 
   validates :name,
-    presence: true,
-    uniqueness: {
-      case_sensitive: false
-    }
+            presence: true,
+            uniqueness: {
+              case_sensitive: false
+            }
 
   # @return [Array<Member>] the members in the group who are also group leaders.
   def leaders
