@@ -17,7 +17,7 @@ class Api::GroupsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create api_group" do
     assert_difference('Api::Group.count') do
-      post api_groups_url, params: { api_group: {  } }
+      post api_groups_url, params: { api_group: { } }
     end
 
     assert_redirected_to api_group_url(Api::Group.last)
@@ -34,7 +34,7 @@ class Api::GroupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update api_group" do
-    patch api_group_url(@api_group), params: { api_group: {  } }
+    patch api_group_url(@api_group), params: { api_group: { } }
     assert_redirected_to api_group_url(@api_group)
   end
 

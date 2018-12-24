@@ -17,7 +17,7 @@ class Api::PeopleControllerTest < ActionDispatch::IntegrationTest
 
   test "should create api_person" do
     assert_difference('Api::Person.count') do
-      post api_people_url, params: { api_person: {  } }
+      post api_people_url, params: { api_person: { } }
     end
 
     assert_redirected_to api_person_url(Api::Person.last)
@@ -34,7 +34,7 @@ class Api::PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update api_person" do
-    patch api_person_url(@api_person), params: { api_person: {  } }
+    patch api_person_url(@api_person), params: { api_person: { } }
     assert_redirected_to api_person_url(@api_person)
   end
 

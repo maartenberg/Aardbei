@@ -8,7 +8,7 @@ class ActivitiesController < ApplicationController
     :destroy_subgroup, :immediate_subgroups, :clear_subgroups
   ]
   before_action :set_activity_and_group, only: has_activity_id
-  before_action :set_group,            except: has_activity_id
+  before_action :set_group, except: has_activity_id
 
   before_action :set_subgroup, only: [:update_subgroup, :destroy_subgroup]
   before_action :require_membership!
@@ -156,7 +156,7 @@ class ActivitiesController < ApplicationController
     @organizers = @activity.organizers
 
     @non_organizers_options = @non_organizers.map{|p| [p.person.full_name, p.id] }
-    @organizers_options     =     @organizers.map{|p| [p.person.full_name, p.id] }
+    @organizers_options     = @organizers.map{|p| [p.person.full_name, p.id] }
 
     @non_organizers_options.sort!
     @organizers_options.sort!

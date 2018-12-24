@@ -34,21 +34,6 @@ Layout/AlignParameters:
     - 'app/models/participant.rb'
     - 'app/models/person.rb'
 
-# Offense count: 20
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'app/controllers/activities_controller.rb'
-    - 'db/schema.rb'
-    - 'test/controllers/activities_controller_test.rb'
-    - 'test/controllers/api/activities_controller_test.rb'
-    - 'test/controllers/api/groups_controller_test.rb'
-    - 'test/controllers/api/people_controller_test.rb'
-    - 'test/controllers/groups_controller_test.rb'
-    - 'test/controllers/members_controller_test.rb'
-    - 'test/controllers/people_controller_test.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
