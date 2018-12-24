@@ -40,7 +40,7 @@ module AuthenticationHelper
   end
 
   # Determine whether the user is logged in, and if so, disable the Session, then flush session cookies.
-  def log_out(session_broken = false)
+  def log_out(session_broken: false)
     if !session_broken && is_logged_in? && @user_session
       get_user_session
 
@@ -104,7 +104,7 @@ module AuthenticationHelper
 
     # Edge case if a session no longer exists in the database
     if not @user_session
-      log_out(session_broken = true)
+      log_out(session_broken: true)
     end
   end
 
