@@ -103,8 +103,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  def mass_add_members
-  end
+  def mass_add_members; end
 
   def process_mass_add_members
     require 'csv'

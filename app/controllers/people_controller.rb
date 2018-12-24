@@ -24,8 +24,7 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /people
   # POST /people.json
@@ -46,8 +45,7 @@ class PeopleController < ApplicationController
     end
   end
 
-  def mass_new
-  end
+  def mass_new; end
 
   def mass_create
     require 'csv'

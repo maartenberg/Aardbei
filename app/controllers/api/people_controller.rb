@@ -10,8 +10,7 @@ class Api::PeopleController < ApiController
 
   # GET /api/people/1
   # GET /api/people/1.json
-  def show
-  end
+  def show; end
 
   private
 

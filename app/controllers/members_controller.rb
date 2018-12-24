@@ -15,8 +15,7 @@ class MembersController < ApplicationController
 
   # GET /members/1
   # GET /members/1.json
-  def show
-  end
+  def show; end
 
   # GET /members/new
   def new

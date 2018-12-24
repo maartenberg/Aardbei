@@ -291,8 +291,7 @@ class ActivitiesController < ApplicationController
     head :no_content
   end
 
-  def mass_new
-  end
+  def mass_new; end
 
   def mass_create
     require 'csv'

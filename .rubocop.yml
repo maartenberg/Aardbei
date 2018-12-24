@@ -376,19 +376,6 @@ Style/DateTime:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'app/controllers/activities_controller.rb'
-    - 'app/controllers/api/people_controller.rb'
-    - 'app/controllers/groups_controller.rb'
-    - 'app/controllers/members_controller.rb'
-    - 'app/controllers/people_controller.rb'
-    - 'db/migrate/20180904163645_generate_calendar_tokens.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/ExpandPathArguments:
