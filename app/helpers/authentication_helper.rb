@@ -70,7 +70,7 @@ module AuthenticationHelper
       # Case 2: User is returning and has a remember token saved.
       # We get the Session, check the token and expiry, and log the user in.
       if cookies.signed.permanent[:remember_token] && cookies.signed.permanent[:user_id] &&
-          cookies.signed.permanent[:session_id]
+         cookies.signed.permanent[:session_id]
 
         get_user_session
 
@@ -81,7 +81,7 @@ module AuthenticationHelper
         session_password = BCrypt::Password.new @user_session.remember_digest
 
         if @user_session.expires > DateTime.now &&
-            session_password == cookies.signed.permanent[:remember_token]
+           session_password == cookies.signed.permanent[:remember_token]
           log_in @user_session.user, false, false
           return true
         end

@@ -22,10 +22,10 @@ class GroupsController < ApplicationController
   # GET /groups/1.json
   def show
     @organized_activities = current_person
-      .organized_activities
-      .joins(:activity)
-      .where('activities.group_id': @group.id)
-      .where('start > ?', Date.today)
+                            .organized_activities
+                            .joins(:activity)
+                            .where('activities.group_id': @group.id)
+                            .where('start > ?', Date.today)
 
     if @organized_activities.any?
       @groupmenu = 'col-md-6'
@@ -34,13 +34,13 @@ class GroupsController < ApplicationController
     end
 
     @upcoming = @group.activities
-      .where('start > ?', Date.today)
-      .order('start ASC')
+                      .where('start > ?', Date.today)
+                      .order('start ASC')
     @upcoming_ps = Participant
-      .where(person: current_person)
-      .where(activity: @upcoming)
-      .map{ |p| [p.activity_id, p]}
-      .to_h
+                   .where(person: current_person)
+                   .where(activity: @upcoming)
+                   .map{ |p| [p.activity_id, p]}
+                   .to_h
   end
 
   # GET /groups/new

@@ -3,18 +3,18 @@ class DashboardController < ApplicationController
 
   def home
     @upcoming = current_person
-      .participants
-      .joins(:activity)
-      .where('activities.end >= ? OR (activities.end IS NULL AND activities.start >= ?)', DateTime.now, DateTime.now)
-      .order('activities.start ASC')
+                .participants
+                .joins(:activity)
+                .where('activities.end >= ? OR (activities.end IS NULL AND activities.start >= ?)', DateTime.now, DateTime.now)
+                .order('activities.start ASC')
     @user_organized = @upcoming
-      .where(is_organizer: true)
-      .limit(3)
+                      .where(is_organizer: true)
+                      .limit(3)
     @upcoming = @upcoming
-      .paginate(page: params[:upage], per_page: 10)
+                .paginate(page: params[:upage], per_page: 10)
     @need_response = @upcoming
-      .where(attending: nil)
-      .paginate(page: params[:nrpage], per_page: 5)
+                     .where(attending: nil)
+                     .paginate(page: params[:nrpage], per_page: 5)
   end
 
   def set_settings_params!

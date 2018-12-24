@@ -60,7 +60,7 @@ Rails.application.configure do
     authentication: :plain
   }
   config.action_mailer.mailgun_settings = {
-        api_key: ENV['MAILGUN_API_KEY'],
-        domain: ENV['MAILGUN_DOMAIN']
+    api_key: ENV['MAILGUN_API_KEY'],
+    domain: ENV['MAILGUN_DOMAIN']
   }
 end

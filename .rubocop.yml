@@ -22,27 +22,6 @@ Layout/AlignHash:
     - 'app/views/api/activities/show.rabl'
     - 'db/seeds.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_braces
-Layout/IndentHash:
-  Exclude:
-    - 'config/environments/development.rb'
-    - 'config/environments/production.rb'
-
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: Width, IgnoredPatterns.
-Layout/IndentationWidth:
-  Exclude:
-    - 'app/controllers/activities_controller.rb'
-    - 'app/controllers/api/people_controller.rb'
-    - 'app/controllers/groups_controller.rb'
-    - 'app/controllers/members_controller.rb'
-    - 'app/controllers/people_controller.rb'
-    - 'app/models/activity.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Layout/LeadingCommentSpace:
@@ -54,30 +33,6 @@ Layout/LeadingCommentSpace:
 Layout/MultilineBlockLayout:
   Exclude:
     - 'app/models/activity.rb'
-
-# Offense count: 75
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented, indented_relative_to_receiver
-Layout/MultilineMethodCallIndentation:
-  Exclude:
-    - 'app/controllers/activities_controller.rb'
-    - 'app/controllers/dashboard_controller.rb'
-    - 'app/controllers/groups_controller.rb'
-    - 'app/controllers/members_controller.rb'
-    - 'app/mailers/participant_mailer.rb'
-    - 'app/models/activity.rb'
-    - 'app/models/person.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/MultilineOperationIndentation:
-  Exclude:
-    - 'app/helpers/authentication_helper.rb'
-    - 'app/models/activity.rb'
-    - 'app/models/participant.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.

@@ -21,21 +21,21 @@ class ParticipantMailer < ApplicationMailer
     @subgroup = participant.subgroup.name
 
     @others = participant
-      .subgroup
-      .participants
-      .where.not(person: @person)
-      .map { |pp| pp.person.full_name }
-      .sort
-      .join(', ')
+              .subgroup
+              .participants
+              .where.not(person: @person)
+              .map { |pp| pp.person.full_name }
+              .sort
+              .join(', ')
 
     @subgroups = @activity
-      .subgroups
-      .order(name: :asc)
+                 .subgroups
+                 .order(name: :asc)
 
     @organizers = @activity
-      .organizer_names
-      .sort
-      .join(', ')
+                  .organizer_names
+                  .sort
+                  .join(', ')
 
     subject = I18n.t('activities.emails.subgroup_notification.subject', subgroup: @subgroup, activity: @activity.name)
 

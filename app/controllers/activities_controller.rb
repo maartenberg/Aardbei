@@ -26,14 +26,14 @@ class ActivitiesController < ApplicationController
   def index
     if params[:past]
       @activities = @group.activities
-        .where('start < ?', Time.now)
-        .order(start: :desc)
-        .paginate(page: params[:page], per_page: 25)
+                          .where('start < ?', Time.now)
+                          .order(start: :desc)
+                          .paginate(page: params[:page], per_page: 25)
     else
       @activities = @group.activities
-        .where('start > ?', Time.now)
-        .order(start: :asc)
-        .paginate(page: params[:page], per_page: 25)
+                          .where('start > ?', Time.now)
+                          .order(start: :asc)
+                          .paginate(page: params[:page], per_page: 25)
     end
   end
 
@@ -41,26 +41,26 @@ class ActivitiesController < ApplicationController
   # GET /activities/1.json
   def show
     @participants = @activity.participants
-      .joins(:person)
-      .order(attending: :desc)
-      .order('people.first_name ASC')
+                             .joins(:person)
+                             .order(attending: :desc)
+                             .order('people.first_name ASC')
     @organizers = @activity.participants
-      .joins(:person)
-      .where(is_organizer: true)
-      .order('people.first_name ASC')
-      .map{|p| p.person.full_name}
-      .join(', ')
+                           .joins(:person)
+                           .where(is_organizer: true)
+                           .order('people.first_name ASC')
+                           .map{|p| p.person.full_name}
+                           .join(', ')
     @ownparticipant = @activity.participants
-      .find_by(person: current_person)
+                               .find_by(person: current_person)
     @counts = @activity.state_counts
     @num_participants = @counts.values.sum
     @assignable_subgroups = @activity.subgroups
-      .where(is_assignable: true)
-      .order(name: :asc)
-      .pluck(:name)
+                                     .where(is_assignable: true)
+                                     .order(name: :asc)
+                                     .pluck(:name)
     @subgroup_ids = @activity.subgroups
-      .order(name: :asc)
-      .pluck(:name, :id)
+                             .order(name: :asc)
+                             .pluck(:name, :id)
     @subgroup_ids.prepend( [I18n.t('activities.subgroups.filter_nofilter'), 'all'] )
     @subgroup_ids.append( [I18n.t('activities.subgroups.filter_nogroup'), 'withoutgroup'] )
   end
@@ -88,10 +88,10 @@ class ActivitiesController < ApplicationController
     @subgroup_options.prepend(['--', 'nil'])
 
     @participants = @activity.participants
-      .joins(:person)
-      .where.not(attending: false)
-      .order(:subgroup_id)
-      .order('people.first_name', 'people.last_name')
+                             .joins(:person)
+                             .where.not(attending: false)
+                             .order(:subgroup_id)
+                             .order('people.first_name', 'people.last_name')
   end
 
   # POST /activities/1/update_subgroups

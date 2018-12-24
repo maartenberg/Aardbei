@@ -112,13 +112,13 @@ class Person < ApplicationRecord
     tzid = 1.seconds.since.time_zone.tzinfo.name
 
     selection = self
-      .participants
-      .joins(:activity)
-      .where('"end" > ?', 3.months.ago)
+                .participants
+                .joins(:activity)
+                .where('"end" > ?', 3.months.ago)
 
     if skip_absent
       selection = selection
-        .where.not(attending: false)
+                  .where.not(attending: false)
     end
 
     selection.each do |p|

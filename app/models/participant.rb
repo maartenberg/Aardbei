@@ -66,7 +66,7 @@ class Participant < ApplicationRecord
 
   def may_change?(person)
     self.activity.may_change?(person) ||
-    self.person == person
+      self.person == person
   end
 
   # Set attending to true if nil, and notify the Person via email.

@@ -79,8 +79,8 @@ class Activity < ApplicationRecord
   after_commit :schedule_subgroup_division,
                if: Proc.new { |a| (a.previous_changes['deadline'] ||
                                    a.previous_changes['subgroup_division_enabled']) &&
-                                  !a.subgroup_division_done &&
-                                  a.subgroup_division_enabled
+                 !a.subgroup_division_done &&
+                 a.subgroup_division_enabled
                    }
 
   # Get all people (not participants) that are organizers. Does not include
@@ -127,8 +127,8 @@ class Activity < ApplicationRecord
   # Determine whether the passed Person may change this activity.
   def may_change?(person)
     person.is_admin ||
-    self.is_organizer?(person) ||
-    self.group.is_leader?(person)
+      self.is_organizer?(person) ||
+      self.group.is_leader?(person)
   end
 
   # Create Participants for all People that
@@ -244,19 +244,19 @@ class Activity < ApplicationRecord
 
     # Get participants in random order
     ps = self
-      .participants
-      .where(attending: true)
-      .where(subgroup: nil)
-      .to_a
+         .participants
+         .where(attending: true)
+         .where(subgroup: nil)
+         .to_a
 
     ps.shuffle!
 
     # Get groups, link to participant count
     groups = self
-      .subgroups
-      .where(is_assignable: true)
-      .to_a
-      .map { |sg| [sg.participants.count, sg] }
+             .subgroups
+             .where(is_assignable: true)
+             .to_a
+             .map { |sg| [sg.participants.count, sg] }
 
     ps.each do |p|
       # Sort groups so the group with the least participants gets the following participant
@@ -277,16 +277,16 @@ class Activity < ApplicationRecord
 
   def clear_subgroups!(only_assignable = true)
     sgs = self
-      .subgroups
+          .subgroups
 
     if only_assignable
-    sgs = sgs
-      .where(is_assignable: true)
+      sgs = sgs
+            .where(is_assignable: true)
     end
 
     ps = self
-      .participants
-      .where(subgroup: sgs)
+         .participants
+         .where(subgroup: sgs)
 
     ps.each do |p|
       p.subgroup = nil
@@ -297,9 +297,9 @@ class Activity < ApplicationRecord
   # Notify participants of the current subgroups, if any.
   def notify_subgroups!
     ps = self
-      .participants
-      .joins(:person)
-      .where.not(subgroup: nil)
+         .participants
+         .joins(:person)
+         .where.not(subgroup: nil)
 
     ps.each do |pp|
       pp.send_subgroup_notification
