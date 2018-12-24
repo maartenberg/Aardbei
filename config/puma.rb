@@ -21,7 +21,6 @@ if env == "production"
   stdout_redirect "#{ENV['AARDBEI_PATH']}/log/stdout", "#{ENV['AARDBEI_PATH']}/log/stderr", true
 end
 
-
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
 # the concurrency of the application would be max `threads` * `workers`.

@@ -37,7 +37,6 @@ g = Group.create!(
   name: 'Teststam'
 )
 
-
 2.times do |i|
   gr = Group.create!(
     name: Faker::Team.name

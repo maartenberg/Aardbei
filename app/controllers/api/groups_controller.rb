@@ -58,6 +58,7 @@ class Api::GroupsController < ApiController
   # @return [DateTime] the parsed input.
   def try_parse_datetime(input = nil)
     return unless input
+
     begin
       DateTime.parse input
     rescue ArgumentError

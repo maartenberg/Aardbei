@@ -308,6 +308,7 @@ class ActivitiesController < ApplicationController
   end
 
   private
+
     # The Activity's group takes precedence over whatever's in the URL, set_group not required (and can be mislead)
     def set_activity_and_group
       @activity = Activity.find(params[:id] || params[:activity_id])

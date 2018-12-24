@@ -9,6 +9,7 @@ class ApiController < ActionController::Base
   end
 
   protected
+
   def api_require_authentication!
     return if is_logged_in?
 

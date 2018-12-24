@@ -80,6 +80,7 @@ class Participant < ApplicationRecord
     self.save
 
     return unless self.person.send_attendance_reminder
+
     ParticipantMailer.attendance_reminder(self.person, self.activity).deliver_later
   end
 
@@ -94,5 +95,4 @@ class Participant < ApplicationRecord
   def clear_subgroup
     self.subgroup = nil
   end
-
 end

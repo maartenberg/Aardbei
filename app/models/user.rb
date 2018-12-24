@@ -26,6 +26,7 @@ class User < ApplicationRecord
   end
 
   private
+
   # Assert that the user's email address is the same as the email address of
   # the associated Person.
   def email_same_as_person

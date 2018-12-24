@@ -94,6 +94,7 @@ class AuthenticationController < ApplicationController
     if not token_valid? token
       return
     end
+
     render layout: 'void'
   end
 
@@ -149,6 +150,7 @@ class AuthenticationController < ApplicationController
   end
 
   private
+
   def session_params
     params.require(:session).permit(:email, :password, :remember_me)
   end

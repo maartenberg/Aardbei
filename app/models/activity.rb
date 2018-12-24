@@ -80,7 +80,8 @@ class Activity < ApplicationRecord
                if: Proc.new { |a| (a.previous_changes['deadline'] ||
                                    a.previous_changes['subgroup_division_enabled']) &&
                                   !a.subgroup_division_done &&
-                                  a.subgroup_division_enabled }
+                                  a.subgroup_division_enabled
+                   }
 
   # Get all people (not participants) that are organizers. Does not include
   # group leaders, although they may modify the activity as well.
@@ -160,7 +161,6 @@ class Activity < ApplicationRecord
       sg.is_assignable = dsg.is_assignable
       sg.save! # Should never fail, as DSG and SG have identical validation, and names cannot clash.
     end
-
   end
 
   # Create multiple Activities from data in a CSV file, assign to a group, return.

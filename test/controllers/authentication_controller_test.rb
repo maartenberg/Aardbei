@@ -15,5 +15,4 @@ class AuthenticationControllerTest < ActionDispatch::IntegrationTest
     get authentication_forgotten_password_url
     assert_response :success
   end
-
 end

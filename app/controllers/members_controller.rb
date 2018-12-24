@@ -133,6 +133,7 @@ class MembersController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_member
       @member = Member.find(params[:id])

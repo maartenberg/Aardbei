@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   private
+
   def invalid_auth_token
     render text: I18n.t(:invalid_csrf), status: 400
   end

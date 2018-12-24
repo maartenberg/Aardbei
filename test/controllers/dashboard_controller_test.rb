@@ -5,5 +5,4 @@ class DashboardControllerTest < ActionDispatch::IntegrationTest
     get dashboard_home_url
     assert_response :success
   end
-
 end

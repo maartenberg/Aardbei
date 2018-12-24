@@ -191,6 +191,7 @@ class Person < ApplicationRecord
   end
 
   private
+
   # Assert that the person's birth date, if any, lies in the past.
   def birth_date_cannot_be_in_future
     if self.birth_date && self.birth_date > Date.today

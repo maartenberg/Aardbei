@@ -41,6 +41,7 @@ class Token < ApplicationRecord
   before_validation :generate_expiry, on: :create
 
   private
+
   def generate_token
     candidate = nil
     loop do
