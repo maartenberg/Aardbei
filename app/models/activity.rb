@@ -199,11 +199,11 @@ class Activity < ApplicationRecord
       end
 
       unless row['subgroup_division_enabled'].blank?
-        a.subgroup_division_enabled = row['subgroup_division_enabled'].downcase == 'y'
+        a.subgroup_division_enabled = row['subgroup_division_enabled'].casecmp('y').zero?
       end
 
       unless row['no_response_action'].blank?
-        a.no_response_action = row['no_response_action'].downcase == 'p'
+        a.no_response_action = row['no_response_action'].casecmp('p').zero?
       end
 
       result << a
