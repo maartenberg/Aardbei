@@ -10,13 +10,6 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
 
-# Offense count: 1
-# Configuration parameters: Whitelist.
-# Whitelist: present?, blank?, presence, try, try!
-Lint/SafeNavigationChain:
-  Exclude:
-    - 'app/controllers/api_controller.rb'
-
 # Offense count: 30
 Metrics/AbcSize:
   Max: 71

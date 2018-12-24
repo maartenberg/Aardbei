@@ -36,7 +36,7 @@ class ApiController < ActionController::Base
 
   # Require user to be a member of group OR admin, requires @group set
   def require_membership!
-    return if current_person&.groups.include?(@group) || current_person&.is_admin?
+    return if current_person&.groups&.include?(@group) || current_person&.is_admin?
 
     @message = I18n.t('authentication.membership_required')
     render 'api/error', status: :forbidden
