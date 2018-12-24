@@ -27,9 +27,9 @@ class Token < ApplicationRecord
   #     what user the token allows the holder to authenticate as.
 
   TYPES = {
-    password_reset:       'pw_reset',
+    password_reset: 'pw_reset',
     account_confirmation: 'confirm',
-    api_authentication:   'api'
+    api_authentication: 'api'
   }
 
   validates :token, uniqueness: true, presence: true

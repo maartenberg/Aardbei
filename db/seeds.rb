@@ -46,7 +46,7 @@ end
 15.times do |i|
   person = Person.create!(
     first_name: (Faker::Name.first_name),
-    last_name:  (Faker::Name.last_name),
+    last_name: (Faker::Name.last_name),
     birth_date: (Faker::Date.between(21.years.ago, Date.today)),
     email: "testuser#{i}@maartenberg.nl"
   )
@@ -86,7 +86,7 @@ Person.all.each do |p|
     if Faker::Boolean.boolean(0.75)
       mem = Member.create!(
         person: p,
-        group:  g,
+        group: g,
         is_leader: Faker::Boolean.boolean(0.1)
       )
       g.activities.each do |a|
@@ -104,7 +104,7 @@ Person.all.each do |p|
         part.update!(
           is_organizer: Faker::Boolean.boolean(0.1),
           attending: [true, false, nil].sample,
-          notes:    notes
+          notes: notes
         )
       end
     end

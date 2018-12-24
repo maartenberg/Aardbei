@@ -77,10 +77,11 @@ class Activity < ApplicationRecord
   after_commit :schedule_reminder,
                if: Proc.new { |a| a.previous_changes["reminder_at"] }
   after_commit :schedule_subgroup_division,
-               if: Proc.new { |a| (a.previous_changes['deadline'] ||
+               if: Proc.new { |a|
+                     (a.previous_changes['deadline'] ||
                                    a.previous_changes['subgroup_division_enabled']) &&
-                 !a.subgroup_division_done &&
-                 a.subgroup_division_enabled
+                       !a.subgroup_division_done &&
+                       a.subgroup_division_enabled
                    }
 
   # Get all people (not participants) that are organizers. Does not include

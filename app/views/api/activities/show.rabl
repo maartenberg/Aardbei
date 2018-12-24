@@ -7,7 +7,7 @@ node :response_counts do
   {
     "present": c[true]  || "0",
     "unknown": c[nil]   || "0",
-    "absent":  c[false] || "0"
+    "absent": c[false] || "0"
   }
 end
 
