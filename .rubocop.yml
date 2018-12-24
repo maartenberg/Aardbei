@@ -58,19 +58,6 @@ Layout/IndentHash:
     - 'config/environments/development.rb'
     - 'config/environments/production.rb'
 
-# Offense count: 19
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: normal, rails
-Layout/IndentationConsistency:
-  Exclude:
-    - 'app/controllers/activities_controller.rb'
-    - 'app/controllers/api/people_controller.rb'
-    - 'app/controllers/groups_controller.rb'
-    - 'app/controllers/members_controller.rb'
-    - 'app/controllers/people_controller.rb'
-    - 'app/helpers/authentication_helper.rb'
-
 # Offense count: 18
 # Cop supports --auto-correct.
 # Configuration parameters: Width, IgnoredPatterns.

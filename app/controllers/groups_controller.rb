@@ -156,22 +156,22 @@ class GroupsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_group
-      @group = Group.find(params[:group_id] || params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_group
+    @group = Group.find(params[:group_id] || params[:id])
+  end
 
-    # Retrieve DefaultSubgroup to update or delete
-    def set_default_subgroup
-      @defaultsubgroup = DefaultSubgroup.find(params[:default_subgroup_id])
-    end
+  # Retrieve DefaultSubgroup to update or delete
+  def set_default_subgroup
+    @defaultsubgroup = DefaultSubgroup.find(params[:default_subgroup_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def group_params
-      params.require(:group).permit(:name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def group_params
+    params.require(:group).permit(:name)
+  end
 
-    def default_subgroup_params
-      params.require(:default_subgroup).permit(:name, :is_assignable)
-    end
+  def default_subgroup_params
+    params.require(:default_subgroup).permit(:name, :is_assignable)
+  end
 end

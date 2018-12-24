@@ -134,24 +134,24 @@ class MembersController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_member
-      @member = Member.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_member
+    @member = Member.find(params[:id])
+  end
 
-    def set_group
-      @group = Group.find(params[:group_id])
-    end
+  def set_group
+    @group = Group.find(params[:group_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def member_params
-      params.require(:member).permit(:person_id, :is_leader)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def member_params
+    params.require(:member).permit(:person_id, :is_leader)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list
-    # through.  Note: differs from the ones in PeopleController because
-    # creating admins is not allowed.
-    def invite_params
-      params.require(:person).permit(:first_name, :infix, :last_name, :email, :birth_date)
-    end
+  # Never trust parameters from the scary internet, only allow the white list
+  # through.  Note: differs from the ones in PeopleController because
+  # creating admins is not allowed.
+  def invite_params
+    params.require(:person).permit(:first_name, :infix, :last_name, :email, :birth_date)
+  end
 end

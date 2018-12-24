@@ -100,18 +100,18 @@ class PeopleController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_person
-      @person = Person.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_person
+    @person = Person.find(params[:id])
+  end
 
-    # Set person from calendar token
-    def set_person_from_token
-      @person = Person.find_by(calendar_token: params[:calendar_token])
-    end
+  # Set person from calendar token
+  def set_person_from_token
+    @person = Person.find_by(calendar_token: params[:calendar_token])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def person_params
-      params.require(:person).permit(:first_name, :infix, :last_name, :email, :birth_date, :is_admin)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def person_params
+    params.require(:person).permit(:first_name, :infix, :last_name, :email, :birth_date, :is_admin)
+  end
 end

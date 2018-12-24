@@ -309,26 +309,26 @@ class ActivitiesController < ApplicationController
 
   private
 
-    # The Activity's group takes precedence over whatever's in the URL, set_group not required (and can be mislead)
-    def set_activity_and_group
-      @activity = Activity.find(params[:id] || params[:activity_id])
-      @group = @activity.group
-    end
+  # The Activity's group takes precedence over whatever's in the URL, set_group not required (and can be mislead)
+  def set_activity_and_group
+    @activity = Activity.find(params[:id] || params[:activity_id])
+    @group = @activity.group
+  end
 
-    def set_group
-      @group = Group.find(params[:group_id])
-    end
+  def set_group
+    @group = Group.find(params[:group_id])
+  end
 
-    def set_subgroup
-      @subgroup = Subgroup.find(params[:subgroup_id])
-    end
+  def set_subgroup
+    @subgroup = Subgroup.find(params[:subgroup_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def activity_params
-      params.require(:activity).permit(:name, :description, :location, :start, :end, :deadline, :reminder_at, :subgroup_division_enabled, :no_response_action)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def activity_params
+    params.require(:activity).permit(:name, :description, :location, :start, :end, :deadline, :reminder_at, :subgroup_division_enabled, :no_response_action)
+  end
 
-    def subgroup_params
-      params.require(:subgroup).permit(:name, :is_assignable)
-    end
+  def subgroup_params
+    params.require(:subgroup).permit(:name, :is_assignable)
+  end
 end

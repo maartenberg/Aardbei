@@ -86,10 +86,10 @@ module AuthenticationHelper
           return true
         end
 
-      return false
+        return false
       end
 
-    return false
+      return false
     end
   end
 
