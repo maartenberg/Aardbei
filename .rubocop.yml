@@ -45,19 +45,6 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 13
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/ClassMethods:
-  Exclude:
-    - 'app/models/session.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/ColonMethodCall:
-  Exclude:
-    - 'app/controllers/authentication_controller.rb'
-    - 'app/models/token.rb'
-
 # Offense count: 55
 Style/Documentation:
   Enabled: false

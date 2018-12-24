@@ -63,12 +63,12 @@ class AuthenticationController < ApplicationController
       user = User.new
       user.person = person
       user.email = person.email
-      user.password = user.password_confirmation = SecureRandom::urlsafe_base64 32
+      user.password = user.password_confirmation = SecureRandom.urlsafe_base64 32
       user.confirmed = false
       user.save!
     end
 
-    AuthenticationMailer::password_confirm_email(user).deliver_now
+    AuthenticationMailer.password_confirm_email(user).deliver_now
     flash_message(:success, I18n.t('authentication.emails.sent'))
     redirect_to action: 'login'
   end
@@ -84,7 +84,7 @@ class AuthenticationController < ApplicationController
       redirect_to action: 'forgotten_password_form'
       return
     end
-    AuthenticationMailer::password_reset_email(user).deliver_later
+    AuthenticationMailer.password_reset_email(user).deliver_later
     flash_message(:success, I18n.t('authentication.emails.sent'))
     redirect_to action: 'login'
   end

@@ -45,7 +45,7 @@ class Token < ApplicationRecord
   def generate_token
     candidate = nil
     loop do
-      candidate = SecureRandom::urlsafe_base64 32
+      candidate = SecureRandom.urlsafe_base64 32
       break candidate unless Token.exists?(token: candidate)
     end
     self.token = candidate

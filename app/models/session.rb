@@ -22,12 +22,12 @@ class Session < ApplicationRecord
   belongs_to :user
 
   # @return [String] a new random token.
-  def Session.new_token
+  def self.new_token
     SecureRandom.urlsafe_base64
   end
 
   # @return [String] a BCrypt digest of the given string.
-  def Session.digest(string)
+  def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
