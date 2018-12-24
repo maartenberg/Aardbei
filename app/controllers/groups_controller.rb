@@ -39,7 +39,7 @@ class GroupsController < ApplicationController
     @upcoming_ps = Participant
                    .where(person: current_person)
                    .where(activity: @upcoming)
-                   .map{ |p| [p.activity_id, p]}
+                   .map { |p| [p.activity_id, p] }
                    .to_h
   end
 

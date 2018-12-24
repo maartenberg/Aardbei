@@ -33,11 +33,11 @@ class Api::ActivitiesController < ApiController
 
     absent = as.where(attending: false)
 
-    presentnames = present.map{|p| p.person.first_name }
+    presentnames = present.map { |p| p.person.first_name }
 
-    unknownnames = unknown.map{|p| p.person.first_name }
+    unknownnames = unknown.map { |p| p.person.first_name }
 
-    absentnames = absent.map{|p| p.person.first_name }
+    absentnames = absent.map { |p| p.person.first_name }
 
     if presentnames.positive?
       present_mess = I18n.t('activities.participant.these_present', count: present.count, names: presentnames.join(', '))

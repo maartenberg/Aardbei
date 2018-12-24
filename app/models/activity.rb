@@ -165,7 +165,7 @@ class Activity < ApplicationRecord
 
   # Create multiple Activities from data in a CSV file, assign to a group, return.
   def self.from_csv(content, group)
-    reader = CSV.parse(content, {headers: true, skip_blanks: true})
+    reader = CSV.parse(content, { headers: true, skip_blanks: true })
 
     result = []
     reader.each do |row|
@@ -238,7 +238,7 @@ class Activity < ApplicationRecord
   end
 
   # Assign a subgroup to all attending participants without one.
-  def assign_subgroups!(mail= false)
+  def assign_subgroups!(mail = false)
     # Sanity check: we need subgroups to divide into.
     return unless self.subgroups.any?
 

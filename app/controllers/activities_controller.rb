@@ -48,7 +48,7 @@ class ActivitiesController < ApplicationController
                            .joins(:person)
                            .where(is_organizer: true)
                            .order('people.first_name ASC')
-                           .map{|p| p.person.full_name}
+                           .map { |p| p.person.full_name }
                            .join(', ')
     @ownparticipant = @activity.participants
                                .find_by(person: current_person)
@@ -61,8 +61,8 @@ class ActivitiesController < ApplicationController
     @subgroup_ids = @activity.subgroups
                              .order(name: :asc)
                              .pluck(:name, :id)
-    @subgroup_ids.prepend( [I18n.t('activities.subgroups.filter_nofilter'), 'all'] )
-    @subgroup_ids.append( [I18n.t('activities.subgroups.filter_nogroup'), 'withoutgroup'] )
+    @subgroup_ids.prepend([I18n.t('activities.subgroups.filter_nofilter'), 'all'])
+    @subgroup_ids.append([I18n.t('activities.subgroups.filter_nogroup'), 'withoutgroup'])
   end
 
   # GET /activities/new
@@ -155,8 +155,8 @@ class ActivitiesController < ApplicationController
     @non_organizers = @activity.participants.where(is_organizer: [false, nil])
     @organizers = @activity.organizers
 
-    @non_organizers_options = @non_organizers.map{|p| [p.person.full_name, p.id] }
-    @organizers_options     = @organizers.map{|p| [p.person.full_name, p.id] }
+    @non_organizers_options = @non_organizers.map { |p| [p.person.full_name, p.id] }
+    @organizers_options     = @organizers.map { |p| [p.person.full_name, p.id] }
 
     @non_organizers_options.sort!
     @organizers_options.sort!

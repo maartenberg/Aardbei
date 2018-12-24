@@ -2,7 +2,7 @@ class MembersController < ApplicationController
   include GroupsHelper
   before_action :set_group
   before_action :set_member, only: [:show, :edit, :update, :destroy, :promote, :demote]
-  before_action :require_leader!, except: [ :index ]
+  before_action :require_leader!, except: [:index]
 
   # GET /members
   # GET /members.json

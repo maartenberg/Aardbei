@@ -17,7 +17,7 @@ class Api::ActivitiesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create api_activity" do
     assert_difference('Api::Activity.count') do
-      post api_activities_url, params: { api_activity: { } }
+      post api_activities_url, params: { api_activity: {} }
     end
 
     assert_redirected_to api_activity_url(Api::Activity.last)
@@ -34,7 +34,7 @@ class Api::ActivitiesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update api_activity" do
-    patch api_activity_url(@api_activity), params: { api_activity: { } }
+    patch api_activity_url(@api_activity), params: { api_activity: {} }
     assert_redirected_to api_activity_url(@api_activity)
   end
 

@@ -1,6 +1,6 @@
 module AuthenticationHelper
   # Create a new Session and set the relevant cookies.
-  def log_in(user, remember, new=true)
+  def log_in(user, remember, new = true)
     reset_session
 
     expiry = 6.hours.since
