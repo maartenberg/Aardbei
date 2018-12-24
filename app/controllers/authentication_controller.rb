@@ -11,7 +11,7 @@ class AuthenticationController < ApplicationController
     else
       u = User.find_by(email: params[:session][:email])
 
-      if u && u.confirmed && u.authenticate(params[:session][:password])
+      if u&.confirmed && u&.authenticate(params[:session][:password])
         log_in(u, params[:session][:remember_me].to_i)
 
         flash_message(:success, I18n.t(:greeting, name: u.person.first_name))
@@ -53,7 +53,7 @@ class AuthenticationController < ApplicationController
     end
 
     user = User.find_by(person: person)
-    if user && user.confirmed
+    if user&.confirmed
       flash_message(:warning, I18n.t('authentication.already_activated'))
       redirect_to action: 'login'
       return

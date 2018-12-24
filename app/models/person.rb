@@ -207,8 +207,6 @@ class Person < ApplicationRecord
   # Ensure the person's user email is updated at the same time as the person's
   # email.
   def update_user_email
-    unless self.user.nil?
-      self.user.update!(email: self.email)
-    end
+    self.user&.update!(email: self.email)
   end
 end

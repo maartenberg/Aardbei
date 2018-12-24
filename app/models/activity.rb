@@ -144,7 +144,7 @@ class Activity < ApplicationRecord
     people.each do |p|
       Participant.create(
         activity: self,
-        person: p,
+        person: p
       )
     end
   end

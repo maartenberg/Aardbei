@@ -268,15 +268,6 @@ Style/RedundantSelf:
     - 'app/models/token.rb'
     - 'app/models/user.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, Whitelist.
-# Whitelist: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'app/controllers/authentication_controller.rb'
-    - 'app/models/person.rb'
-
 # Offense count: 215
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
@@ -301,14 +292,6 @@ Style/SymbolProc:
     - 'app/models/activity.rb'
     - 'app/models/member.rb'
     - 'db/migrate/20180904163645_generate_calendar_tokens.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInArguments:
-  Exclude:
-    - 'app/models/activity.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
