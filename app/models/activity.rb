@@ -75,9 +75,9 @@ class Activity < ApplicationRecord
   after_create :schedule_subgroup_division
 
   after_commit :schedule_reminder,
-               if: Proc.new { |a| a.previous_changes["reminder_at"] }
+               if: proc { |a| a.previous_changes["reminder_at"] }
   after_commit :schedule_subgroup_division,
-               if: Proc.new { |a|
+               if: proc { |a|
                      (a.previous_changes['deadline'] ||
                                    a.previous_changes['subgroup_division_enabled']) &&
                        !a.subgroup_division_done &&

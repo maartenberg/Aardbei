@@ -234,18 +234,6 @@ Style/PercentLiteralDelimiters:
   Exclude:
     - 'config/spring.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/Proc:
-  Exclude:
-    - 'app/models/activity.rb'
-
-# Offense count: 5
-# Cop supports --auto-correct.
-Style/RedundantParentheses:
-  Exclude:
-    - 'db/seeds.rb'
-
 # Offense count: 85
 # Cop supports --auto-correct.
 Style/RedundantSelf:

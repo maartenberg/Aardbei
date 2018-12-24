@@ -13,7 +13,7 @@ its_me = Person.create!(
   first_name: 'Maarten',
   infix: 'van den',
   last_name: 'Berg',
-  birth_date: (Faker::Date.between(21.years.ago, Date.today)),
+  birth_date: Faker::Date.between(21.years.ago, Date.today),
   email: 'maarten@maartenberg.nl',
   is_admin: true
 )
@@ -29,7 +29,7 @@ User.create!(
 Person.create!(
   first_name: 'Henkie',
   last_name: 'Gekke',
-  birth_date: (Faker::Date.between(21.years.ago, Date.today)),
+  birth_date: Faker::Date.between(21.years.ago, Date.today),
   email: 'gekkehenkie@maartenberg.nl'
 )
 
@@ -45,9 +45,9 @@ end
 
 15.times do
   Person.create!(
-    first_name: (Faker::Name.first_name),
-    last_name: (Faker::Name.last_name),
-    birth_date: (Faker::Date.between(21.years.ago, Date.today)),
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    birth_date: Faker::Date.between(21.years.ago, Date.today),
     email: "testuser#{i}@maartenberg.nl"
   )
 end
