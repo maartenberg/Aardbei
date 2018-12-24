@@ -1,2 +1,4 @@
-module Api::GroupsHelper
+module Api
+  class GroupsHelper
+  end
 end

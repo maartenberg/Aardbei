@@ -1,2 +1,4 @@
-module Api::ActivitiesHelper
+module Api
+  class ActivitiesHelper
+  end
 end

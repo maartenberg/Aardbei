@@ -1,2 +1,4 @@
-module Api::MeHelper
+module Api
+  class MeHelper
+  end
 end

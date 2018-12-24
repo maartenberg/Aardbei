@@ -1,2 +1,4 @@
-module Api::PeopleHelper
+module Api
+  class PeopleHelper
+  end
 end

@@ -68,26 +68,6 @@ Style/BracesAroundHashParameters:
     - 'app/models/person.rb'
     - 'config/environments/production.rb'
 
-# Offense count: 13
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle.
-# SupportedStyles: nested, compact
-Style/ClassAndModuleChildren:
-  Exclude:
-    - 'app/controllers/api/activities_controller.rb'
-    - 'app/controllers/api/groups_controller.rb'
-    - 'app/controllers/api/me_controller.rb'
-    - 'app/controllers/api/people_controller.rb'
-    - 'app/helpers/api/activities_helper.rb'
-    - 'app/helpers/api/groups_helper.rb'
-    - 'app/helpers/api/me_helper.rb'
-    - 'app/helpers/api/people_helper.rb'
-    - 'test/controllers/api/activities_controller_test.rb'
-    - 'test/controllers/api/groups_controller_test.rb'
-    - 'test/controllers/api/me_controller_test.rb'
-    - 'test/controllers/api/people_controller_test.rb'
-    - 'test/test_helper.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/ClassMethods:
