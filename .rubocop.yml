@@ -223,14 +223,6 @@ Style/MutableConstant:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinBodyLength.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'db/seeds.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: Strict.
 Style/NumericLiterals:
   MinDigits: 15

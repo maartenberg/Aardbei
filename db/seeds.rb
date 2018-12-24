@@ -83,30 +83,30 @@ end
 
 Person.all.each do |p|
   Group.all.each do |g|
-    if Faker::Boolean.boolean(0.75)
-      Member.create!(
-        person: p,
-        group: g,
-        is_leader: Faker::Boolean.boolean(0.1)
-      )
-      g.activities.each do |a|
-        if Faker::Boolean.boolean(0.15)
-          notes = Faker::Hipster.sentence
-        else
-          notes = nil
-        end
+    next unless Faker::Boolean.boolean(0.75)
 
-        # Participants are created on adding to group, no need to create
-        part = Participant.find_by(
-          activity: a,
-          person: p
-        )
-        part.update!(
-          is_organizer: Faker::Boolean.boolean(0.1),
-          attending: [true, false, nil].sample,
-          notes: notes
-        )
+    Member.create!(
+      person: p,
+      group: g,
+      is_leader: Faker::Boolean.boolean(0.1)
+    )
+    g.activities.each do |a|
+      if Faker::Boolean.boolean(0.15)
+        notes = Faker::Hipster.sentence
+      else
+        notes = nil
       end
+
+      # Participants are created on adding to group, no need to create
+      part = Participant.find_by(
+        activity: a,
+        person: p
+      )
+      part.update!(
+        is_organizer: Faker::Boolean.boolean(0.1),
+        attending: [true, false, nil].sample,
+        notes: notes
+      )
     end
   end
 end
