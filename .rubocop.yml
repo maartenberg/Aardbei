@@ -9,6 +9,8 @@
 AllCops:
   Exclude:
     - 'db/schema.rb'
+    - 'bin/update'
+    - 'bin/setup'
 
 # Offense count: 30
 Metrics/AbcSize:
@@ -144,17 +146,6 @@ Style/DateTime:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/ExpandPathArguments:
-  Exclude:
-    - 'bin/bundle'
-    - 'bin/rails'
-    - 'bin/rake'
-    - 'bin/setup'
-    - 'bin/update'
-    - 'test/test_helper.rb'
-
 # Offense count: 140
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -169,12 +160,6 @@ Style/FrozenStringLiteralComment:
 Style/HashSyntax:
   Exclude:
     - 'lib/tasks/sessions.rake'
-
-# Offense count: 2
-Style/MixinUsage:
-  Exclude:
-    - 'bin/setup'
-    - 'bin/update'
 
 # Offense count: 1
 Style/MultilineTernaryOperator:

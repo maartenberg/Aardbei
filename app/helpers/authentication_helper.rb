@@ -1,41 +1,43 @@
 module AuthenticationHelper
   # Create a new Session and set the relevant cookies.
-  def log_in(user, remember, new = true)
+  def log_in(user, remember, new_session = true)
     reset_session
 
     expiry = 6.hours.since
     session[:user_id] = user.id
     session[:expires] = expiry
 
-    if new
-      if remember == 1
-        token = Session.new_token
-        expiry = 1.years.since
-        cookies.signed.permanent[:remember_token] = {
-          value: token,
-          httponly: true
-        }
-        cookies.signed.permanent[:user_id] = {
-          value: user.id,
-          httponly: true
-        }
-      else
-        token = nil
-      end
-      s = Session.create!(
-        user: user,
-        ip: request.remote_ip,
-        expires: expiry,
-        remember_digest: token ? Session.digest(token) : nil
-      )
-      if remember
-        cookies.signed.permanent[:session_id] = {
-          value: s.id,
-          httponly: true
-        }
-      else
-        session[:session_id] = s.id
-      end
+    return unless new_session
+
+    if remember == 1
+      token = Session.new_token
+      expiry = 1.years.since
+      cookies.signed.permanent[:remember_token] = {
+        value: token,
+        httponly: true
+      }
+      cookies.signed.permanent[:user_id] = {
+        value: user.id,
+        httponly: true
+      }
+    else
+      token = nil
+    end
+
+    s = Session.create!(
+      user: user,
+      ip: request.remote_ip,
+      expires: expiry,
+      remember_digest: token ? Session.digest(token) : nil
+    )
+
+    if remember
+      cookies.signed.permanent[:session_id] = {
+        value: s.id,
+        httponly: true
+      }
+    else
+      session[:session_id] = s.id
     end
   end
 
@@ -127,9 +129,9 @@ module AuthenticationHelper
   end
 
   def require_admin!
-    unless current_person.is_admin?
-      flash_message(:danger, I18n.t('authentication.admin_required'))
-      redirect_to '/dashboard'
-    end
+    return if current_person.is_admin?
+
+    flash_message(:danger, I18n.t('authentication.admin_required'))
+    redirect_to '/dashboard'
   end
 end
