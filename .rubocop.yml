@@ -188,27 +188,6 @@ Layout/Tab:
   Exclude:
     - 'config/puma.rb'
 
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingBlankLines:
-  Exclude:
-    - 'app/views/activities/_activity.json.jbuilder'
-    - 'app/views/activities/index.json.jbuilder'
-    - 'app/views/activities/show.json.jbuilder'
-    - 'app/views/api/activities/index.rabl'
-    - 'app/views/groups/_group.json.jbuilder'
-    - 'app/views/groups/index.json.jbuilder'
-    - 'app/views/groups/show.json.jbuilder'
-    - 'app/views/members/_member.json.jbuilder'
-    - 'app/views/members/index.json.jbuilder'
-    - 'app/views/members/show.json.jbuilder'
-    - 'app/views/people/_person.json.jbuilder'
-    - 'app/views/people/index.json.jbuilder'
-    - 'app/views/people/show.json.jbuilder'
-    - 'db/migrate/20181104220610_generate_group_api_tokens.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
