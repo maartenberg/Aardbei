@@ -221,23 +221,6 @@ Style/MutableConstant:
     - 'app/models/participant.rb'
     - 'app/models/token.rb'
 
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Exclude:
-    - 'app/controllers/activities_controller.rb'
-    - 'app/controllers/authentication_controller.rb'
-    - 'app/controllers/dashboard_controller.rb'
-    - 'app/controllers/members_controller.rb'
-    - 'app/helpers/activities_helper.rb'
-    - 'app/helpers/authentication_helper.rb'
-    - 'app/helpers/groups_helper.rb'
-    - 'app/models/activity.rb'
-    - 'app/models/member.rb'
-    - 'app/models/person.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, MinBodyLength.
@@ -245,17 +228,6 @@ Style/NegatedIf:
 Style/Next:
   Exclude:
     - 'db/seeds.rb'
-
-# Offense count: 12
-# Cop supports --auto-correct.
-Style/Not:
-  Exclude:
-    - 'app/controllers/authentication_controller.rb'
-    - 'app/controllers/members_controller.rb'
-    - 'app/helpers/authentication_helper.rb'
-    - 'app/models/activity.rb'
-    - 'app/models/member.rb'
-    - 'app/models/person.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

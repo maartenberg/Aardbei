@@ -22,7 +22,7 @@ class Member < ApplicationRecord
   def create_future_participants!
     activities = self.group.future_activities
 
-    if not self.person.activities.empty?
+    unless self.person.activities.empty?
       activities = activities.where(
         'activities.id NOT IN (?)', self.person.activities.ids
       )

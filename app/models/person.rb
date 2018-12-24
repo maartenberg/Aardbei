@@ -82,7 +82,7 @@ class Person < ApplicationRecord
     result = []
     reader.each do |row|
       p = Person.find_by(email: row['email'])
-      if not p
+      unless p
         p = Person.new
         p.first_name  = row['first_name']
         p.infix       = row['infix']
@@ -207,7 +207,7 @@ class Person < ApplicationRecord
   # Ensure the person's user email is updated at the same time as the person's
   # email.
   def update_user_email
-    if not self.user.nil?
+    unless self.user.nil?
       self.user.update!(email: self.email)
     end
   end

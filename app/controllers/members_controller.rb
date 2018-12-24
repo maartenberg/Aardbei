@@ -42,11 +42,11 @@ class MembersController < ApplicationController
   def process_invite
     @person = Person.find_by(email: params[:person][:email])
     new_rec = false
-    if not @person
+    unless @person
       @person = Person.new(invite_params)
       new_rec = true
 
-      if not @person.save
+      unless @person.save
         respond_to do |format|
           format.html { render 'invite' }
           format.json { render json: @person.errors, status: :unprocessable_entity }

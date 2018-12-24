@@ -103,7 +103,7 @@ module AuthenticationHelper
     end
 
     # Edge case if a session no longer exists in the database
-    if not @user_session
+    unless @user_session
       log_out(session_broken: true)
     end
   end
@@ -118,7 +118,7 @@ module AuthenticationHelper
   end
 
   def require_login!
-    if !is_logged_in?
+    unless is_logged_in?
       flash_message(:warning, I18n.t('authentication.login_required'))
       redirect_to controller: 'authentication', action: 'login_form'
       return false
@@ -131,7 +131,7 @@ module AuthenticationHelper
   end
 
   def require_admin!
-    if !current_person.is_admin?
+    unless current_person.is_admin?
       flash_message(:danger, I18n.t('authentication.admin_required'))
       redirect_to '/dashboard'
     end

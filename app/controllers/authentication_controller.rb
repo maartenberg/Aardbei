@@ -16,7 +16,7 @@ class AuthenticationController < ApplicationController
 
         flash_message(:success, I18n.t(:greeting, name: u.person.first_name))
         redirect_to root_path
-      elsif u && (not u.confirmed)
+      elsif u && !u.confirmed
         flash_message(:warning, I18n.t('authentication.activation_required'))
         redirect_to action: 'login_form'
       else
@@ -46,7 +46,7 @@ class AuthenticationController < ApplicationController
   def create_password
     person = Person.find_by(email: params[:user][:email])
 
-    if not person
+    unless person
       flash_message(:warning, I18n.t('authentication.unknown_email'))
       redirect_to action: 'create_password_form'
       return
@@ -59,7 +59,7 @@ class AuthenticationController < ApplicationController
       return
     end
 
-    if not user
+    unless user
       user = User.new
       user.person = person
       user.email = person.email
@@ -79,7 +79,7 @@ class AuthenticationController < ApplicationController
 
   def forgotten_password
     user = User.find_by(email: params[:password_reset][:email])
-    if not user
+    unless user
       flash_message(:danger, I18n.t('authentication.unknown_email'))
       redirect_to action: 'forgotten_password_form'
       return
@@ -91,7 +91,7 @@ class AuthenticationController < ApplicationController
 
   def reset_password_form
     token = Token.find_by(token: params[:token], tokentype: Token::TYPES[:password_reset])
-    if not token_valid? token
+    unless token_valid? token
       return
     end
 

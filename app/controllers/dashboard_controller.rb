@@ -52,7 +52,7 @@ class DashboardController < ApplicationController
     new = params[:new_password]
     confirm = params[:new_password_confirm]
 
-    if !u.authenticate(current)
+    unless u.authenticate(current)
       flash_message(:danger, t('authentication.invalid_pass'))
       redirect_to settings_path
       return

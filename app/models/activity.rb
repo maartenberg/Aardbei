@@ -137,7 +137,7 @@ class Activity < ApplicationRecord
   #  2. do not have Participants (and thus, no way to confirm) yet
   def create_missing_participants!
     people = self.group.people
-    if not self.participants.empty?
+    unless self.participants.empty?
       people = people.where('people.id NOT IN (?)', self.people.ids)
     end
 

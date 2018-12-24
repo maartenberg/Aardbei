@@ -161,7 +161,7 @@ class ActivitiesController < ApplicationController
     @non_organizers_options.sort!
     @organizers_options.sort!
 
-    @subgroup = Subgroup.new if !@subgroup
+    @subgroup ||= Subgroup.new
     @subgroups = @activity.subgroups.order(is_assignable: :desc, name: :asc)
   end
 
