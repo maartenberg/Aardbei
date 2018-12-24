@@ -87,10 +87,10 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html {
+        format.html do
           redirect_to group_member_url(@group, @member)
           flash_message(:info, I18n.t('groups.member_added', name: @member.person.full_name))
-        }
+        end
         format.json { render :show, status: :created, location: @member }
       else
         @possible_members = Person.where.not(id: @group.person_ids)
@@ -105,10 +105,10 @@ class MembersController < ApplicationController
   def update
     respond_to do |format|
       if @member.update(member_params)
-        format.html {
+        format.html do
           redirect_to group_member_url(@group, @member)
           flash_message(:info, I18n.t('groups.member_updated'))
-        }
+        end
         format.json { render :show, status: :ok, location: @member }
       else
         @possible_members = Person.where.not(id: @group.person_ids)
@@ -123,10 +123,10 @@ class MembersController < ApplicationController
   def destroy
     @member.destroy
     respond_to do |format|
-      format.html {
+      format.html do
         redirect_to group_members_url(@group)
         flash_message(:info, I18n.t('groups.member_removed', name: @member.person.full_name))
-      }
+      end
       format.json { head :no_content }
     end
   end

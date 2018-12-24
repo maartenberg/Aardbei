@@ -77,7 +77,7 @@ class Person < ApplicationRecord
 
   # Create multiple Persons from data found in a csv file, return those.
   def self.from_csv(content)
-    reader = CSV.parse(content, { headers: true, skip_blanks: true })
+    reader = CSV.parse(content, headers: true, skip_blanks: true)
 
     result = []
     reader.each do |row|

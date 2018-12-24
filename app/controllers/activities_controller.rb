@@ -171,10 +171,10 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save
-        format.html {
+        format.html do
           redirect_to group_activity_url(@group, @activity)
           flash_message(:info, I18n.t('activities.created'))
-        }
+        end
         format.json { render :show, status: :created, location: @activity }
       else
         format.html { render :new }
@@ -205,10 +205,10 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        format.html {
+        format.html do
           redirect_to group_activity_url(@group, @activity)
           flash_message(:info, I18n.t('activities.updated'))
-        }
+        end
         format.json { render :show, status: :ok, location: @activity }
       else
         set_edit_parameters!
@@ -223,10 +223,10 @@ class ActivitiesController < ApplicationController
   def destroy
     @activity.destroy
     respond_to do |format|
-      format.html {
+      format.html do
         redirect_to group_activities_url(@group)
         flash_message(:info, 'Activity was successfully destroyed.')
-      }
+      end
       format.json { head :no_content }
     end
   end

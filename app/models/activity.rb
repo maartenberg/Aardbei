@@ -164,7 +164,7 @@ class Activity < ApplicationRecord
 
   # Create multiple Activities from data in a CSV file, assign to a group, return.
   def self.from_csv(content, group)
-    reader = CSV.parse(content, { headers: true, skip_blanks: true })
+    reader = CSV.parse(content, headers: true, skip_blanks: true)
 
     result = []
     reader.each do |row|

@@ -60,10 +60,10 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html {
+        format.html do
           redirect_to @group
           flash_message(:info, I18n.t('groups.created'))
-        }
+        end
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -77,10 +77,10 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html {
+        format.html do
           redirect_to @group
           flash_message(:info, I18n.t('groups.updated'))
-        }
+        end
         format.json { render :show, status: :ok, location: @group }
       else
         @defaultsubgroup = DefaultSubgroup.new
@@ -95,10 +95,10 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html {
+      format.html do
         redirect_to groups_url
         flash_message(:info, I18n.t('groups.destroyed'))
-      }
+      end
       format.json { head :no_content }
     end
   end
