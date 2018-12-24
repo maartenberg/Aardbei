@@ -18,47 +18,40 @@ class Api::ActivitiesController < ApiController
   end
 
   # GET /api/activities/1
-  def show
-  end
+  def show; end
 
   # GET /api/activities/1/response_summary
   def response_summary
     as = @activity
-      .participants
-      .joins(:person)
-      .order('people.first_name ASC')
+         .participants
+         .joins(:person)
+         .order('people.first_name ASC')
 
-    present = as
-      .where(attending: true)
+    present = as.where(attending: true)
 
-    unknown = as
-      .where(attending: nil)
+    unknown = as.where(attending: nil)
 
-    absent = as
-      .where(attending: false)
+    absent = as.where(attending: false)
 
-    presentnames = present
-      .map{|p| p.person.first_name }
+    presentnames = present.map{|p| p.person.first_name }
 
-    unknownnames = unknown
-      .map{|p| p.person.first_name }
+    unknownnames = unknown.map{|p| p.person.first_name }
 
-    absentnames = absent
-      .map{|p| p.person.first_name }
+    absentnames = absent.map{|p| p.person.first_name }
 
-    if presentnames.count > 0
+    if presentnames.positive?
       present_mess = I18n.t('activities.participant.these_present', count: present.count, names: presentnames.join(', '))
     else
       present_mess = I18n.t('activities.participant.none_present')
     end
 
-    if unknownnames.count > 0
+    if unknownnames.positive?
       unknown_mess = I18n.t('activities.participant.these_unknown', count: unknown.count, names: unknownnames.join(', '))
     else
       unknown_mess = I18n.t('activities.participant.none_unknown')
     end
 
-    if absentnames.count > 0
+    if absentnames.positive?
       absent_mess = I18n.t('activities.participant.these_absent', count: absent.count, names: absentnames.join(', '))
     else
       absent_mess = I18n.t('activities.participant.none_absent')
@@ -81,6 +74,16 @@ class Api::ActivitiesController < ApiController
         message: absent_mess
       }
     }
+  end
+
+  def presence
+    participant = Participant.find_by(
+      person_id: params[:person_id],
+      activity: @activity
+    )
+
+    participant.update_attributes(params.permit(:attending))
+    head :no_content
   end
 
   private

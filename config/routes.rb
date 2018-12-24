@@ -81,7 +81,11 @@ Rails.application.routes.draw do
       get :upcoming_activities, on: :member
     end
 
-    resources :activities, only: [:index, :show]
+    resources :activities, only: [:index, :show] do
+      get 'response_summary'
+      put 'presence'
+      patch 'presence'
+    end
     get 'activities/:id/response_summary', to: 'activities#response_summary'
 
     resources :people, only: [:index, :show]
