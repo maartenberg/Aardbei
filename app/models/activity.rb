@@ -122,7 +122,7 @@ class Activity < ApplicationRecord
     p = c[true]
     a = c[false]
     u = c[nil]
-    return "#{p or 0}, #{a or 0}, #{u or 0}"
+    return "#{p || 0}, #{a || 0}, #{u || 0}"
   end
 
   # Determine whether the passed Person may change this activity.

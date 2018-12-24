@@ -16,7 +16,7 @@ class AuthenticationController < ApplicationController
 
         flash_message(:success, I18n.t(:greeting, name: u.person.first_name))
         redirect_to root_path
-      elsif u and not u.confirmed
+      elsif u && (not u.confirmed)
         flash_message(:warning, I18n.t('authentication.activation_required'))
         redirect_to action: 'login_form'
       else
@@ -53,7 +53,7 @@ class AuthenticationController < ApplicationController
     end
 
     user = User.find_by(person: person)
-    if user and user.confirmed
+    if user && user.confirmed
       flash_message(:warning, I18n.t('authentication.already_activated'))
       redirect_to action: 'login'
       return
@@ -161,7 +161,7 @@ class AuthenticationController < ApplicationController
       redirect_to action: 'login'
       return false
     end
-    if token.expires and token.expires < DateTime.now
+    if token.expires && (token.expires < DateTime.now)
       flash_message(:warning, I18n.t('authentication.token_expired'))
       redirect_to action: 'login'
       return false
