@@ -178,27 +178,27 @@ class Activity < ApplicationRecord
       st            = Time.strptime(row['start_time'], '%H:%M')
       a.start       = Time.zone.local(sd.year, sd.month, sd.day, st.hour, st.min)
 
-      unless row['end_date'].blank?
+      if row['end_date'].present?
         ed          = Date.strptime(row['end_date'])
         et          = Time.strptime(row['end_time'], '%H:%M')
         a.end       = Time.zone.local(ed.year, ed.month, ed.day, et.hour, et.min)
       end
 
-      unless row['deadline_date'].blank?
+      if row['deadline_date'].present?
         dd            = Date.strptime(row['deadline_date'])
         dt            = Time.strptime(row['deadline_time'], '%H:%M')
         a.deadline    = Time.zone.local(dd.year, dd.month, dd.day, dt.hour, dt.min)
       end
 
-      unless row['reminder_at_date'].blank?
+      if row['reminder_at_date'].present?
         rd            = Date.strptime(row['reminder_at_date'])
         rt            = Time.strptime(row['reminder_at_time'], '%H:%M')
         a.reminder_at = Time.zone.local(rd.year, rd.month, rd.day, rt.hour, rt.min)
       end
 
-      a.subgroup_division_enabled = row['subgroup_division_enabled'].casecmp('y').zero? unless row['subgroup_division_enabled'].blank?
+      a.subgroup_division_enabled = row['subgroup_division_enabled'].casecmp('y').zero? if row['subgroup_division_enabled'].present?
 
-      a.no_response_action = row['no_response_action'].casecmp('p').zero? unless row['no_response_action'].blank?
+      a.no_response_action = row['no_response_action'].casecmp('p').zero? if row['no_response_action'].present?
 
       result << a
     end
