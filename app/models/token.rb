@@ -30,7 +30,7 @@ class Token < ApplicationRecord
     password_reset: 'pw_reset',
     account_confirmation: 'confirm',
     api_authentication: 'api'
-  }
+  }.freeze
 
   validates :token, uniqueness: true, presence: true
   validates :user, presence: true

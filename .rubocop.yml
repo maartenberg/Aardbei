@@ -214,13 +214,6 @@ Style/MultilineTernaryOperator:
   Exclude:
     - 'app/models/session.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/MutableConstant:
-  Exclude:
-    - 'app/models/participant.rb'
-    - 'app/models/token.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: Strict.

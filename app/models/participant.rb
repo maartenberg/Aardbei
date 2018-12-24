@@ -31,7 +31,7 @@ class Participant < ApplicationRecord
     true => I18n.t('activities.state.present'),
     false => I18n.t('activities.state.absent'),
     nil => I18n.t('activities.state.unknown')
-  }
+  }.freeze
 
   # @return [String]
   #   the name for the Participant's current state in the current locale.
@@ -43,7 +43,7 @@ class Participant < ApplicationRecord
     true => 'ATTENDING',
     false => 'CANCELLED',
     nil => 'TENTATIVE'
-  }
+  }.freeze
 
   # @return [String]
   #   the ICal attending response.
