@@ -95,7 +95,7 @@ class Activity < ApplicationRecord
   end
 
   # Determine whether the passed Person participates in the activity.
-  def is_participant?(person)
+  def participant?(person)
     Participant.exists?(
       activity_id: self.id,
       person_id: person.id
@@ -103,7 +103,7 @@ class Activity < ApplicationRecord
   end
 
   # Determine whether the passed Person is an organizer for the activity.
-  def is_organizer?(person)
+  def organizer?(person)
     Participant.exists?(
       person_id: person.id,
       activity_id: self.id,
@@ -128,8 +128,8 @@ class Activity < ApplicationRecord
   # Determine whether the passed Person may change this activity.
   def may_change?(person)
     person.is_admin ||
-      self.is_organizer?(person) ||
-      self.group.is_leader?(person)
+      self.organizer?(person) ||
+      self.group.leader?(person)
   end
 
   # Create Participants for all People that

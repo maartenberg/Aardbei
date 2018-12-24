@@ -17,7 +17,7 @@
             = @group.activities.count
             = t 'activities.plural'
 
-          - if @group.is_leader?(current_person)
+          - if @group.leader?(current_person)
             = link_to new_group_activity_path(@group), class: 'list-group-item' do
               = t 'activities.new'
 

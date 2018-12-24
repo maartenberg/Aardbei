@@ -43,8 +43,8 @@ module AuthenticationHelper
 
   # Determine whether the user is logged in, and if so, disable the Session, then flush session cookies.
   def log_out(session_broken: false)
-    if !session_broken && is_logged_in? && @user_session
-      get_user_session
+    if !session_broken && logged_in? && @user_session
+      user_session
 
       @user_session.update!(active: false)
     end
@@ -57,12 +57,12 @@ module AuthenticationHelper
 
   # Determine whether the current request is from a user with a non-expired session.
   # Makes @user_session available as a side effect if the user is not.
-  def is_logged_in?
+  def logged_in?
     # Case 1: User has an active session inside the cookie.
     # We verify that the session hasn't expired yet.
     if session[:user_id] && session[:expires].to_time > DateTime.now
 
-      get_user_session
+      user_session
 
       return false if !@user_session.active || @user_session.expires < Time.now
 
@@ -74,7 +74,7 @@ module AuthenticationHelper
       if cookies.signed.permanent[:remember_token] && cookies.signed.permanent[:user_id] &&
          cookies.signed.permanent[:session_id]
 
-        get_user_session
+        user_session
 
         return false if @user_session.nil? || @user_session.remember_digest.nil?
 
@@ -94,7 +94,7 @@ module AuthenticationHelper
   end
 
   # Get the Session object representing the current user's session.
-  def get_user_session
+  def user_session
     if @user_session
       @user_session
     else
@@ -107,7 +107,7 @@ module AuthenticationHelper
   end
 
   def current_user
-    get_user_session
+    user_session
     @user_session&.user
   end
 
@@ -116,7 +116,7 @@ module AuthenticationHelper
   end
 
   def require_login!
-    unless is_logged_in?
+    unless logged_in?
       flash_message(:warning, I18n.t('authentication.login_required'))
       redirect_to controller: 'authentication', action: 'login_form'
       return false

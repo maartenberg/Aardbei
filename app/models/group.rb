@@ -64,7 +64,7 @@ class Group < ApplicationRecord
 
   # @return [Boolean]
   #   whether the passed person is a member of the group.
-  def is_member?(person)
+  def member?(person)
     Member.exists?(
       person: person,
       group: self
@@ -73,7 +73,7 @@ class Group < ApplicationRecord
 
   # @return [Boolean]
   #   whether the passed person is a group leader.
-  def is_leader?(person)
+  def leader?(person)
     Member.exists?(
       person: person,
       group: self,

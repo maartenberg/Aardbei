@@ -40,7 +40,7 @@ class AuthenticationController < ApplicationController
   end
 
   def login_status
-    render text: is_logged_in?
+    render text: logged_in?
   end
 
   def create_password

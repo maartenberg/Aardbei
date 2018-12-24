@@ -7,7 +7,7 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @admin = @group.is_leader?(current_person)
+    @admin = @group.leader?(current_person)
     @members = @group.members
                      .joins(:person)
                      .order('members.is_leader DESC, people.first_name ASC')

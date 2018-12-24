@@ -45,24 +45,6 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 13
 
-# Offense count: 1
-Naming/AccessorMethodName:
-  Exclude:
-    - 'app/helpers/authentication_helper.rb'
-
-# Offense count: 5
-# Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist, MethodDefinitionMacros.
-# NamePrefix: is_, has_, have_
-# NamePrefixBlacklist: is_, has_, have_
-# NameWhitelist: is_a?
-# MethodDefinitionMacros: define_method, define_singleton_method
-Naming/PredicateName:
-  Exclude:
-    - 'spec/**/*'
-    - 'app/helpers/authentication_helper.rb'
-    - 'app/models/activity.rb'
-    - 'app/models/group.rb'
-
 # Offense count: 9
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, IgnoredMethods.

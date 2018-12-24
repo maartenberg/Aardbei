@@ -11,7 +11,7 @@ class ApiController < ActionController::Base
   protected
 
   def api_require_authentication!
-    return if is_logged_in?
+    return if logged_in?
 
     head :unauthorized
   end
