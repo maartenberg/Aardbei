@@ -70,17 +70,6 @@ Style/ConditionalAssignment:
     - 'app/mailers/participant_mailer.rb'
     - 'db/seeds.rb'
 
-# Offense count: 8
-# Configuration parameters: AllowCoercion.
-Style/DateTime:
-  Exclude:
-    - 'app/controllers/api/groups_controller.rb'
-    - 'app/controllers/authentication_controller.rb'
-    - 'app/controllers/dashboard_controller.rb'
-    - 'app/helpers/authentication_helper.rb'
-    - 'app/models/group.rb'
-    - 'db/seeds.rb'
-
 # Offense count: 55
 Style/Documentation:
   Enabled: false

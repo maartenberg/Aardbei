@@ -60,11 +60,11 @@ module AuthenticationHelper
   def logged_in?
     # Case 1: User has an active session inside the cookie.
     # We verify that the session hasn't expired yet.
-    if session[:user_id] && session[:expires].to_time > DateTime.now
+    if session[:user_id] && session[:expires].to_time.future?
 
       user_session
 
-      return false if !@user_session.active || @user_session.expires < Time.now
+      return false if !@user_session.active || @user_session.expires.past?
 
       true
 
@@ -80,7 +80,7 @@ module AuthenticationHelper
 
         session_password = BCrypt::Password.new @user_session.remember_digest
 
-        if @user_session.expires > DateTime.now &&
+        if @user_session.expires.future? &&
            session_password == cookies.signed.permanent[:remember_token]
           log_in @user_session.user, false, false
           return true

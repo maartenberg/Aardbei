@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
     @upcoming = current_person
                 .participants
                 .joins(:activity)
-                .where('activities.end >= ? OR (activities.end IS NULL AND activities.start >= ?)', DateTime.now, DateTime.now)
+                .where('activities.end >= ? OR (activities.end IS NULL AND activities.start >= ?)', Time.now, Time.now)
                 .order('activities.start ASC')
     @user_organized = @upcoming
                       .where(is_organizer: true)

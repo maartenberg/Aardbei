@@ -159,7 +159,8 @@ class AuthenticationController < ApplicationController
       redirect_to action: 'login'
       return false
     end
-    if token.expires && (token.expires < DateTime.now)
+
+    if token.expires&.past?
       flash_message(:warning, I18n.t('authentication.token_expired'))
       redirect_to action: 'login'
       return false
