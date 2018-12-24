@@ -162,18 +162,6 @@ Style/ExpandPathArguments:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 14
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'app/controllers/people_controller.rb'
-    - 'app/helpers/activities_helper.rb'
-    - 'app/helpers/authentication_helper.rb'
-    - 'app/helpers/groups_helper.rb'
-    - 'app/models/activity.rb'
-    - 'app/models/person.rb'
-    - 'app/models/user.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
@@ -181,27 +169,6 @@ Style/GuardClause:
 Style/HashSyntax:
   Exclude:
     - 'lib/tasks/sessions.rake'
-
-# Offense count: 20
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'app/controllers/activities_controller.rb'
-    - 'app/controllers/authentication_controller.rb'
-    - 'app/controllers/people_controller.rb'
-    - 'app/helpers/authentication_helper.rb'
-    - 'app/models/activity.rb'
-    - 'app/models/person.rb'
-    - 'app/models/user.rb'
-    - 'config/puma.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
-Style/MethodDefParentheses:
-  Exclude:
-    - 'app/helpers/dashboard_helper.rb'
 
 # Offense count: 2
 Style/MixinUsage:

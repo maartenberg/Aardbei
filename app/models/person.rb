@@ -135,9 +135,7 @@ class Person < ApplicationRecord
       # Response
       yourresponse = "#{I18n.t 'activities.participant.yourresponse'}: #{p.human_attending}"
 
-      if p.notes.present?
-        yourresponse << " (#{p.notes})"
-      end
+      yourresponse << " (#{p.notes})" if p.notes.present?
 
       description_items << yourresponse
 
@@ -157,9 +155,7 @@ class Person < ApplicationRecord
 
       # Subgroups
       if a.subgroups.any?
-        if p.subgroup
-          description_items << "#{I18n.t 'activities.participant.yoursubgroup'}: #{p.subgroup}"
-        end
+        description_items << "#{I18n.t 'activities.participant.yoursubgroup'}: #{p.subgroup}" if p.subgroup
 
         subgroup_names = a.subgroups.map(&:name).join ', '
         description_items << "#{I18n.t 'activerecord.models.subgroup.other'}: #{subgroup_names}"
@@ -194,9 +190,7 @@ class Person < ApplicationRecord
 
   # Assert that the person's birth date, if any, lies in the past.
   def birth_date_cannot_be_in_future
-    if self.birth_date && self.birth_date > Date.today
-      errors.add(:birth_date, I18n.t('person.errors.cannot_future'))
-    end
+    errors.add(:birth_date, I18n.t('person.errors.cannot_future')) if self.birth_date && self.birth_date > Date.today
   end
 
   # Explicitly force nil to false in the admin field.

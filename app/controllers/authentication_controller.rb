@@ -91,9 +91,7 @@ class AuthenticationController < ApplicationController
 
   def reset_password_form
     token = Token.find_by(token: params[:token], tokentype: Token::TYPES[:password_reset])
-    unless token_valid? token
-      return
-    end
+    return unless token_valid? token
 
     render layout: 'void'
   end

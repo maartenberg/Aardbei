@@ -127,9 +127,7 @@ class ActivitiesController < ApplicationController
 
   # POST /activities/1/immediate_subgroups
   def immediate_subgroups
-    if params[:overwrite]
-      @activity.clear_subgroups!
-    end
+    @activity.clear_subgroups! if params[:overwrite]
 
     @activity.assign_subgroups!
 
@@ -284,9 +282,7 @@ class ActivitiesController < ApplicationController
       return
     end
 
-    if params[:participant]
-      params[:notes] = params[:participant][:notes]
-    end
+    params[:notes] = params[:participant][:notes] if params[:participant]
     participant.update_attributes(params.permit(:notes, :attending))
     head :no_content
   end

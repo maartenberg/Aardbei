@@ -17,9 +17,7 @@ env = ENV.fetch("RAILS_ENV") { "development" }
 environment env
 
 state_path "#{ENV['AARDBEI_PATH']}/tmp/pids/puma.state"
-if env == "production"
-  stdout_redirect "#{ENV['AARDBEI_PATH']}/log/stdout", "#{ENV['AARDBEI_PATH']}/log/stderr", true
-end
+stdout_redirect "#{ENV['AARDBEI_PATH']}/log/stdout", "#{ENV['AARDBEI_PATH']}/log/stderr", true if env == "production"
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together

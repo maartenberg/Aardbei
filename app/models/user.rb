@@ -30,8 +30,6 @@ class User < ApplicationRecord
   # Assert that the user's email address is the same as the email address of
   # the associated Person.
   def email_same_as_person
-    if self.person && (self.email != self.person.email)
-      errors.add(:email, I18n.t('authentication.user_person_mail_mismatch'))
-    end
+    errors.add(:email, I18n.t('authentication.user_person_mail_mismatch')) if self.person && (self.email != self.person.email)
   end
 end

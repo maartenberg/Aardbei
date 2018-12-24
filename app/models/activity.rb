@@ -137,9 +137,7 @@ class Activity < ApplicationRecord
   #  2. do not have Participants (and thus, no way to confirm) yet
   def create_missing_participants!
     people = self.group.people
-    unless self.participants.empty?
-      people = people.where('people.id NOT IN (?)', self.people.ids)
-    end
+    people = people.where('people.id NOT IN (?)', self.people.ids) unless self.participants.empty?
 
     people.each do |p|
       Participant.create(
@@ -198,13 +196,9 @@ class Activity < ApplicationRecord
         a.reminder_at = Time.zone.local(rd.year, rd.month, rd.day, rt.hour, rt.min)
       end
 
-      unless row['subgroup_division_enabled'].blank?
-        a.subgroup_division_enabled = row['subgroup_division_enabled'].casecmp('y').zero?
-      end
+      a.subgroup_division_enabled = row['subgroup_division_enabled'].casecmp('y').zero? unless row['subgroup_division_enabled'].blank?
 
-      unless row['no_response_action'].blank?
-        a.no_response_action = row['no_response_action'].casecmp('p').zero?
-      end
+      a.no_response_action = row['no_response_action'].casecmp('p').zero? unless row['no_response_action'].blank?
 
       result << a
     end
@@ -271,9 +265,7 @@ class Activity < ApplicationRecord
       groups.first[0] += 1
     end
 
-    if mail
-      self.notify_subgroups!
-    end
+    self.notify_subgroups! if mail
   end
 
   def clear_subgroups!(only_assignable = true)
@@ -310,30 +302,22 @@ class Activity < ApplicationRecord
   # Assert that the deadline for participants to change the deadline, if any,
   # is set before the event starts.
   def deadline_before_start
-    if self.deadline > self.start
-      errors.add(:deadline, I18n.t('activities.errors.must_be_before_start'))
-    end
+    errors.add(:deadline, I18n.t('activities.errors.must_be_before_start')) if self.deadline > self.start
   end
 
   # Assert that the activity's end, if any, occurs after the event's start.
   def end_after_start
-    if self.end < self.start
-      errors.add(:end, I18n.t('activities.errors.must_be_after_start'))
-    end
+    errors.add(:end, I18n.t('activities.errors.must_be_after_start')) if self.end < self.start
   end
 
   # Assert that the reminder for non-response is sent while participants still
   # can change their response.
   def reminder_before_deadline
-    if self.reminder_at > self.deadline
-      errors.add(:reminder_at, I18n.t('activities.errors.must_be_before_deadline'))
-    end
+    errors.add(:reminder_at, I18n.t('activities.errors.must_be_before_deadline')) if self.reminder_at > self.deadline
   end
 
   # Assert that there is at least one divisible subgroup.
   def subgroups_for_division_present
-    if self.subgroups.where(is_assignable: true).none? && subgroup_division_enabled?
-      errors.add(:subgroup_division_enabled, I18n.t('activities.errors.cannot_divide_without_subgroups'))
-    end
+    errors.add(:subgroup_division_enabled, I18n.t('activities.errors.cannot_divide_without_subgroups')) if self.subgroups.where(is_assignable: true).none? && subgroup_division_enabled?
   end
 end

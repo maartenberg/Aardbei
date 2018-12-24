@@ -13,9 +13,7 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.json
   def show
-    if @person != current_person
-      require_admin!
-    end
+    require_admin! if @person != current_person
   end
 
   # GET /people/new

@@ -74,9 +74,7 @@ module AuthenticationHelper
 
         get_user_session
 
-        if @user_session.nil? || @user_session.remember_digest.nil?
-          return false
-        end
+        return false if @user_session.nil? || @user_session.remember_digest.nil?
 
         session_password = BCrypt::Password.new @user_session.remember_digest
 
@@ -103,9 +101,7 @@ module AuthenticationHelper
     end
 
     # Edge case if a session no longer exists in the database
-    unless @user_session
-      log_out(session_broken: true)
-    end
+    log_out(session_broken: true) unless @user_session
   end
 
   def current_user
