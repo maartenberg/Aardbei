@@ -58,29 +58,9 @@ Style/FrozenStringLiteralComment:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
-# SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
-Style/HashSyntax:
-  Exclude:
-    - 'lib/tasks/sessions.rake'
-
-# Offense count: 1
-Style/MultilineTernaryOperator:
-  Exclude:
-    - 'app/models/session.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: Strict.
 Style/NumericLiterals:
   MinDigits: 15
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'config/spring.rb'
 
 # Offense count: 85
 # Cop supports --auto-correct.
