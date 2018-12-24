@@ -298,9 +298,7 @@ class ActivitiesController < ApplicationController
     uploaded_io = params[:spreadsheet]
     result = Activity.from_csv(uploaded_io.read, @group)
 
-    result.each do |a|
-      a.save!
-    end
+    result.each(&:save!)
 
     flash_message(:success, I18n.t('activities.mass_imported', count: result.count))
     redirect_to group_activities_path(@group)

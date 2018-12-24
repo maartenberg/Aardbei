@@ -94,7 +94,7 @@ class Person < ApplicationRecord
       result << p
     end
 
-    return result
+    result
   end
 
   # @return [String]

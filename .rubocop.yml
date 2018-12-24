@@ -246,15 +246,6 @@ Style/RedundantParentheses:
   Exclude:
     - 'db/seeds.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'app/helpers/authentication_helper.rb'
-    - 'app/models/activity.rb'
-    - 'app/models/person.rb'
-
 # Offense count: 85
 # Cop supports --auto-correct.
 Style/RedundantSelf:
@@ -281,17 +272,6 @@ Style/StringLiterals:
 # SupportedStyles: percent, brackets
 Style/SymbolArray:
   EnforcedStyle: brackets
-
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoredMethods.
-# IgnoredMethods: respond_to, define_method
-Style/SymbolProc:
-  Exclude:
-    - 'app/controllers/activities_controller.rb'
-    - 'app/models/activity.rb'
-    - 'app/models/member.rb'
-    - 'db/migrate/20180904163645_generate_calendar_tokens.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.

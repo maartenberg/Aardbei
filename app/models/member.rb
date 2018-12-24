@@ -44,8 +44,6 @@ class Member < ApplicationRecord
       activity: self.group.future_activities
     )
 
-    participants.each do |p|
-      p.destroy!
-    end
+    participants.each(&:destroy!)
   end
 end

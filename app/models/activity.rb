@@ -122,7 +122,7 @@ class Activity < ApplicationRecord
     p = c[true]
     a = c[false]
     u = c[nil]
-    return "#{p || 0}, #{a || 0}, #{u || 0}"
+    "#{p || 0}, #{a || 0}, #{u || 0}"
   end
 
   # Determine whether the passed Person may change this activity.
@@ -220,7 +220,7 @@ class Activity < ApplicationRecord
     return if self.reminder_at > Time.zone.now
 
     participants = self.participants.where(attending: nil)
-    participants.each { |p| p.send_reminder }
+    participants.each(&:send_reminder)
 
     self.reminder_done = true
     self.save
@@ -302,9 +302,7 @@ class Activity < ApplicationRecord
          .joins(:person)
          .where.not(subgroup: nil)
 
-    ps.each do |pp|
-      pp.send_subgroup_notification
-    end
+    ps.each(&:send_subgroup_notification)
   end
 
   private

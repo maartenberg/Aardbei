@@ -64,7 +64,7 @@ module AuthenticationHelper
 
       return false if !@user_session.active || @user_session.expires < Time.now
 
-      return true
+      true
 
     else
       # Case 2: User is returning and has a remember token saved.
@@ -89,7 +89,7 @@ module AuthenticationHelper
         return false
       end
 
-      return false
+      false
     end
   end
 
@@ -127,7 +127,7 @@ module AuthenticationHelper
     Raven.user_context(
       user_firstname: current_person.first_name
     )
-    return true
+    true
   end
 
   def require_admin!
