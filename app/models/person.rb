@@ -34,7 +34,7 @@ class Person < ApplicationRecord
   #   @return [Boolean]
   #     whether or not the person has administrative rights.
 
-  has_one :user
+  has_one :user, dependent: :destroy
   has_many :members,
            dependent: :destroy
   has_many :participants,
@@ -109,7 +109,7 @@ class Person < ApplicationRecord
     cal = Icalendar::Calendar.new
     cal.x_wr_calname = 'Aardbei'
 
-    tzid = 1.seconds.since.time_zone.tzinfo.name
+    tzid = 1.second.since.time_zone.tzinfo.name
 
     selection =
       participants

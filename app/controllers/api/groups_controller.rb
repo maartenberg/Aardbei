@@ -61,7 +61,7 @@ module Api
       return unless input
 
       begin
-        DateTime.parse input # rubocop:disable Style/DateTime
+        DateTime.zone.parse input
       rescue ArgumentError
         nil
       end

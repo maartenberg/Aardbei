@@ -83,7 +83,7 @@ module Api
         activity: @activity
       )
 
-      participant.update_attributes(params.permit(:attending))
+      participant.update!(params.permit(:attending))
       head :no_content
     end
 

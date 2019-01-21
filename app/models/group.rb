@@ -30,7 +30,7 @@ class Group < ApplicationRecord
 
   # @return [Array<Activity>] the activities that haven't started yet.
   def future_activities
-    activities.where('start > ?', Time.now)
+    activities.where('start > ?', Time.zone.now)
   end
 
   # @return [Array<Activity>]

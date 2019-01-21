@@ -21,8 +21,8 @@ class User < ApplicationRecord
   # Set all sessions associated with this User to inactive, for instance after
   # a password change, or when the user selects this options in the Settings.
   def logout_all_sessions!
-    sessions = Session.where(user: self)
-    sessions.update_all(active: false)
+    Session.where(user: self)
+           .update_all(active: false) # rubocop:disable Rails/SkipsModelValidations
   end
 
   private

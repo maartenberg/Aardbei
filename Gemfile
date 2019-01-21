@@ -90,6 +90,9 @@ group :development do
 
   # Translation helpers
   gem 'i18n_generators'
+
+  # Codestyle enforcement
+  gem 'rubocop'
 end
 
 group :production do

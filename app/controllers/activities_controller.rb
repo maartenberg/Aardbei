@@ -26,12 +26,12 @@ class ActivitiesController < ApplicationController
   def index
     @activities = if params[:past]
                     @group.activities
-                          .where('start < ?', Time.now)
+                          .where('start < ?', Time.zone.now)
                           .order(start: :desc)
                           .paginate(page: params[:page], per_page: 25)
                   else
                     @group.activities
-                          .where('start > ?', Time.now)
+                          .where('start > ?', Time.zone.now)
                           .order(start: :asc)
                           .paginate(page: params[:page], per_page: 25)
                   end
@@ -273,13 +273,13 @@ class ActivitiesController < ApplicationController
       return
     end
 
-    if @activity.deadline && @activity.deadline < Time.now && !@activity.may_change?(current_person)
+    if @activity.deadline&.past? && !@activity.may_change?(current_person)
       head :locked
       return
     end
 
     params[:notes] = params[:participant][:notes] if params[:participant]
-    participant.update_attributes(params.permit(:notes, :attending))
+    participant.update!(params.permit(:notes, :attending))
     head :no_content
   end
 

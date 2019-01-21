@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   private
 
   def invalid_auth_token
-    render text: I18n.t(:invalid_csrf), status: 400
+    render text: I18n.t(:invalid_csrf), status: :bad_request
   end
 end

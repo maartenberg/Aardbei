@@ -28,13 +28,13 @@ class MembersController < ApplicationController
   end
 
   def promote
-    @member.update_attribute(:is_leader, true)
+    @member.update!(is_leader: true)
     flash_message(:success, I18n.t('groups.leader_added', name: @member.person.full_name))
     redirect_to group_members_path(@group)
   end
 
   def demote
-    @member.update_attribute(:is_leader, false)
+    @member.update!(is_leader: false)
     flash_message(:success, I18n.t('groups.leader_removed', name: @member.person.full_name))
     redirect_to group_members_path(@group)
   end

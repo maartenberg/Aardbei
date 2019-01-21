@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
     @upcoming = current_person
                 .participants
                 .joins(:activity)
-                .where('activities.end >= ? OR (activities.end IS NULL AND activities.start >= ?)', Time.now, Time.now)
+                .where('activities.end >= ? OR (activities.end IS NULL AND activities.start >= ?)', Time.zone.now, Time.zone.now)
                 .order('activities.start ASC')
     @user_organized = @upcoming
                       .where(is_organizer: true)
@@ -20,7 +20,7 @@ class DashboardController < ApplicationController
   def set_settings_params!
     @person = current_person
     @send_attendance_reminder = @person.send_attendance_reminder
-    @active_sessions = Session.where(user: current_user).where(active: true).where('expires > ?', Time.now).count
+    @active_sessions = Session.where(user: current_user).where(active: true).where('expires > ?', Time.zone.now).count
   end
 
   def settings

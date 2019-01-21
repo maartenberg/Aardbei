@@ -64,8 +64,8 @@ Activity.create!(
 
 Group.all.each do |g|
   10.times do
-    starttime = Faker::Time.between(Time.now, 1.years.since, :morning)
-    endtime   = Faker::Time.between(1.hours.since(starttime), 1.days.since(starttime), :afternoon)
+    starttime = Faker::Time.between(Time.zone.now, 1.year.since, :morning)
+    endtime   = Faker::Time.between(1.hour.since(starttime), 1.day.since(starttime), :afternoon)
     deadline  = 5.days.ago(starttime)
 
     Activity.create!(
