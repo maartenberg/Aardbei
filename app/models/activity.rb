@@ -174,24 +174,24 @@ class Activity < ApplicationRecord
       a.description = row['description']
       a.location    = row['location']
 
-      sd            = Date.strptime(row['start_date'])
+      sd            = Date.parse row['start_date']
       st            = Time.strptime(row['start_time'], '%H:%M')
       a.start       = Time.zone.local(sd.year, sd.month, sd.day, st.hour, st.min)
 
       if row['end_date'].present?
-        ed          = Date.strptime(row['end_date'])
+        ed          = Date.parse row['end_date']
         et          = Time.strptime(row['end_time'], '%H:%M')
         a.end       = Time.zone.local(ed.year, ed.month, ed.day, et.hour, et.min)
       end
 
       if row['deadline_date'].present?
-        dd            = Date.strptime(row['deadline_date'])
+        dd            = Date.parse row['deadline_date']
         dt            = Time.strptime(row['deadline_time'], '%H:%M')
         a.deadline    = Time.zone.local(dd.year, dd.month, dd.day, dt.hour, dt.min)
       end
 
       if row['reminder_at_date'].present?
-        rd            = Date.strptime(row['reminder_at_date'])
+        rd            = Date.parse row['reminder_at_date']
         rt            = Time.strptime(row['reminder_at_time'], '%H:%M')
         a.reminder_at = Time.zone.local(rd.year, rd.month, rd.day, rt.hour, rt.min)
       end
