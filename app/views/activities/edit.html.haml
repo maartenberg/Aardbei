@@ -61,7 +61,7 @@
             = f.check_box :is_assignable
             = t 'activerecord.attributes.subgroup.is_assignable'
             (
-            %i.fa.fa-random
+            %i.fas.fa-random
             )
 
       = f.submit t('activities.subgroups.create'), class: 'btn btn-success'
@@ -77,10 +77,10 @@
             = t 'activerecord.attributes.subgroup.name'
 
           %th
-            %i.fa.fa-random
+            %i.fas.fa-random
 
           %th
-            %i.fa.fa-cogs
+            %i.fas.fa-cogs
         - @subgroups.each do |sg|
           %tr
             %td
@@ -90,16 +90,16 @@
             %td
               = link_to group_activity_update_subgroup_path(@group, @activity, sg.id, 'subgroup[is_assignable]' => !sg.is_assignable), method: :patch, class: 'btn btn-default btn-xs' do
                 - if sg.is_assignable
-                  %i.fa.fa-check
+                  %i.fas.fa-check
                 - else
-                  %i.fa.fa-times
+                  %i.fas.fa-times
 
             %td
               = link_to group_activity_destroy_subgroup_path(@group, @activity, sg.id), method: :delete, class: 'btn btn-danger btn-xs', data: {confirm: I18n.t(:areyousure)} do
-                %i.fa.fa-trash
+                %i.fas.fa-trash
 
       = link_to(group_activity_edit_subgroups_path(@group, @activity), class: 'btn btn-default') do
-        %i.fa.fa-edit
+        %i.fas.fa-edit
         = t 'activities.subgroups.edit'
 
 

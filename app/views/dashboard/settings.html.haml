@@ -14,14 +14,14 @@
         = text_field_tag(:calurl, person_calendar_url(@person.calendar_token), readonly: true, id: 'calurl', class: 'form-control')
         %span.input-group-btn
           = button_tag(class: 'btn btn-default copy-url', data: {'clipboard-target': '#calurl'}) do
-            %i.fa.fa-files-o
+            %i.far.fa-files
 
     .form-group
       .input-group
         = text_field_tag(:calurl_nocancel, person_calendar_url(@person.calendar_token, skipcancel: 1), readonly: true, id: 'calurl-skipcancel', class: 'form-control')
         %span.input-group-btn
           = button_tag(class: 'btn btn-default copy-url', data: {'clipboard-target': '#calurl-skipcancel'}) do
-            %i.fa.fa-files-o
+            %i.far.fa-files
 
 %h2
   = t 'settings.email_settings'

@@ -14,31 +14,31 @@
       %ul.nav.navbar-nav
         %li
           = link_to root_path do
-            %i.fa.fa-home{'aria-hidden': true}
+            %i.fas.fa-home{'aria-hidden': true}
             Home
 
         %li
           = link_to user_groups_path do
-            %i.fa.fa-users{'aria-hidden': true}
+            %i.fas.fa-users{'aria-hidden': true}
             = t 'groups.plural'
 
         - if current_person.is_admin?
           %li
             = link_to people_path do
-              %i.fa.fa-user{'aria-hidden': true}
+              %i.fas.fa-user{'aria-hidden': true}
               = t 'person.plural'
 
           %li
             = link_to groups_path do
-              %i.fa.fa-users{'aria-hidden': true}
+              %i.fas.fa-users{'aria-hidden': true}
               = t 'groups.all'
 
       %ul.nav.navbar-nav.navbar-right
         %li
           = link_to settings_path do
-            %i.fa.fa-cogs{'aria-hidden': true}
+            %i.fas.fa-cogs{'aria-hidden': true}
             = t 'settings.settings'
         %li
           = link_to logout_path, confirm: "Really log out?", method: :delete do
-            %i.fa.fa-sign-out{'aria-hidden': true}
+            %i.fas.fa-sign-out-alt{'aria-hidden': true}
             = t 'log_out'

@@ -8,15 +8,15 @@
 .btn-group.pull-right
   - if params[:past]
     = link_to group_activities_path(@group), class: 'btn btn-default' do
-      %i.fa.fa-history
+      %i.fas.fa-history
       = t 'activities.upcoming'
   - else
     = link_to group_activities_path(@group, past: true), class: 'btn btn-default' do
-      %i.fa.fa-history
+      %i.fas.fa-history
       = t 'activities.past'
   - if isleader
     = link_to new_group_activity_path(@group), class: 'btn btn-default' do
-      %i.fa.fa-plus
+      %i.fas.fa-plus
       = t 'activities.new'
 
 %table.table
@@ -49,6 +49,6 @@
         - if isleader
           %td
             = link_to edit_group_activity_path(@group, a) do
-              %i.fa.fa-pencil
+              %i.fas.fa-pencil-alt
 
 = will_paginate @activities

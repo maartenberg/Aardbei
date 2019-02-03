@@ -5,21 +5,21 @@
       .panel-heading
         .btn-group.pull-right
           %button.btn.btn-default.dropdown-toggle.btn-xs{data: {toggle: 'dropdown'}, 'aria-haspopup': true, 'aria-expanded': false}
-            %i.fa.fa-cogs
+            %i.fas.fa-cogs
             %span.caret
           %ul.dropdown-menu
             %li
               %a.copy-reactions{data: {activity: @activity.id, absent: true}}
-                %i.fa.fa-files-o
+                %i.fas.fa-copy
                 = t 'activities.participant.copy_absent'
               %a.copy-reactions{data: {activity: @activity.id, present: true, absent: true, unknown: true}}
-                %i.fa.fa-files-o
+                %i.fas.fa-copy
                 = t 'activities.participant.copy_responses'
             - if all_buttons
               %li.divider{role: 'separator'}
               %li
                 = link_to edit_group_activity_path(@group, @activity) do
-                  %i.fa.fa-pencil
+                  %i.fas.fa-pencil
                   = t :edit
         = @activity.name
 
@@ -115,7 +115,7 @@
         %td
           = p.person.full_name
           - if p.is_organizer
-            %i.fa.fa-star-o
+            %i.fas.fa-star-o
 
         %td
           = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
@@ -137,10 +137,10 @@
       %a{role: 'button', href: '#present-collapse', data: {toggle: 'collapse'}, 'aria-expanded': 'false'}
 
         %span.sv-show-collapsed
-          %i.fa.fa-angle-down
+          %i.fas.fa-angle-down
 
         %span.sv-show-expanded
-          %i.fa.fa-angle-up
+          %i.fas.fa-angle-up
 
         = t 'activities.state.present'
         %span.badge.state-count.present-count
@@ -149,30 +149,17 @@
     %table.table.collapse#present-collapse
       %tbody
         - @participants.where(attending: true).each do |p|
-          %tr.participant-row{data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
-            %td
-              = p.person.full_name
-              - if p.is_organizer
-                %i.fa.fa-star-o
-
-            %td
-              - if p.person.id == current_person.id || all_buttons
-                = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
-
-          %tr.participant-row{data: {person_id: p.person_id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
-            %td{colspan: "2"}
-              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
-
+          = render partial: "mobile_participant_row", locals: {participant: p, show_all_buttons: all_buttons}
 
   .panel.panel-default
     .panel-heading
       %a{role: 'button', href: '#unknown-collapse', data: {toggle: 'collapse'}, 'aria-expanded': 'false'}
 
         %span.sv-show-collapsed
-          %i.fa.fa-angle-down
+          %i.fas.fa-angle-down
 
         %span.sv-show-expanded
-          %i.fa.fa-angle-up
+          %i.fas.fa-angle-up
 
         = t 'activities.state.need_response'
 
@@ -182,29 +169,17 @@
     %table.table.collapse#unknown-collapse
       %tbody
         - @participants.where(attending: nil).each do |p|
-          %tr.participant-row{data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
-            %td
-              = p.person.full_name
-              - if p.is_organizer
-                %i.fa.fa-star-o
-
-            %td
-              - if p.person.id == current_person.id || all_buttons
-                = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
-
-          %tr.participant-row{data: {person_id: p.person_id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
-            %td{colspan: "2"}
-              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
+          = render partial: "mobile_participant_row", locals: {participant: p, show_all_buttons: all_buttons}
 
   .panel.panel-default.panel-danger
     .panel-heading
       %a{role: 'button', href: '#absent-collapse', data: {toggle: 'collapse'}, 'aria-expanded': 'false'}
 
         %span.sv-show-collapsed
-          %i.fa.fa-angle-down
+          %i.fas.fa-angle-down
 
         %span.sv-show-expanded
-          %i.fa.fa-angle-up
+          %i.fas.fa-angle-up
 
         = t 'activities.state.absent'
 
@@ -214,16 +189,4 @@
     %table.table.collapse#absent-collapse
       %tbody
         - @participants.where(attending: false).each do |p|
-          %tr.participant-row{data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
-            %td
-              = p.person.full_name
-              - if p.is_organizer
-                %i.fa.fa-star-o
-
-            %td
-              - if p.person.id == current_person.id || all_buttons
-                = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
-
-          %tr.participant-row{data: {person_id: p.person_id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
-            %td{colspan: "2"}
-              = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
+          = render partial: "mobile_participant_row", locals: {participant: p, show_all_buttons: all_buttons}
