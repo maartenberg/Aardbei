@@ -1,5 +1,4 @@
-<% destination = 'new' if not defined? destination %>
-<%= form_for(person, url: {action: destination}) do |f| %>
+<%= form_for(person) do |f| %>
   <% if person.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
@@ -29,7 +28,7 @@
       <%= f.label :birth_date %>
       <%= f.date_field :birth_date, type: 'date', class: 'form-control' %>
     </div>
-    <% if not defined? no_admin %>
+    <% unless defined? no_admin %>
       <div class="form-group">
         <%= f.check_box :is_admin %>
         <%= f.label :is_admin %>
