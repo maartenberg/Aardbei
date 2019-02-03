@@ -71,6 +71,10 @@ en:
         one: "Member"
         other: "Members"
 
+      subgroup:
+        one: "Subgroup"
+        other: "Subgroups"
+
     attributes:
       person:
         first_name: "First name"

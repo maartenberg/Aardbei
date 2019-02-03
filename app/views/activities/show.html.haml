@@ -70,7 +70,7 @@
         - if @assignable_subgroups.any?
           %tr
             %td
-              = t 'activerecord.attributes.activity.subgroups'
+              = t 'activerecord.models.subgroup.other'
 
             %td
               = @assignable_subgroups.join(', ')
@@ -128,7 +128,7 @@
   - if @activity.subgroups.any?
     .panel.panel-default
       .panel-heading
-        = t 'activerecord.attrs.activities.subgroups'
+        = t 'activerecord.models.subgroup.other'
       .panel-body
         = select_tag(:subgroup_filter, options_for_select(@subgroup_ids), class: 'form-control subgroup-filter')
 
