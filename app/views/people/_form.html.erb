@@ -24,10 +24,6 @@
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
     </div>
-    <div class="form-group">
-      <%= f.label :birth_date %>
-      <%= f.date_field :birth_date, type: 'date', class: 'form-control' %>
-    </div>
     <% unless defined? no_admin %>
       <div class="form-group">
         <%= f.check_box :is_admin %>

@@ -79,7 +79,6 @@ nl:
 
       person:
         activities: Activiteiten  #g
-        birth_date: Geboortedatum  #g
         email: Emailadres  #g
         first_name: Voornaam  #g
         groups: Groepen  #g

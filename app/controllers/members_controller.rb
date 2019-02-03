@@ -151,6 +151,6 @@ class MembersController < ApplicationController
   # through.  Note: differs from the ones in PeopleController because
   # creating admins is not allowed.
   def invite_params
-    params.require(:person).permit(:first_name, :infix, :last_name, :email, :birth_date)
+    params.require(:person).permit(:first_name, :infix, :last_name, :email)
   end
 end

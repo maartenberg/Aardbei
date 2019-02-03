@@ -4,7 +4,6 @@ one:
   first_name: MyString
   infix: MyString
   last_name: MyString
-  birth_date: 2016-12-07
   email: MyString
   is_admin: 
 
@@ -12,6 +11,5 @@ two:
   first_name: MyString
   infix: MyString
   last_name: MyString
-  birth_date: 2016-12-07
   email: MyString
   is_admin: 

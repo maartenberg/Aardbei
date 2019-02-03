@@ -17,10 +17,6 @@ class Person < ApplicationRecord
   #   @return [String]
   #     the person's surname. ('Gogh' in 'Vincent van Gogh'.)
   #
-  # @!attribute birth_date
-  #   @return [Date]
-  #     the person's birth date.
-  #
   # @!attribute email
   #   @return [String]
   #     the person's email address.
@@ -46,8 +42,6 @@ class Person < ApplicationRecord
   validates :email, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-
-  validate :birth_date_cannot_be_in_future
 
   before_validation :not_admin_if_nil
   before_save :update_user_email, if: :email_changed?
@@ -88,7 +82,6 @@ class Person < ApplicationRecord
         p.infix       = row['infix']
         p.last_name   = row['last_name']
         p.email       = row['email']
-        p.birth_date  = Date.strptime(row['birth_date']) if row['birth_date'].present?
         p.save!
       end
       result << p
@@ -187,11 +180,6 @@ class Person < ApplicationRecord
   end
 
   private
-
-  # Assert that the person's birth date, if any, lies in the past.
-  def birth_date_cannot_be_in_future
-    errors.add(:birth_date, I18n.t('person.errors.cannot_future')) if birth_date&.future?
-  end
 
   # Explicitly force nil to false in the admin field.
   def not_admin_if_nil

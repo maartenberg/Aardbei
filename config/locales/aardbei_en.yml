@@ -77,7 +77,6 @@ en:
         infix: "Infix"
         last_name: "Last name"
         email: "Email address"
-        birth_date: "Date of birth"
 
       group:
         name: "Name"
