@@ -99,3 +99,10 @@ table.collapse.in {
   margin-top: 0;
   margin-bottom: 0;
 }
+
+/* Ellipsis fixes for previous/next buttons. */
+.ellipsize-50 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+}

@@ -17,6 +17,9 @@ nl:
   send_email: "Email versturen"
   overview: "Overzicht"
 
+  next: "Volgende"
+  previous: "Vorige"
+
   areyousure: "Weet je het zeker?"
 
   somethingbroke: "Er is iets misgegaan! Neem contact op als dit blijft gebeuren."
