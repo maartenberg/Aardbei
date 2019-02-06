@@ -297,6 +297,22 @@ class Activity < ApplicationRecord
     ps.each(&:send_subgroup_notification)
   end
 
+  # @return [Activity] the Activity that will start after this Activity. `nil` if no such Activity exists.
+  def next_in_group
+    group.activities
+         .where('start > ?', start)
+         .order(start: :asc)
+         .first
+  end
+
+  # @return [Activity] the Activity that started before this Activity. `nil` if no such Activity exists.
+  def previous_in_group
+    group.activities
+         .where('start < ?', start)
+         .order(start: :desc)
+         .first
+  end
+
   private
 
   # Assert that the deadline for participants to change the deadline, if any,
