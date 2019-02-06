@@ -39,6 +39,6 @@
             %i.fas.fa-cogs{'aria-hidden': true}
             = t 'settings.settings'
         %li
-          = link_to logout_path, confirm: "Really log out?", method: :delete do
+          = link_to logout_path, data: {confirm: t(:areyousure)}, method: :delete do
             %i.fas.fa-sign-out-alt{'aria-hidden': true}
             = t 'log_out'
