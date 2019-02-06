@@ -20,6 +20,9 @@ nl:
   next: "Volgende"
   previous: "Vorige"
 
+  save_and_return: "Opslaan en terug"
+  save: "Opslaan"
+
   areyousure: "Weet je het zeker?"
 
   somethingbroke: "Er is iets misgegaan! Neem contact op als dit blijft gebeuren."

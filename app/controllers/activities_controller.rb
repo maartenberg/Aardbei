@@ -201,8 +201,13 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
+        redirect = group_activity_path(@group, @activity)
+        if params.has_key?('commit-continue')
+          redirect = edit_group_activity_path(@group, @activity)
+        end
+
         format.html do
-          redirect_to group_activity_url(@group, @activity)
+          redirect_to redirect
           flash_message(:info, I18n.t('activities.updated'))
         end
         format.json { render :show, status: :ok, location: @activity }
