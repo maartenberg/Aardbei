@@ -135,6 +135,12 @@ Open up your `.rbenv-vars` again, run the command `rails secret`, and set the ou
 SECRET_KEY_BASE=a3a43b...
 ```
 
+Lastly, pre-compile the CSS and JavaScript by running:
+
+```console
+$ rails assets:precompile
+```
+
 # Setting up the database
 
 ## In development: SQLite
