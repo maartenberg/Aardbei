@@ -235,18 +235,21 @@ SMTP_PASS=aardbei123
 ```
 
 # Create an Admin person
-If you're not me, you'll want to create your own user. Run:
+To get started, you'll need to create the first user in the system.
 
 ```console
-$ rails console
-> p = Person.new
-> p.first_name = 'Maarten'
-> p.infix = 'van den'
-> p.last_name = 'Berg'
-> p.email = 'youremail@example.com'
-> p.is_admin = 1
-> p.save
-> exit
+$ rails admin:create
+Email?
+admin@example.com
+First name?
+Maarten
+Infix?
+van den
+Last name?
+Berg
+Is this information correct? [Y/N]
+Y
+Saved! You now need to request a password.
 ```
 
 Note that this has not yet set a password for you: to do that, we need to run a server.
