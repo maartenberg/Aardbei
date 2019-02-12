@@ -3,7 +3,7 @@ To run Aardbei, you will need a UNIX operating system, which basically means
 that you need to be running either macos or some flavour of Linux.
 Running on Windows might very well be possible, but I haven't tried it.
 
-The Ruby-version Aardbei uses is currently 2.3.3, and to ensure that the version
+The Ruby-version Aardbei uses is currently 2.5.3, and to ensure that the version
 is always available, and does not conflict with any system installation of some
 other Ruby version, the supported way to install it is by compiling from source
 using the platform-independent tool [rbenv], with two helper tools called
@@ -20,6 +20,9 @@ You will need the following tools installed in whatever way you like:
 	headers for libpq (`apt install libpq-dev`). Other databases will probably
 	work because ActiveRecord should support it, but I'm using Postgres on my
 	own server, and haven't tested anything besides sqlite yet.
+	
+	If you're using MariaDB / MySQL, you'll need the development headers for `libmysql-client` / `libmariadb-client`.
+	On Ubuntu: `apt install libmariadb-client-lgpl-dev-compat`.
 - In development: libsqlite3 with development headers (`apt install
 	libsqlite3-dev`)
 
@@ -35,7 +38,7 @@ Clone the rbenv repository to your home directory:
 $ git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 ```
 
-Try to compile the bash extension:
+Try to compile the bash extension (this makes some things faster, but it doesn't matter if this fails):
 
 ```console
 $ cd ~/.rbenv; src/configure; make -C src; cd -
@@ -66,7 +69,7 @@ the development headers for `openssl`, `libreadline` and `zlib`). Now start the
 compilation of Ruby (this will take a while and will not show a progress bar):
 
 ```console
-$ rbenv install 2.3.3
+$ rbenv install
 ```
 
 If all is well, you will get some success message, if you have an error the
@@ -92,15 +95,17 @@ RAILS_ENV=development
 AARDBEI_LOCALE=en
 ```
 
-Set `AARDBEI_HOSTNAME` to the hostname your copy is going to run under (in development it's going to be `localhost:3000`:
+Set `AARDBEI_HOSTNAME` to the hostname (no `https://`) your copy is going to run under
+(in development it's going to be `localhost:3000`):
 
 ```
 AARDBEI_HOSTNAME=aardbei.maartenberg.nl
 ```
 
-If you're planning to run in the production environment, but without a real webserver to serve your assets, set `RAILS_SERVE_STATIC_FILES=1`.
+If you're planning to run in the production environment, but without a real webserver to serve your assets,
+set `RAILS_SERVE_STATIC_FILES=1`. This is not recommended by the Rails team.
 
-Set `AARDBEI_PATH` to the full path of the cloned directory, like `AARDBEI_PATH=/home/aardbei/aardbei`.
+Set `AARDBEI_PATH` to the full path of the cloned repository, like `AARDBEI_PATH=/home/aardbei/aardbei`.
 
 # Installing dependencies
 Aardbei's dependencies in Ruby are managed using Bundler. To install it, rbenv
@@ -118,13 +123,13 @@ Depending on your environment, run either:
 ```console
 $ bundle install --without=production # in development
 $ bundle install --without='development test' # in production
-```
+``` 
 
 If all went well, run `rbenv rehash` to add the new executables to your shell,
 and test that the installation worked by running `rails`. You should see some
 output listing the available subcommands.
 
-Open up your `.rbenv-vars` again, run the command `rails secret`, and set it as your `SECRET_KEY_BASE`:
+Open up your `.rbenv-vars` again, run the command `rails secret`, and set the output as your `SECRET_KEY_BASE`:
 
 ```console
 SECRET_KEY_BASE=a3a43b...
@@ -144,6 +149,12 @@ Note: __The test data currently includes a hardcoded admin user, change this if
 needed!__
 
 ## In production: Postgresql
+Note: these instructions assume you're running Postgres, which is (in my personal experience) more pleasant to manage.
+If you want to use a different database, you can do so by defining the `DATABASE_URL` environment variable.
+
+See [this link](https://guides.rubyonrails.org/configuring.html#configuring-a-database) for more information about what
+to put in `DATABASE_URL`. If you do this, skip the rest of this section.
+
 If you're not already running Postgresql, install it using `sudo apt install
 postgresql-9.5`.
 
@@ -242,11 +253,139 @@ before starting the server) `bin/delayed_job start` (or run in the foreground
 with `bin/delayed_job run`).
 
 # Running in production
-TODO.
+1. Install the Nginx config file in `/etc/nginx/sites-available/aardbei.conf`:
+
+    ```
+    upstream aardbeiapp {
+        # Replace '/home/aardbei/aardbei' with the path to where you cloned the repository.   
+        server unix:/home/aardbei/aardbei/tmp/sockets/puma.sock fail_timeout=0;
+    }
+
+    # This server block redirects all non-secure HTTP requests to https://. Remove if unwanted.
+    server {
+        listen 80;
+        listen [::]:80 ipv6only=on;
+
+        server_name aardbei.maartenberg.nl;
+        return 301 https://$host$request_uri;
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        
+        # Include your SSL config here!
+        include /etc/nginx/ssl_configs.include;
+
+        root /home/aardbei/aardbei/public;
+        # Fill in the path to the repository here, and append '/public'.
+
+        server_name aardbei.maartenberg.nl;
+        # Fill in your hostname here. Must match the value set in .rbenv-vars.
+
+        location @aardbeiapp {
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_redirect off;
+            proxy_pass http://aardbeiapp;
+        }
+
+        error_page 500 502 503 504 /500.html;
+        client_max_body_size 4G;
+        keepalive_timeout 10;
+        try_files $uri @aardbeiapp;
+    }
+    ```
+
+2. Create a systemd service file to automatically start Aardbei:
+
+    In `/etc/systemd/system/aardbei.service`:
+    
+    ```systemd
+    [Unit]
+    Description=Aardbei-server
+    After=network.target
+    
+    [Service]
+    User=aardbei
+    Group=aardbei
+    WorkingDirectory=/home/aardbei/aardbei
+    ; Change this to the repository path
+    ExecStart=/home/aardbei/.rbenv/shims/puma
+    
+    [Install]
+    WantedBy=multi-user.target
+    ```
+    
+3. Create a systemd service to run jobs (necessary for sending emails):
+
+    In `/etc/systemd/system/aardbei-jobs.service`:
+    
+    ```systemd
+    [Unit]
+    Description=Job queue for Aardbei
+    After=network.target
+    
+    [Service]
+    User=aardbei
+    Group=aardbei
+    WorkingDirectory=/home/aardbei/aardbei
+    ExecStart=/home/aardbei/.rbenv/shims/bundle exec /home/aardbei/aardbei/bin/delayed_job start
+    Type=forking
+    PIDFile=/home/aardbei/aardbei/tmp/pids/delayed_jobs.pid
+    
+    [Install]
+    WantedBy=multi-user.target
+    ```
+    
+4. Create a systemd timer and service to clean expired sessions from your database:
+
+    In `/etc/systemd/system/aardbei-clear-sessions.service`:
+    
+    ```systemd
+    [Unit]
+    Description=Clear expired Aardbei-sessions
+    After=network.target
+
+    [Service]
+    User=aardbei
+    Group=aardbei
+    Type=oneshot
+    WorkingDirectory=/home/aardbei/aardbei
+    ExecStart=/home/aardbei/.rbenv/shims/rails sessions:clean
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+    
+    In `/etc/systemd/system/aardbei-clear-sessions.timer`:
+    
+    ```systemd
+    [Unit]
+    Description=Clear expired Aardbei Sessions weekly
+    After=network.target
+
+    [Timer]
+    Unit=aardbei-clear-sessions.service
+    OnCalendar=weekly
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+    
+5. Run:
+
+    ```console
+    $ sudo systemctl daemon-reload
+    $ sudo systemctl enable --now aardbei-jobs.service aardbei.service aardbei-sessions.timer
+    ```
+    
+Aardbei will now be running, and will (re)start automatically when your server has rebooted.
 
 # Activating your admin user
 To activate your admin user, have your server running and go to
-`http://localhost:3000/register`. Enter the email address you entered when you
+`http://your-server-path/register`. Enter the email address you entered when you
 created your Person, and follow the instructions.
 
 <!--* Deployment instructions-->
