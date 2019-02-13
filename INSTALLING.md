@@ -115,7 +115,7 @@ needs to know which version of Ruby we're using. This is stored in the file
 Install bundler by moving to your cloned copy of Aardbei, and running:
 
 ```console
-$ gem install bundler
+$ gem install bundler -v '1.17.3'
 ```
 
 Depending on your environment, run either:
