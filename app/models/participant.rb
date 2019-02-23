@@ -16,6 +16,7 @@ class Participant < ApplicationRecord
   #     leaving earlier.
 
   belongs_to :person
+  belongs_to :member
   belongs_to :activity
   belongs_to :subgroup, optional: true
 
