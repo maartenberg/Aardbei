@@ -25,8 +25,8 @@ module Api
     def response_summary
       as = @activity
            .participants
-           .joins(:person)
-           .order('people.first_name ASC')
+           .joins(:member)
+           .order('members.display_name ASC')
 
       present = as.where(attending: true)
 
@@ -34,25 +34,25 @@ module Api
 
       absent = as.where(attending: false)
 
-      presentnames = present.map { |p| p.person.first_name }
+      presentnames = present.map { |p| p.member.display_name }
 
-      unknownnames = unknown.map { |p| p.person.first_name }
+      unknownnames = unknown.map { |p| p.member.display_name }
 
-      absentnames = absent.map { |p| p.person.first_name }
+      absentnames = absent.map { |p| p.member.display_name }
 
-      present_mess = if presentnames.positive?
+      present_mess = if presentnames.present?
                        I18n.t('activities.participant.these_present', count: present.count, names: presentnames.join(', '))
                      else
                        I18n.t('activities.participant.none_present')
                      end
 
-      unknown_mess = if unknownnames.positive?
+      unknown_mess = if unknownnames.present?
                        I18n.t('activities.participant.these_unknown', count: unknown.count, names: unknownnames.join(', '))
                      else
                        I18n.t('activities.participant.none_unknown')
                      end
 
-      absent_mess = if absentnames.positive?
+      absent_mess = if absentnames.present?
                       I18n.t('activities.participant.these_absent', count: absent.count, names: absentnames.join(', '))
                     else
                       I18n.t('activities.participant.none_absent')
@@ -91,7 +91,7 @@ module Api
 
     # Set activity from the :id-parameter
     def set_activity
-      @activity = Activity.find(params[:id])
+      @activity = Activity.find(params[:activity_id])
       @group = @activity.group
     end
 
