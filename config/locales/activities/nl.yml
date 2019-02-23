@@ -125,6 +125,7 @@ nl:
       filter_nogroup: 'Aangemeld, geen groep'
       filter_nofilter: 'Toon iedereen'
 
+      cant_assign_without_subgroups: 'Je kan pas deelnemers in subgroepen indelen wanneer je deze groepen hebt aangemaakt!'
       only_present_people: 'Je ziet alleen maar mensen die zijn aangemeld in dit overzicht, omdat mensen die zijn afgemeld niet in een subgroep kunnen zitten.'
 
       clear: 'Subgroepen legen'

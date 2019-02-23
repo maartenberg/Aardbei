@@ -113,6 +113,7 @@ en:
       filter_nogroup: 'Attending, no subgroup'
       filter_nofilter: 'Show everyone'
 
+      cant_assign_without_subgroups: "You can't assign people to subgroups without creating subgroups first!"
       only_present_people: "Only people who will attend are listed, because people who don't cannot be in a subgroup."
 
       clear: 'Clear subgroups'

@@ -80,8 +80,8 @@ class ActivitiesController < ApplicationController
     @subgroups = @activity.subgroups.order(is_assignable: :desc, name: :asc)
 
     if @subgroups.none?
-      flash_message(:error, I18n.t('activities.errors.cannot_subgroup_without_subgroups'))
-      redirect_to group_activity_edit(@group, @activity)
+      flash_message(:warning, I18n.t('activities.subgroups.cant_assign_without_subgroups'))
+      redirect_to edit_group_activity_path(@group, @activity)
     end
 
     @subgroup_options = @subgroups.map { |sg| [sg.name, sg.id] }
