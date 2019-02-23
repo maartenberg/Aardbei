@@ -15,6 +15,10 @@ child :participants do
   child :person do
     attribute :id, :full_name
   end
+  child :member do
+    attribute :id, :display_name, :is_leader
+  end
+
   attribute :attending, :notes, :is_organizer
 end
 
