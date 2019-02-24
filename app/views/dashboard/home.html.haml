@@ -59,7 +59,7 @@
                 %tbody
                   - @need_response.each do |p|
                     - e = p.activity
-                    %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person_id}}
+                    %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
                       %td
                         = link_to group_activity_path(e.group, e) do
                           = e.name
@@ -67,7 +67,7 @@
                       %td
                         = l e.start, format: :short
 
-                    %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person_id}}
+                    %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
                       %td
                         = e.location
 
@@ -141,7 +141,7 @@
               %tbody
                 - @upcoming.each do |p|
                   - e = p.activity
-                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person_id}}
+                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
                     %td
                       = link_to group_activity_path(e.group, e) do
                         = e.name
@@ -149,9 +149,9 @@
                     %td
                       = render partial: 'activities/presence_buttons', locals: {activity: e, person: p.person, state: p.attending}
 
-                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person_id}}
+                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
                     %td{colspan: 2}
-                      = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.add_notes')
+                      = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: p.person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.add_notes')
 
             .sv-nomargins.text-center
               = will_paginate @upcoming, page_links: false, param_name: 'upage', renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'pagination-sm pagination'
