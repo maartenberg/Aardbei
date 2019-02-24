@@ -17,6 +17,8 @@ class Member < ApplicationRecord
 
   belongs_to :person
   belongs_to :group
+  has_many :participants
+  has_many :activities, through: :participants
 
   after_create   :create_future_participants!
   after_create   :update_display_name!

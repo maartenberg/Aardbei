@@ -33,8 +33,7 @@ class Person < ApplicationRecord
   has_one :user, dependent: :destroy
   has_many :members,
            dependent: :destroy
-  has_many :participants,
-           dependent: :destroy
+  has_many :participants, through: :members
   has_many :groups, through: :members
   has_many :activities, through: :participants
   has_secure_token :calendar_token
