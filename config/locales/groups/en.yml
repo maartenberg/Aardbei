@@ -15,6 +15,8 @@ en:
     leader_added: "%{name} is now a group leader."
     leader_removed: "%{name} is no longer a group leader."
 
+    organized: "Organized"
+
     demote: "Demote"
     promote: "Promote"
 

@@ -100,3 +100,7 @@ en:
         description: "Description"
         deadline: "Deadline"
         no_response_action: "Action when no response"
+
+      member:
+        display_name: "Display name"
+        created_at: "Member since"

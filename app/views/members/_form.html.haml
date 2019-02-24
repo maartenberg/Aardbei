@@ -1,0 +1,26 @@
+= form_for [@group, member] do |f|
+  - if member.errors.any?
+    .error_explanation
+      %h2= pluralize(member.errors.count, t(:error))
+
+      %ul
+        - member.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :person
+    - if @member.persisted?
+      = f.collection_select(:person_id, [member.person], :id, :full_name, {}, {disabled: true, class: 'disabled form-control'})
+    - else
+      = f.collection_select(:person_id, @possible_members, :id, :full_name, prompt: true)
+
+  .form-group
+    = f.label :display_name
+    = f.text_field :display_name, class: 'form-control'
+
+  .form-group
+    = f.check_box :is_leader
+    = f.label :is_leader
+
+  .form-group
+    = f.submit class: 'btn btn-primary'

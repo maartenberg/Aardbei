@@ -1,0 +1,11 @@
+.row.form-group
+  .col-md-12
+    = link_to group_member_path(@group, @member), class: 'btn btn-default' do
+      %i.fas.fa-arrow-left
+      = t :back
+
+.col-md-12
+  %h1= t 'groups.member.edit'
+
+  = render 'form', member: @member
+

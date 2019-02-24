@@ -68,7 +68,9 @@ nl:
       member:
         group: :activerecord.models.group  #g
         is_leader: Is groepsleider  #g
+        display_name: Weergavenaam
         person: :activerecord.models.person  #g
+        created_at: Lid sinds
 
       participant:
         activity: :activerecord.models.activity  #g
