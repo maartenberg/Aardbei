@@ -88,7 +88,7 @@ class Member < ApplicationRecord
   # Intended to be called before the member is deleted.
   def delete_future_participants!
     participants = Participant.where(
-      person_id: person.id,
+      member_id: self.id,
       activity: group.future_activities
     )
 
