@@ -104,8 +104,8 @@ class Activity < ApplicationRecord
 
   # Determine whether the passed Person is an organizer for the activity.
   def organizer?(person)
-    Participant.exists?(
-      person_id: person.id,
+    Participant.includes(:person).exists?(
+      "people.id" => person.id,
       activity_id: id,
       is_organizer: true
     )

@@ -45,13 +45,13 @@ class ActivitiesController < ApplicationController
                              .order(attending: :desc)
                              .order('people.first_name ASC')
     @organizers = @activity.participants
-                           .joins(:member)
+                           .includes(:member)
                            .where(is_organizer: true)
                            .order('members.display_name ASC')
                            .map { |p| p.member.display_name }
                            .join(', ')
-    @ownparticipant = @activity.participants
-                               .find_by(person: current_person)
+    @ownparticipant = @activity.participants.includes(:person)
+                               .find_by('people.id': current_person.id)
     @counts = @activity.state_counts
     @num_participants = @counts.values.sum
     @assignable_subgroups = @activity.subgroups
@@ -269,8 +269,8 @@ class ActivitiesController < ApplicationController
   # PATCH/PUT /groups/:group_id/activities/:id/presence
   # PATCH/PUT /groups/:group_id/activities/:id/presence.json
   def presence
-    participant = Participant.find_by(
-      person_id: params[:person_id],
+    participant = Participant.includes(:person).find_by!(
+      "people.id" => params[:person_id],
       activity: @activity
     )
     if params[:person_id].to_i != current_person.id && !@activity.may_change?(current_person)

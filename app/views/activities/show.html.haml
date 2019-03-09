@@ -94,7 +94,7 @@
 
           = editable @ownparticipant,
             :notes,
-            url: presence_group_activity_path(@activity.group, @activity, person_id: @ownparticipant.person_id),
+            url: presence_group_activity_path(@activity.group, @activity, person_id: @ownparticipant.person.id),
             title: t('activities.participant.notes'),
             value: @ownparticipant.notes,
             emptytext: t('activities.participant.add_notes')
@@ -120,7 +120,7 @@
             %i.fas.fa-star-o
 
         %td
-          = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
+          = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
 
         %td
           - if p.person.id == current_person.id || all_buttons

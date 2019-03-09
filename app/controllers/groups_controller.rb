@@ -36,8 +36,8 @@ class GroupsController < ApplicationController
     @upcoming = @group.activities
                       .where('start > ?', Time.zone.today)
                       .order('start ASC')
-    @upcoming_ps = Participant
-                   .where(person: current_person)
+    @upcoming_ps = Participant.includes(:person)
+                   .where('people.id' => current_person.id)
                    .where(activity: @upcoming)
                    .map { |p| [p.activity_id, p] }
                    .to_h

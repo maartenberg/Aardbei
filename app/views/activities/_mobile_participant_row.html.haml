@@ -10,6 +10,6 @@
     - if p.person.id == current_person.id || all_buttons
       = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 
-  %tr.participant-row{data: {person_id: p.person_id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
+  %tr.participant-row{data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
     %td{colspan: "2"}
-      = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person_id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
+      = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
