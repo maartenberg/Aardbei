@@ -23,6 +23,7 @@ class Member < ApplicationRecord
   after_create   :create_future_participants!
   after_create   :update_display_name!
   before_destroy :delete_future_participants!
+  after_destroy  :check_remaining_display_names!
 
   validates :person_id,
             uniqueness: {
@@ -93,5 +94,16 @@ class Member < ApplicationRecord
     )
 
     participants.each(&:destroy!)
+  end
+
+  # Destroy callback. Check whether there is a Person with the same first_name
+  # in the Group that this Member is being deleted from.
+  # If so, grab the first one and run update_display_name!.
+  def check_remaining_display_names!
+    p = group.people.where(first_name: person.first_name)
+
+    return unless p
+
+    Member.find_by(person: p, group: group).update_display_name!
   end
 end
