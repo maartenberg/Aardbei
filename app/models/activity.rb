@@ -152,7 +152,7 @@ class Activity < ApplicationRecord
     defaults = group.default_subgroups
 
     # If there are no subgroups, there cannot be subgroup division.
-    update!(:subgroup_division_enabled, false) if defaults.none?
+    update!(subgroup_division_enabled: false) if defaults.none?
 
     defaults.each do |dsg|
       sg = Subgroup.new(activity: self)
