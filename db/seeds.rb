@@ -40,7 +40,7 @@ default_test_group = Group.create!(
   )
 end
 
-15.times do
+15.times do |i|
   Person.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
