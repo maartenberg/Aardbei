@@ -15,7 +15,7 @@ class Participant < ApplicationRecord
   #     a short text indicating any irregularities, such as arriving later or
   #     leaving earlier.
 
-  belongs_to :member
+  belongs_to :member, autosave: false
   has_one :person, through: :member
   belongs_to :activity
   belongs_to :subgroup, optional: true
