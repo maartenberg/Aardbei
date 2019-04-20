@@ -64,7 +64,7 @@ module AuthenticationHelper
 
       user_session
 
-      return false if !@user_session.active || @user_session.expires.past?
+      return false if !@user_session&.active || @user_session&.expires&.past?
 
       true
 

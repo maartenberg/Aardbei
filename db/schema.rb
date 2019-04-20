@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20190223213800) do
   end
 
   create_table "participants", force: :cascade do |t|
+    t.integer  "person_id"
     t.integer  "activity_id"
     t.boolean  "is_organizer"
     t.boolean  "attending"
@@ -84,7 +85,6 @@ ActiveRecord::Schema.define(version: 20190223213800) do
     t.datetime "updated_at",   null: false
     t.integer  "subgroup_id"
     t.integer  "member_id"
-    t.integer  "person_id"
     t.index ["activity_id"], name: "index_participants_on_activity_id"
     t.index ["member_id"], name: "index_participants_on_member_id"
     t.index ["person_id", "activity_id"], name: "index_participants_on_person_id_and_activity_id", unique: true

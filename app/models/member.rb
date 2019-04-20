@@ -17,7 +17,7 @@ class Member < ApplicationRecord
 
   belongs_to :person
   belongs_to :group
-  has_many :participants, dependent: :destroy
+  has_many :participants, dependent: :nullify
   has_many :activities, through: :participants
 
   after_create   :create_future_participants!
@@ -100,10 +100,12 @@ class Member < ApplicationRecord
   # in the Group that this Member is being deleted from.
   # If so, grab the first one and run update_display_name!.
   def check_remaining_display_names!
-    p = group.people.where(first_name: person.first_name)
+    p = group.people
+             .where(first_name: person.first_name)
+             .where.not(id: self.person_id)
 
-    return unless p
+    return unless p.present?
 
-    Member.find_by(person: p, group: group).update_display_name!
+    Member.find_by(person: p.first, group: group).update_display_name!
   end
 end
