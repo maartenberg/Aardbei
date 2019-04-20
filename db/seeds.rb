@@ -81,7 +81,7 @@ Person.all.each do |p|
   Group.all.each do |g|
     next unless Faker::Boolean.boolean(0.75)
 
-    Member.create!(
+    m = Member.create!(
       person: p,
       group: g,
       is_leader: Faker::Boolean.boolean(0.1)
@@ -92,7 +92,7 @@ Person.all.each do |p|
       # Participants are created on adding to group, no need to create
       part = Participant.find_by(
         activity: a,
-        person: p
+        member: m
       )
       part.update!(
         is_organizer: Faker::Boolean.boolean(0.1),

@@ -87,11 +87,11 @@ class Activity < ApplicationRecord
   # Get all people (not participants) that are organizers. Does not include
   # group leaders, although they may modify the activity as well.
   def organizers
-    participants.includes(:person).where(is_organizer: true)
+    participants.includes(:member).where(is_organizer: true)
   end
 
   def organizer_names
-    organizers.map { |o| o.person.full_name }
+    organizers.map { |o| o.member.display_name }
   end
 
   # Determine whether the passed Person participates in the activity.
