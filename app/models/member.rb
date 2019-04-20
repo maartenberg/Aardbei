@@ -17,7 +17,7 @@ class Member < ApplicationRecord
 
   belongs_to :person
   belongs_to :group
-  has_many :participants
+  has_many :participants, dependent: :destroy
   has_many :activities, through: :participants
 
   after_create   :create_future_participants!
@@ -72,7 +72,7 @@ class Member < ApplicationRecord
         m.display_name = if p.infix.present?
                                then "#{p.first_name} #{p.infix} #{p.last_name[0]}."
                          else "#{p.first_name} #{p.last_name[0]}."
-                               end
+                         end
       end
       same_first_name.each(&:save!)
 
