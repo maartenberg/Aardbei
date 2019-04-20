@@ -178,11 +178,6 @@ class Person < ApplicationRecord
     cal
   end
 
-  def person_id
-    Raven.capture_message("Unconverted call to person_id")
-    person.id
-  end
-
   private
 
   # Explicitly force nil to false in the admin field.

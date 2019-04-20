@@ -96,4 +96,10 @@ class Participant < ApplicationRecord
   def clear_subgroup
     self.subgroup = nil
   end
+
+  # Fallback handler after display_name changes
+  def person_id
+    Raven.capture_message("Unconverted call to person_id")
+    person.id
+  end
 end
