@@ -22,7 +22,7 @@ class Participant < ApplicationRecord
 
   after_validation :clear_subgroup, if: 'self.attending != true'
 
-  validates :member_id,
+  validates :person_id,
             uniqueness: {
               scope: :activity_id,
               message: I18n.t('activities.errors.already_in')
