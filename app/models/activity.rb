@@ -91,7 +91,7 @@ class Activity < ApplicationRecord
   end
 
   def organizer_names
-    organizers.map { |o| o.member.display_name }
+    organizers.map(&:display_name)
   end
 
   # Determine whether the passed Person participates in the activity.

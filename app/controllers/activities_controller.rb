@@ -44,11 +44,9 @@ class ActivitiesController < ApplicationController
                              .joins(:person)
                              .order(attending: :desc)
                              .order('people.first_name ASC')
-    @organizers = @activity.participants
-                           .includes(:member)
-                           .where(is_organizer: true)
-                           .order('members.display_name ASC')
-                           .map { |p| p.member.display_name }
+    @organizers = @activity.organizers
+                           .map(&:display_name)
+                           .sort
                            .join(', ')
     @ownparticipant = @activity.participants.includes(:person)
                                .find_by('people.id': current_person.id)

@@ -15,8 +15,8 @@ class Participant < ApplicationRecord
   #     a short text indicating any irregularities, such as arriving later or
   #     leaving earlier.
 
-  belongs_to :member, autosave: false
-  has_one :person, through: :member
+  belongs_to :member, autosave: false, optional: true
+  belongs_to :person
   belongs_to :activity
   belongs_to :subgroup, optional: true
 
@@ -65,6 +65,11 @@ class Participant < ApplicationRecord
     end
   end
 
+  # Either the member's display_name or the Person's full name.
+  def display_name
+    member&.display_name || person.full_name
+  end
+
   def may_change?(person)
     activity.may_change?(person) ||
       self.person == person
@@ -95,11 +100,5 @@ class Participant < ApplicationRecord
   # Clear subgroup if person is set to 'not attending'.
   def clear_subgroup
     self.subgroup = nil
-  end
-
-  # Fallback handler after display_name changes
-  def person_id
-    Raven.capture_message("Unconverted call to person_id")
-    person.id
   end
 end

@@ -25,8 +25,8 @@ module Api
     def response_summary
       as = @activity
            .participants
-           .joins(:member)
-           .order('members.display_name ASC')
+           .joins(:person)
+           .order('people.first_name ASC, people.last_name ASC')
 
       present = as.where(attending: true)
 
@@ -34,11 +34,11 @@ module Api
 
       absent = as.where(attending: false)
 
-      presentnames = present.map { |p| p.member.display_name }
+      presentnames = present.map(&:display_name)
 
-      unknownnames = unknown.map { |p| p.member.display_name }
+      unknownnames = unknown.map(&:display_name)
 
-      absentnames = absent.map { |p| p.member.display_name }
+      absentnames = absent.map(&:display_name)
 
       present_mess = if presentnames.present?
                        I18n.t('activities.participant.these_present', count: present.count, names: presentnames.join(', '))
