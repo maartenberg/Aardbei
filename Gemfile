@@ -27,7 +27,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use Bootstrap for CSS
 gem 'autoprefixer-rails'
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 # In-place editing
 gem 'x-editable-rails'
@@ -78,7 +78,7 @@ end
 
 group :development do
   # Use sqlite3 as the database for development
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.6'
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '~> 3.0.5'
