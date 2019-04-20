@@ -202,9 +202,7 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       if @activity.update(activity_params)
         redirect = group_activity_path(@group, @activity)
-        if params.has_key?('commit-continue')
-          redirect = edit_group_activity_path(@group, @activity)
-        end
+        redirect = edit_group_activity_path(@group, @activity) if params.key?('commit-continue')
 
         format.html do
           redirect_to redirect

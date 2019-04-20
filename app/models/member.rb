@@ -30,7 +30,7 @@ class Member < ApplicationRecord
               scope: :group_id,
               message: I18n.t('groups.member.already_in')
             }
-  validates :display_name, uniqueness: {scope: :group_id}
+  validates :display_name, uniqueness: { scope: :group_id }
 
   # Create Participants for this Member for all the group's future activities, where the member isn't enrolled yet.
   # Intended to be called after the member is added to the group.
@@ -71,7 +71,7 @@ class Member < ApplicationRecord
         p = m.person
         m.display_name = if p.infix.present?
                                then "#{p.first_name} #{p.infix} #{p.last_name[0]}."
-                               else "#{p.first_name} #{p.last_name[0]}."
+                         else "#{p.first_name} #{p.last_name[0]}."
                                end
       end
       same_first_name.each(&:save!)
@@ -89,7 +89,7 @@ class Member < ApplicationRecord
   # Intended to be called before the member is deleted.
   def delete_future_participants!
     participants = Participant.where(
-      member_id: self.id,
+      member_id: id,
       activity: group.future_activities
     )
 

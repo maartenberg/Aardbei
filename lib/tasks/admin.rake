@@ -1,6 +1,6 @@
 namespace :admin do
   desc "Create a new Admin"
-  task :create => [:environment] do
+  task create: [:environment] do
     p = Person.new
     p.is_admin = 1
     puts "Email?"

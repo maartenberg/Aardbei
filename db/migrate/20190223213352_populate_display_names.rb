@@ -3,9 +3,7 @@ class PopulateDisplayNames < ActiveRecord::Migration[5.0]
 
   def up
     Member.all.each do |m|
-      if m.display_name.blank?
-        m.update_display_name!
-      end
+      m.update_display_name! if m.display_name.blank?
     end
   end
 end
