@@ -72,9 +72,7 @@
 
                     %td
                       = render partial: 'activities/presence_buttons', locals: {activity: e, person: p.person, state: p.attending}
-            - if @need_response.total_pages > 1
-              .sv-nomargins.text-center
-                = will_paginate @need_response, page_links: false, param_name: 'nrpage', renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'pagination-sm pagination'
+
   .row
     .col-md-6
       .panel.panel-default
