@@ -4,9 +4,19 @@
       %i.fas.fa-arrow-left
       = t :back
 
-    = link_to edit_group_member_path(@group, @member), class: 'pull-right btn btn-default' do
-      %i.fas.fa-edit
-      = t :edit
+    .btn-group.pull-right
+      - if params[:past]
+        = link_to group_member_path(@group, @member), class: 'btn btn-default' do
+          %i.fas.fa-history
+          = t 'activities.upcoming'
+      - else
+        = link_to group_member_path(@group, @member, past: true), class: 'btn btn-default' do
+          %i.fas.fa-history
+          = t 'activities.past'
+
+      = link_to edit_group_member_path(@group, @member), class: 'btn btn-default' do
+        %i.fas.fa-edit
+        = t :edit
 
 .row
   .col-md-12
@@ -42,5 +52,20 @@
           %th= t 'groups.organized'
           %td= @member.participants.where(is_organizer: true).count
 
+.row
+  .col-md-12
+    .panel.panel-default
+      %table.table.table-striped
+        %tbody
+          - @participants.each do |p|
+            - e = p.activity
+            %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
+              %td.shrink
+                = render partial: "activities/presence_buttons", locals: {activity: e, person: @member.person, state: p.attending}
+              %td.shrink
+                = link_to group_activity_path(e.group, e) do
+                  = e.name
+              %td.expand
+                = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: @member.person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.add_notes')
 
-
+      = will_paginate(@participants, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'panel-footer pagination-sm pagination')

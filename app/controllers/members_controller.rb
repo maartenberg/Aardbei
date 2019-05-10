@@ -15,7 +15,22 @@ class MembersController < ApplicationController
 
   # GET /members/1
   # GET /members/1.json
-  def show; end
+  def show
+    @participants = @member
+                    .participants
+                    .joins(:activity)
+                    .paginate(page: params[:page], per_page: 25)
+
+    if params[:past]
+      @participants = @participants
+                      .where('activities.end <= ? OR (activities.end IS NULL AND activities.start <= ?)', Time.zone.now, Time.zone.now)
+                      .order('activities.start DESC')
+    else
+      @participants = @participants
+                      .where('activities.end >= ? OR (activities.end IS NULL AND activities.start >= ?)', Time.zone.now, Time.zone.now)
+                      .order('activities.start ASC')
+    end
+  end
 
   # GET /members/new
   def new
