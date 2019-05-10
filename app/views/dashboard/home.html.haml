@@ -7,38 +7,38 @@
             .panel-heading
               = t 'activities.state.need_response'
 
-            .panel-body
-              %table.table.table-bordered
-                %thead
-                  %tr
-                    %th
-                      = t 'activities.attrs.name'
-                    %th
-                      = t 'activities.attrs.group'
-                    %th
-                      = t 'activities.attrs.when'
-                    %th
-                      = t 'activities.attrs.where'
-                    %th
-                      = t 'activities.attrs.actions'
+            %table.table.table-bordered
+              %thead
+                %tr
+                  %th
+                    = t 'activities.attrs.name'
+                  %th
+                    = t 'activities.attrs.group'
+                  %th
+                    = t 'activities.attrs.when'
+                  %th
+                    = t 'activities.attrs.where'
+                  %th
+                    = t 'activities.attrs.actions'
 
-                %tbody
-                  - @need_response.each do |p|
-                    - e = p.activity
-                    %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
-                      %td
-                        = link_to group_activity_path(e.group, e) do
-                          = e.name
-                      %td
-                        = e.group.name
-                      %td
-                        = l e.start, format: :long
-                      %td
-                        = e.location
-                      %td
-                        = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
-            .panel-footer.text-center.sv-nomargins
-              = will_paginate @need_response, param_name: 'nrpage', renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'pagination-sm pagination'
+              %tbody
+                - @need_response.each do |p|
+                  - e = p.activity
+                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
+                    %td
+                      = link_to group_activity_path(e.group, e) do
+                        = e.name
+                    %td
+                      = e.group.name
+                    %td
+                      = l e.start, format: :long
+                    %td
+                      = e.location
+                    %td
+                      = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
+            - if @need_response.total_pages > 1
+              .panel-footer.text-center.sv-nomargins
+                = will_paginate @need_response, param_name: 'nrpage', renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'pagination-sm pagination'
         .hidden-sm.hidden-md.hidden-lg
           .panel.panel-default
             .panel-heading
@@ -54,25 +54,25 @@
                 %span.badge
                   = @need_response.count
 
-            .panel-body.collapse#needresponse-collapse
-              %table.table
-                %tbody
-                  - @need_response.each do |p|
-                    - e = p.activity
-                    %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
-                      %td
-                        = link_to group_activity_path(e.group, e) do
-                          = e.name
+            %table.table.collapse#needresponse-collapse
+              %tbody
+                - @need_response.each do |p|
+                  - e = p.activity
+                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
+                    %td
+                      = link_to group_activity_path(e.group, e) do
+                        = e.name
 
-                      %td
-                        = l e.start, format: :short
+                    %td
+                      = l e.start, format: :short
 
-                    %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
-                      %td
-                        = e.location
+                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
+                    %td
+                      = e.location
 
-                      %td
-                        = render partial: 'activities/presence_buttons', locals: {activity: e, person: p.person, state: p.attending}
+                    %td
+                      = render partial: 'activities/presence_buttons', locals: {activity: e, person: p.person, state: p.attending}
+            - if @need_response.total_pages > 1
               .sv-nomargins.text-center
                 = will_paginate @need_response, page_links: false, param_name: 'nrpage', renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'pagination-sm pagination'
   .row
@@ -81,14 +81,10 @@
         .panel-heading
           = t 'groups.plural'
 
-        .panel-body
-          %table.table.table-bordered
-            %tbody
-              - current_person.groups.each do |group|
-                %tr
-                  %td
-                    = link_to group do
-                      = group.name
+        .list-group
+          - current_person.groups.each do |group|
+            = link_to group, class: 'list-group-item' do
+              = group.name
 
     - if @user_organized.any?
       .col-md-6
@@ -96,16 +92,12 @@
           .panel-heading
             = t 'dashboard.organized_you'
 
-          .panel-body
-            %table.table.table-striped.table-bordered
-              %tbody
-                - @user_organized.each do |p|
-                  - a = p.activity
-                  %tr
-                    %td
-                      = link_to group_activity_url(a.group, a) do
-                        = a.name
-                        = "(#{a.human_state_counts})"
+          .list-group
+            - @user_organized.each do |p|
+              - a = p.activity
+              = link_to group_activity_url(a.group, a), class: 'list-group-item' do
+                = a.name
+                = "(#{a.human_state_counts})"
 
   .row
     .col-md-12
@@ -114,19 +106,20 @@
           .panel-heading
             = t 'dashboard.participant_you'
 
-          .panel-body
-            %table.table.table-striped
-              %tbody
-                - @upcoming.each do |p|
-                  - e = p.activity
-                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
-                    %td
-                      = link_to group_activity_path(e.group, e) do
-                        = e.name
-                    %td
-                      = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
-                    %td
-                      = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: current_person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.add_notes')
+          %table.table.table-striped
+            %tbody
+              - @upcoming.each do |p|
+                - e = p.activity
+                %tr{class: p.row_class, data: {activity_id: e.id, person_id: current_person.id}}
+                  %td.shrink
+                    = render partial: "activities/presence_buttons", locals: {activity: e, person: current_person, state: p.attending}
+
+                  %td.shrink
+                    = link_to group_activity_path(e.group, e) do
+                      = e.name
+
+                  %td.expand
+                    = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: current_person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.add_notes')
           .panel-footer.text-center.sv-nomargins
             = will_paginate(@upcoming, param_name: 'upage', renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'pagination-sm pagination')
       .hidden-sm.hidden-md.hidden-lg
@@ -136,22 +129,22 @@
             %span.badge
               = @upcoming.count
 
-          .panel-body
-            %table.table
-              %tbody
-                - @upcoming.each do |p|
-                  - e = p.activity
-                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
-                    %td
-                      = link_to group_activity_path(e.group, e) do
-                        = e.name
+          %table.table
+            %tbody
+              - @upcoming.each do |p|
+                - e = p.activity
+                %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
+                  %td.expand
+                    = link_to group_activity_path(e.group, e) do
+                      = e.name
 
-                    %td
-                      = render partial: 'activities/presence_buttons', locals: {activity: e, person: p.person, state: p.attending}
+                  %td.shrink
+                    = render partial: 'activities/presence_buttons', locals: {activity: e, person: p.person, state: p.attending}
 
-                  %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
-                    %td{colspan: 2}
-                      = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: p.person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.add_notes')
+                %tr{class: p.row_class, data: {activity_id: e.id, person_id: p.person.id}}
+                  %td{colspan: 2}
+                    = editable p, :notes, url: presence_group_activity_path(e.group, e, person_id: p.person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.add_notes')
 
-            .sv-nomargins.text-center
+          - if @upcoming.total_pages > 1
+            .sv-nomargins.text-center.panel-footer
               = will_paginate @upcoming, page_links: false, param_name: 'upage', renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'pagination-sm pagination'

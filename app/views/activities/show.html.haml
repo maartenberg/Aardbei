@@ -114,15 +114,15 @@
   %table.table.table-bordered
     - @participants.each do |p|
       %tr.participant-row.countable{class: p.row_class, data: {person_id: p.person.id, activity_id: @activity.id, subgroup_id: p.subgroup_id}}
-        %td
+        %td.shrink
           = p.person.full_name
           - if p.is_organizer
             %i.fas.fa-star-o
 
-        %td
+        %td.expand
           = editable p, :notes, url: presence_group_activity_path(@activity.group, @activity, person_id: p.person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: "--"
 
-        %td
+        %td.shrink
           - if p.person.id == current_person.id || all_buttons
             = render partial: "activities/presence_buttons", locals: {activity: @activity, person: p.person, state: p.attending}
 

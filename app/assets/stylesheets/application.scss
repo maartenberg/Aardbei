@@ -110,3 +110,12 @@ table.collapse.in {
 .btn-group-xs button.btn-presence {
   width: 25px;
 }
+
+// https://stackoverflow.com/a/8230953
+table td.shrink {
+  white-space: nowrap;
+}
+
+table td.expand {
+  width: 99%;
+}

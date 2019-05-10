@@ -4,25 +4,21 @@
 .row
   .groupmenu(class=@groupmenu)
     .panel.panel-default
-      .panel-heading
-        = @group.name
+      .list-group
+        = link_to group_members_path(@group), class: 'list-group-item' do
+          = @group.members.count
+          = t 'groups.member.plural'
 
-      .panel-body
-        .list-group
-          = link_to group_members_path(@group), class: 'list-group-item' do
-            = @group.members.count
-            = t 'groups.member.plural'
+        = link_to group_activities_path(@group), class: 'list-group-item' do
+          = @group.activities.count
+          = t 'activities.plural'
 
-          = link_to group_activities_path(@group), class: 'list-group-item' do
-            = @group.activities.count
-            = t 'activities.plural'
+        - if @group.leader?(current_person)
+          = link_to new_group_activity_path(@group), class: 'list-group-item' do
+            = t 'activities.new'
 
-          - if @group.leader?(current_person)
-            = link_to new_group_activity_path(@group), class: 'list-group-item' do
-              = t 'activities.new'
-
-            = link_to edit_group_path(@group), class: 'list-group-item' do
-              = t 'groups.edit'
+          = link_to edit_group_path(@group), class: 'list-group-item' do
+            = t 'groups.edit'
 
   - if @organized_activities && @organized_activities.count > 0
     .col-md-6
@@ -30,23 +26,22 @@
         .panel-heading
           = t 'activities.upcoming_yours'
 
-        .panel-body
-          %table.table
-            %tr
-              %th
-                = t 'activities.attrs.name'
-              %th
-                = t 'activities.attrs.when'
+        %table.table
+          %tr
+            %th
+              = t 'activities.attrs.name'
+            %th
+              = t 'activities.attrs.when'
 
-            - @organized_activities.each do |p|
-              - a = p.activity
-              %tr
-                %td
-                  = link_to group_activity_path(@group, a) do
-                    = a.name
-                    = render partial: 'activities/state_counts', locals: {counts: a.state_counts}
-                %td
-                  = distance_of_time_in_words_to_now(a.start)
+          - @organized_activities.each do |p|
+            - a = p.activity
+            %tr
+              %td
+                = link_to group_activity_path(@group, a) do
+                  = a.name
+                  = render partial: 'activities/state_counts', locals: {counts: a.state_counts}
+              %td
+                = distance_of_time_in_words_to_now(a.start)
 
 .row
   .col-md-12
@@ -54,24 +49,24 @@
       .panel-heading
         = t 'activities.yours'
 
-      .panel-body
-        %table.table.table-striped
-          %tbody
-            - @upcoming.each do |a|
-              - p = @upcoming_ps[a.id]
-              - if p
-                %tr{class: p.row_class, data: {activity_id: a.id, person_id: current_person.id}}
-                  %td
-                    = link_to group_activity_path(a.group, a) do
-                      = a.name
-                  %td
-                    = render partial: "activities/presence_buttons", locals: {activity: a, person: current_person, state: p.attending}
-                  %td
-                    = editable p, :notes, url: presence_group_activity_path(a.group, a, person_id: current_person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.notes')
-              - else
-                %tr
-                  %td
-                    = link_to group_activity_path(a.group, a) do
-                      = a.name
-                  %td
-                  %td
+      %table.table.table-striped
+        %tbody
+          - @upcoming.each do |a|
+            - p = @upcoming_ps[a.id]
+            - if p
+              %tr{class: p.row_class, data: {activity_id: a.id, person_id: current_person.id}}
+                %td.expand
+                  = link_to group_activity_path(a.group, a) do
+                    = a.name
+                %td.shrink
+                  = render partial: "activities/presence_buttons", locals: {activity: a, person: current_person, state: p.attending}
+              %tr{class: p.row_class, data: {activity_id: a.id, person_id: current_person.id}}
+                %td{colspan: 2}
+                  = editable p, :notes, url: presence_group_activity_path(a.group, a, person_id: current_person.id), title: t('activities.participant.notes'), value: p.notes, emptytext: t('activities.participant.notes')
+            - else
+              %tr
+                %td
+                %td
+                  = link_to group_activity_path(a.group, a) do
+                    = a.name
+                %td
