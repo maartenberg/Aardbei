@@ -1,0 +1,98 @@
+/* Horizontally distribute ul items.
+ *
+ * Adapted from the following StackOverflow answer:
+ * http://stackoverflow.com/a/13505797 , by user 'joshnh'
+ * Licensed under CC-BY-SA 3.0 as per the StackOverflow TOS.
+ *
+ */
+ul.hdis {
+  text-align: justify;
+  padding-left: 0 !important;
+}
+
+ul.hdis:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+
+ul.hdis:before {
+  content: '';
+  display: block;
+  margin-top: -1.25em;
+}
+
+ul.hdis li {
+  display: inline-block;
+  margin-right: -.25em;
+  position: relative;
+  top: 1.25em;
+}
+/* End of CC-BY-SA code. */
+
+/* Don't overlap with the menu. */
+body {
+  padding-top: 70px;
+}
+
+/* Force .btn-groups to not break */
+table .btn-group {
+  display: flex;
+}
+
+.editable.editable-empty {
+  color: inherit;
+}
+
+/* https://stackoverflow.com/questions/26923543/why-does-a-table-in-a-collapsible-bootstrap-panel-change-width */
+table.collapse.in {
+  display: table;
+}
+
+/* Toggles visibility based on aria-expanded of parent. */
+[aria-expanded="true"] > .sv-show-expanded {
+  display: inline;
+}
+
+[aria-expanded="true"] > .sv-show-collapsed {
+  display: none;
+}
+
+[aria-expanded="false"] > .sv-show-expanded {
+  display: none;
+}
+
+[aria-expanded="false"] > .sv-show-collapsed {
+  display: inline;
+}
+
+/* Fix ridiculous margins with pagination */
+.sv-nomargins > nav.pagination {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.sv-nomargins > nav.pagination > ul.pagination {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Ellipsis fixes for previous/next buttons. */
+.ellipsize-50 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+}
+
+.btn-group-xs button.btn-presence {
+  width: 25px;
+}
+
+// https://stackoverflow.com/a/8230953
+table td.shrink {
+  white-space: nowrap;
+}
+
+table td.expand {
+  width: 99%;
+}

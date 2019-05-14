@@ -53,6 +53,8 @@ GEM
       sassc (>= 2.0.0)
     bootstrap-will_paginate (1.0.0)
       will_paginate
+    bootswatch-rails (3.3.5)
+      railties (>= 3.1)
     builder (3.2.3)
     byebug (11.0.1)
     clipboard-rails (1.7.1)
@@ -246,6 +248,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass (~> 3.4.1)
   bootstrap-will_paginate
+  bootswatch-rails
   byebug
   clipboard-rails
   coffee-rails (~> 4.2)

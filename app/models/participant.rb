@@ -57,11 +57,11 @@ class Participant < ApplicationRecord
   #   the class for a row containing this activity.
   def row_class
     if attending
-      "success"
+      "bg-success"
     elsif attending == false
-      "danger"
+      "bg-danger"
     else
-      "warning"
+      "bg-warning"
     end
   end
 

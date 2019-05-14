@@ -5,7 +5,8 @@
     <title>Aardbei</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload', title: "Light mode" %>
+    <%= stylesheet_link_tag    'darkmode', rel: 'alternate stylesheet', 'data-turbolinks-track': 'reload', title: "Dark mode" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">

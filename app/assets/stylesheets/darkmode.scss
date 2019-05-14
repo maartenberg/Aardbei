@@ -1,5 +1,5 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * This is a manifest file that'll be compiled into darkmode.css, which will include all the files
  * listed below.
  *
  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
@@ -12,12 +12,40 @@
  *
  */
 @import "bootstrap-sprockets";
+@import "bootswatch/darkly/variables";
 @import "bootstrap";
+@import "bootswatch/darkly/bootswatch";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
 @import "editable/bootstrap-editable";
 
-@import "void";
 @import "aardbei";
+
+$darken-factor: 13.37%;
+
+.bg-danger {
+  background-color: darken($alert-danger-bg, $darken-factor);
+  a {
+    color: white;
+  }
+}
+
+.bg-warning {
+  background-color: darken($alert-warning-bg, $darken-factor);
+  a {
+    color: white;
+  }
+}
+
+.bg-success {
+  background-color: darken($alert-success-bg, $darken-factor);
+  a {
+    color: white;
+  }
+}
+
+select {
+  color: black;
+}
