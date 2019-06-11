@@ -12,7 +12,9 @@
  *
  */
 @import "bootstrap-sprockets";
+@import "bootswatch/flatly/variables";
 @import "bootstrap";
+@import "bootswatch/flatly/bootswatch";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
@@ -21,3 +23,30 @@
 
 @import "void";
 @import "aardbei";
+
+$darken-factor: 25.00%;
+
+.bg-danger {
+  background-color: darken($alert-danger-bg, $darken-factor);
+  a {
+    color: white;
+  }
+}
+
+.bg-warning {
+  background-color: darken($alert-warning-bg, $darken-factor);
+  a {
+    color: white;
+  }
+}
+
+.bg-success {
+  background-color: darken($alert-success-bg, $darken-factor);
+  a {
+    color: white;
+  }
+}
+
+select {
+  color: black;
+}

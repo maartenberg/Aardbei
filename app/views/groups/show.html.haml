@@ -49,7 +49,7 @@
       .panel-heading
         = t 'activities.yours'
 
-      %table.table.table-striped
+      %table.table
         %tbody
           - @upcoming.each do |a|
             - p = @upcoming_ps[a.id]

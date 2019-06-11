@@ -21,9 +21,14 @@
 
 @import "editable/bootstrap-editable";
 
+@import "void";
 @import "aardbei";
 
 $darken-factor: 13.37%;
+
+.navbar-brand {
+  color: white;
+}
 
 .bg-danger {
   background-color: darken($alert-danger-bg, $darken-factor);
