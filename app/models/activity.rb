@@ -136,13 +136,16 @@ class Activity < ApplicationRecord
   #  1. are members of the group
   #  2. do not have Participants (and thus, no way to confirm) yet
   def create_missing_participants!
-    people = group.people
-    people = people.where('people.id NOT IN (?)', self.people.ids) unless participants.empty?
+    members = group
+                  .members
+                  .joins(:people)
+    members = members.where('people.id NOT IN (?)', self.people.ids) unless participants.empty?
 
-    people.each do |p|
-      Participant.create(
+    members.each do |m|
+      Participant.create!(
         activity: self,
-        person: p
+        member: m,
+        person: m.person
       )
     end
   end

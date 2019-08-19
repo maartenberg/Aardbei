@@ -46,7 +46,8 @@ class Member < ApplicationRecord
     activities.each do |a|
       Participant.create!(
         activity: a,
-        member: self
+        member: self,
+        person: self.person
       )
     end
   end
