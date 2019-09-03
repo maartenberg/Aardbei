@@ -138,7 +138,7 @@ class Activity < ApplicationRecord
   def create_missing_participants!
     members = group
                   .members
-                  .joins(:people)
+                  .joins(:person)
     members = members.where('people.id NOT IN (?)', self.people.ids) unless participants.empty?
 
     members.each do |m|
