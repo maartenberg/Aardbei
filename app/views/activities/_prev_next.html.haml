@@ -1,14 +1,15 @@
 .row.form-group
+  - subpage = subpage || ''
   .col-xs-12
     - if @activity.previous_in_group
-      = link_to group_activity_path(@group, @activity.previous_in_group), class: 'btn btn-default ellipsize-50' do
+      = link_to group_activity_path(@group, @activity.previous_in_group) + subpage, class: 'btn btn-default ellipsize-50' do
         %span
           %i.fas.fa-arrow-left
         %span
           = @activity.previous_in_group.name
 
     - if @activity.next_in_group
-      = link_to group_activity_path(@group, @activity.next_in_group), class: 'btn btn-default ellipsize-50 pull-right' do
+      = link_to group_activity_path(@group, @activity.next_in_group) + subpage, class: 'btn btn-default ellipsize-50 pull-right' do
         %span.pull-right{style: "margin-left: 3px"}
           %i.fas.fa-arrow-right
         %span
