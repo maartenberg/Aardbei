@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190819204147) do
+ActiveRecord::Schema.define(version: 20190919081728) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -76,13 +76,13 @@ ActiveRecord::Schema.define(version: 20190819204147) do
   end
 
   create_table "participants", force: :cascade do |t|
-    t.integer  "person_id",    null: false
+    t.integer  "person_id",                    null: false
     t.integer  "activity_id"
-    t.boolean  "is_organizer"
+    t.boolean  "is_organizer", default: false
     t.boolean  "attending"
     t.text     "notes"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "subgroup_id"
     t.integer  "member_id"
     t.index ["activity_id"], name: "index_participants_on_activity_id"
