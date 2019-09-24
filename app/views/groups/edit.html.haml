@@ -4,6 +4,18 @@
 = render 'form', group: @group
 
 %h2
+  Token
+
+.row
+  .col-xs-12
+    .form-group
+      .input-group
+        = text_field_tag(:token, @group.api_token, readonly: true, id: :token, class: 'form-control')
+        %span.input-group-btn
+          = button_tag(class: 'btn btn-default copy-url', data: {'clipboard-target': '#token'}) do
+            %i.far.fa-copy
+
+%h2
   = t 'defaultsubgroups.manage'
 
 %p
