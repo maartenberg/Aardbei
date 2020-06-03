@@ -235,7 +235,7 @@ GEM
     will_paginate (3.1.7)
     x-editable-rails (1.5.5.1)
       railties
-    yard (0.9.19)
+    yard (0.9.20)
 
 PLATFORMS
   ruby
