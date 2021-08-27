@@ -132,6 +132,6 @@ module AuthenticationHelper
     return if current_person.is_admin?
 
     flash_message(:danger, I18n.t('authentication.admin_required'))
-    redirect_to '/dashboard'
+    redirect_to dashboard_home_path
   end
 end
