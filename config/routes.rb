@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   resources :groups do
     get 'invite', to: 'members#invite'
-    post 'invite', to: 'members#process_invite'
+    post 'invite', to: 'members#process_invite', as: 'process_invite'
 
     get 'mass_add', to: 'groups#mass_add_members'
     post 'mass_add', to: 'groups#process_mass_add_members'
