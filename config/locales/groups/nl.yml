@@ -21,12 +21,13 @@ nl:
     promote: "Maak leider"
 
     member_added: "%{name} is toegevoegd aan de groep."
+    member_invited: "%{name} is uitgenodigd voor Aardbei en toegevoegd aan de groep."
     member_updated: "Lid bijgewerkt."
     member_removed: "%{name} is verwijderd uit de groep."
 
     mass_add_members: "Meerdere leden toevoegen aan %{group}"
     mass_add_short: "Leden importeren"
-    mass_add_explanation: "Download het voorbeeldbestand via de link hieronder, vul de velden in in het formaat zoals aangegeven, en upload het ingevulde formulier via de knop onderaan. Merk op dat aangepaste velden worden genegeerd als al een gebruiker met hetzelfde e-mailadres bestaat. Geboortedatum is niet verplicht."
+    mass_add_explanation: "Download het voorbeeldbestand via de link hieronder, vul de velden in in het formaat zoals aangegeven, en upload het ingevulde formulier via de knop onderaan. Merk op dat aangepaste velden worden genegeerd als al een gebruiker met hetzelfde e-mailadres bestaat."
     mass_add_success: "%{count} leden toegevoegd aan de groep."
 
     member:

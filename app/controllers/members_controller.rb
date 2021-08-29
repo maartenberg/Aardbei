@@ -55,7 +55,18 @@ class MembersController < ApplicationController
   end
 
   def process_invite
-    @person = Person.find_by(email: params[:person][:email])
+    email = params[:person][:email]
+    if email.blank?
+      flash_message(:warning, I18n.t('person.email_required_if_invite'))
+      @person = Person.new(invite_params)
+      respond_to do |format|
+        format.html { render 'invite' }
+        format.json { render json: @person.errors, status: :unprocessable_entity }
+      end
+      return
+    end
+
+    @person = Person.find_by(email: email)
     new_rec = false
     unless @person
       @person = Person.new(invite_params)
@@ -75,12 +86,11 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        invited = ""
-        invited = "invited to Aardbei and " if new_rec
+        tr_key = if new_rec then 'groups.member_invited' else 'groups.member_added' end
 
         flash_message(
           :success,
-          "#{@person.full_name} #{invited}added to group."
+          I18n.t(tr_key, name = @person.full_name)
         )
         redirect_to group_members_path(@group)
       end

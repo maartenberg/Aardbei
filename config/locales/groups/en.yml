@@ -21,6 +21,7 @@ en:
     promote: "Promote"
 
     member_added: "%{name} was added to the group."
+    member_invited: "%{name} was invited to Aardbei and added to the group."
     member_updated: "Member updated."
     member_removed: "%{name} was removed from the group."
 

@@ -31,7 +31,7 @@ nl:
 
   invalid_csrf: "Ongeldig authenticiteitstoken! Als je hier terecht bent gekomen na het klikken op een link is het mogelijk dat iemand iets naars probeerde!"
 
-  could_not_be_saved: "Door %{errorcount} kon deze %{class} niet worden opgeslagen:"
+  could_not_be_saved: "%{type} kon niet worden opgeslagen:"
 
   error:
     zero: "geen fouten"

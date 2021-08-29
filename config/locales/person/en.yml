@@ -16,3 +16,5 @@ en:
     attrs:
       email: "Email address"
       password: "Password"
+
+    email_required_if_invite: "Email is required when inviting someone, otherwise they won't be able to log in!"

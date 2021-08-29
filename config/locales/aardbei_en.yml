@@ -52,7 +52,7 @@ en:
 
   invalid_csrf: "You submitted an invalid request! If you got here after clicking a link, it's possible that someone is doing something nasty!"
 
-  could_not_be_saved: "%{errorcount} prevented this %{class} from being saved:"
+  could_not_be_saved: "%{type} could not be saved:"
 
   error:
     zero: "no errors"

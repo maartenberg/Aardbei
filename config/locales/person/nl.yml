@@ -15,3 +15,5 @@ nl:
     attrs:
       email: "Emailadres"
       password: "Wachtwoord"
+
+    email_required_if_invite: "E-mailadres is verplicht als je iemand uitnodigt voor Aardbei, anders kan deze persoon niet inloggen!"
