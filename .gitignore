@@ -33,3 +33,4 @@ public/assets/*
 
 # Ignore secrets
 .rbenv-vars
+.env
